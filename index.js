@@ -13,14 +13,15 @@ exports.bump = function(type){
 
 	fs.writeFileSync(pkg, JSON.stringify(current, null, usedIndent));
 
-	exec('git commit package.json -m "release ' + current.version + '"', function(err, stdout, stderr){
+	exec('git commit package.json -m "release v' + current.version + '"', function(err, stdout, stderr){
 		if(err){
 			console.log('commit', stderr);
 		}else{
-			console.log(current.version);
 			exec('git tag v' + current.version, function(err, stdout, stderr){
 				if(err){
 					console.log(err);
+				}else{
+					console.log(current.version);
 				}
 			});
 		}
