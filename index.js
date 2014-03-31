@@ -1,36 +1,50 @@
 var semver = require('semver'),
 	exec = require('child-process-promise').exec,
-	pkg = process.cwd() + '/package.json',
+	cwd = process.cwd(),
+	pkg = cwd + '/package.json',
 	fs = require('fs'),
-	indent = require('detect-indent');
+	indent = require('detect-indent'),
+	version;
 
 function logError(err){
-	console.log(err.stderr);
+	console.log(err);
 }
 
-exports.bump = function(type, options){
+exports.manifests = function(){
+	return ['package.json', 'bower.json', 'component.json'].filter(function(manifest){
+		return fs.existsSync(cwd + '/' + manifest);
+	});
+};
+
+exports.bump = function(manifest, type){
+	var pkg = cwd + '/' + manifest;
+
 	var current = require(pkg);
 
 	current.version = semver.inc(current.version, type);
 
+	version = current.version;
+
 	var usedIndent = indent(fs.readFileSync(pkg, 'utf8')) || '  ';
 
 	fs.writeFileSync(pkg, JSON.stringify(current, null, usedIndent));
+};
 
-	if(options.tags){
-		exec('git commit package.json -m "release v' + current.version + '"')
-			.then(function(out){
+exports.tag = function(push){
+	exec('git commit ' + exports.manifests().join(' ') + ' -m "release v' + version + '"')
+		.then(function(out){
+			// console.log(out.stdout);
+			return exec('git tag v' + version)
+		}, logError)
+
+		.then(function(out){
+			console.log('Updated to', version);
+			return push && exec('git push && git push --tags');
+		}, logError)
+
+		.then(function(out){
+			if(out){
 				console.log(out.stdout);
-				return exec('git tag v' + current.version)
-			}, logError)
-
-			.then(function(out){
-				console.log(out.stdout, current.version);
-				return options.push && exec('git push && git push --tags');
-			}, logError)
-
-			.then(function(out){
-				console.log(out && out.stdout);
-			}, logError);
-	}
+			}
+		}, logError);
 };

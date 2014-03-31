@@ -16,7 +16,6 @@ Update project version and create tag easily
 
 ## TODO
 
- * work with component.json and bower.json
  * `--files` get list of manifests for update
  * `--info` shows latest tag and manifests version
 

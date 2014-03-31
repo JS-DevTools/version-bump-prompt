@@ -3,9 +3,7 @@
 
 var multiline = require('multiline'),
 	program = require('commander'),
-	bump = require('./index').bump;
-
-
+	api = require('./index');
 
 program
 	.version(require('./package').version)
@@ -18,10 +16,13 @@ program
 
 	program.on(type, function(){
 		setTimeout(function(){
-			bump(type, {
-				tags: program.tags,
-				push: program.push
+			api.manifests().forEach(function(manifest){
+				api.bump(manifest, type);
 			});
+
+			if(program.tags){
+				api.tag(program.push);
+			}
 		}, 0);
 	});
 });
