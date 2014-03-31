@@ -5,11 +5,6 @@ var multiline = require('multiline'),
 	program = require('commander'),
 	bump = require('./index').bump;
 
-function init(type, program){
-	console.log(type, program);
-	bump(type);
-}
-
 program
 	.version(require('./package').version)
 	.usage('[options]')
@@ -20,7 +15,9 @@ program
 
 	program.on(type, function(){
 		setTimeout(function(){
-			init(type, program);
+			bump(type, {
+				tags: program.tags
+			});
 		}, 0);
 	});
 });

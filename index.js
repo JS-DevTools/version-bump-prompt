@@ -4,7 +4,7 @@ var semver = require('semver'),
 	fs = require('fs'),
 	indent = require('detect-indent');
 
-exports.bump = function(type){
+exports.bump = function(type, options){
 	var current = require(pkg);
 
 	current.version = semver.inc(current.version, type);
@@ -13,17 +13,19 @@ exports.bump = function(type){
 
 	fs.writeFileSync(pkg, JSON.stringify(current, null, usedIndent));
 
-	exec('git commit package.json -m "release v' + current.version + '"', function(err, stdout, stderr){
-		if(err){
-			console.log('commit', stderr);
-		}else{
-			exec('git tag v' + current.version, function(err, stdout, stderr){
-				if(err){
-					console.log(err);
-				}else{
-					console.log(current.version);
-				}
-			});
-		}
-	});
+	if(options.tags){
+		exec('git commit package.json -m "release v' + current.version + '"', function(err, stdout, stderr){
+			if(err){
+				console.log('commit', stderr);
+			}else{
+				exec('git tag v' + current.version, function(err, stdout, stderr){
+					if(err){
+						console.log(err);
+					}else{
+						console.log(current.version);
+					}
+				});
+			}
+		});
+	}
 };
