@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
-var multiline = require('multiline');
-
-var nopt = require('nopt');
-
-var bump = require('./index').bump;
+var multiline = require('multiline'),
+	nopt = require('nopt'),
+	bump = require('./index').bump;
 
 function help(){
 	console.log(multiline.stripIndent(function(){/*
