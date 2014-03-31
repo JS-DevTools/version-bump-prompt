@@ -14,9 +14,12 @@ Update project version and create tag easily
 
 ## TODO
 
- * use sub-commands instead of flags
- * add `--push` for full pushing
+ * use commander instead of nopt
  * work with component.json and bower.json
+ * `--push` for full pushing
+ * `--files` get list of manifests for update
+ * `--info` shows latest tag and manifests version
+ * `--no-tags` update only manifests
 
 ## License
 
