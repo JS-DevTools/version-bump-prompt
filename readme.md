@@ -10,7 +10,7 @@ Update project version and create tag easily
 
 	bump <type>
 
- * `type` - version type for update: `major`, `minor` or `patch`
+ * `type` - version type for update: `--major`, `--minor` or `--patch`
 
 ## License
 
