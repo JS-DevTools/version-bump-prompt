@@ -5,10 +5,13 @@ var multiline = require('multiline'),
 	program = require('commander'),
 	bump = require('./index').bump;
 
+
+
 program
 	.version(require('./package').version)
 	.usage('[options]')
-	.option('--no-tags', 'Do not create git tag');
+	.option('--no-tags', 'Do not create git tag')
+	.option('--push', 'Push to remote repo');
 
 ['patch', 'minor', 'major'].forEach(function(type){
 	program.option('--' + type, 'Increase ' + type + ' version');
@@ -16,7 +19,8 @@ program
 	program.on(type, function(){
 		setTimeout(function(){
 			bump(type, {
-				tags: program.tags
+				tags: program.tags,
+				push: program.push
 			});
 		}, 0);
 	});
