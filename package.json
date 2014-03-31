@@ -1,6 +1,6 @@
 {
   "name": "version-bump",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Update project version and create tag easily",
   "license": "MIT",
   "main": "index.js",
