@@ -8,9 +8,11 @@ Update project version and create tag easily
 
 ## Usage
 
-	bump <type>
+	bump [options]
 
- * `type` - version type for update: `--major`, `--minor` or `--patch`
+ * `--patch`, `--minor`, `--major` - Increase specific version
+ * `--no-tags` - Do not create git tag
+ * `--push` - Push to remote repo
 
 ## TODO
 
