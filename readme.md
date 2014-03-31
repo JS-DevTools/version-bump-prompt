@@ -4,11 +4,13 @@ Update project version and create tag easily
 
 ## Install
 
- * via [npm](https://npmjs.org) `npm install version-bump -g`
+	npm install -g version-bump
 
 ## Usage
 
-	bump --minor
+	bump <type>
+
+ * `type` - version type for update: `major`, `minor` or `patch`
 
 ## License
 
