@@ -19,7 +19,21 @@ function help(){
 	*/}));
 }
 
+function getType(options){
+	var type;
+
+	type = ['major', 'minor', 'patch'].filter(function(type){
+		return options[type];
+	});
+
+	if(type.length){
+		return type[0];
+	}
+}
+
 function init(options){
+	var type;
+
 	if(options.help){
 		return help();
 	}
@@ -28,13 +42,9 @@ function init(options){
 		return console.log(require('./package').version);
 	}
 
-	var type = ['major', 'minor', 'patch'].filter(function(type){
-		return options[type];
-	});
+	type = getType(options);
 
-	if(type.length){
-		return bump(type[0]);
-	}
+	return type && bump(type);
 }
 
 var options = nopt({
