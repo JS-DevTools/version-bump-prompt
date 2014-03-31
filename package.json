@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "index.js",
   "bin": {
-    "bump": "./cli.js"
+    "bump": "./bump.js"
   },
   "author": "Alexey Raspopov (https://github.com/alexeyraspopov)",
   "repository": "alexeyraspopov/node-bump",
@@ -13,6 +13,7 @@
     "multiline": "^0.3.0",
     "nopt": "^2.2.0",
     "semver": "^2.2.1",
-    "detect-indent": "^0.1.3"
+    "detect-indent": "^0.1.3",
+    "commander": "^2.2.0"
   }
 }
