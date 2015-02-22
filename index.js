@@ -25,7 +25,7 @@ exports.bump = function(manifest, type){
 
 	version = current.version;
 
-	var usedIndent = indent(fs.readFileSync(pkg, 'utf8')) || '  ';
+	var usedIndent = indent(fs.readFileSync(pkg, 'utf8')).indent || '  ';
 
 	fs.writeFileSync(pkg, JSON.stringify(current, null, usedIndent));
 };

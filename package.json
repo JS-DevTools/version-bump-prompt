@@ -11,7 +11,7 @@
   "repository": "alexeyraspopov/node-bump",
   "dependencies": {
     "child-process-promise": "^1.0.1",
-    "commander": "^2.2.0",
+    "commander": "^2.6.0",
     "detect-indent": "^3.0.1",
     "inquirer": "^0.8.0",
     "multiline": "^1.0.2",
