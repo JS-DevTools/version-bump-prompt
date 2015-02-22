@@ -11,6 +11,7 @@ Update project version and create tag easily
 	bump [options]
 
  * `--patch`, `--minor`, `--major` - Increase specific version
+ * `--prompt` - Prompt for type of bump (patch, minor, major)
  * `--no-tags` - Do not create git tag
  * `--push` - Push to remote repo
 
