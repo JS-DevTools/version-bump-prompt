@@ -1,6 +1,6 @@
 {
 	"name": "version-bump-prompt",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Automatically (or with prompts) bump your version number, GIT tag, and GIT push",
 	"keywords": [
 		"version",
