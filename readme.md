@@ -1,10 +1,10 @@
 # Version-Bump-Prompt
 
-[![npm](http://img.shields.io/npm/v/swagger-parser.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![Dependencies](https://img.shields.io/david/bigstickcarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
+[![npm](http://img.shields.io/npm/v/swagger-parser.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/swagger-parser.svg)](http://en.wikipedia.org/wiki/MIT_License)
 
-![Build Status](screenshot.png)
+![Build Status](https://github.com/BigstickCarpet/version-bump-prompt/blob/master/screenshot.gif)
 
 #### Automate your release process with a single command
 
