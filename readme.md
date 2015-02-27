@@ -1,17 +1,30 @@
-# Version-bump
+# Version-Bump-Prompt
 
-Update project version and create tag easily
+[![npm](http://img.shields.io/npm/v/swagger-parser.svg)](https://www.npmjs.com/package/version-bump-prompt)
+[![Dependencies](https://img.shields.io/david/bigstickcarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
+[![License](https://img.shields.io/npm/l/swagger-parser.svg)](http://en.wikipedia.org/wiki/MIT_License)
+
+![Build Status](screenshot.png)
+
+#### Automate your release process with a single command
+
+ * Bumps the version number of:
+     *  `package.json`
+     *  `bower.json`
+     *  `component.json`
+ * Creates a GIT tag
+ * Pushes to GIT
+ * Optionally prompts for type of version bump
 
 ## Install
 
-	npm install -g version-bump
+	npm install -g version-bump-prompt
 
 ## Usage
 
 	bump [options]
 
- * `--patch`, `--minor`, `--major` - Increase specific version
- * `--prompt` - Prompt for type of bump (patch, minor, major)
+ * `--patch`, `--minor`, `--major`, `--prompt` - Increase version number (or prompt)
  * `--no-tags` - Do not create git tag
  * `--push` - Push to remote repo
 
@@ -22,4 +35,5 @@ Update project version and create tag easily
 
 ## License
 
-[MIT License](http://en.wikipedia.org/wiki/MIT_License) (c) Alexey Raspopov
+Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).   
+Both the original project and this fork are licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)  
