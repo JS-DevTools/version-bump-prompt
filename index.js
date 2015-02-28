@@ -48,7 +48,7 @@ exports.commit = function(all, tag, push) {
 
 	exec('git commit ' + filesToCommit + ' -m "release v' + version + '"')
 		.then(function(out) {
-			out && console.log(out.stdout);
+			// out && console.log(out.stdout);
 			return tag && exec('git tag v' + version);
 		}, logError)
 
