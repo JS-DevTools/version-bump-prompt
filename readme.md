@@ -1,8 +1,8 @@
 # Version-Bump-Prompt
 
 [![Dependencies](https://img.shields.io/david/bigstickcarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
-[![npm](http://img.shields.io/npm/v/swagger-parser.svg)](https://www.npmjs.com/package/version-bump-prompt)
-[![License](https://img.shields.io/npm/l/swagger-parser.svg)](http://en.wikipedia.org/wiki/MIT_License)
+[![npm](http://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
+[![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](http://en.wikipedia.org/wiki/MIT_License)
 
 ![Build Status](https://github.com/BigstickCarpet/version-bump-prompt/blob/master/screenshot.gif)
 
