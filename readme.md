@@ -6,7 +6,7 @@
 
 ![Build Status](https://github.com/BigstickCarpet/version-bump-prompt/blob/master/screenshot.gif)
 
-#### Automate your release process with a single command
+#### Automate your release process with a single command that:
 
  * Bumps the version number of:
      *  `package.json`
@@ -24,14 +24,16 @@
 
 	bump [options]
 
- * `--patch`, `--minor`, `--major`, `--prompt` - Increase version number (or prompt)
- * `--no-tags` - Do not create git tag
- * `--push` - Push to remote repo
-
+ * `--patch`, `--minor`, `--major`, `--prompt` - Increase corresponding version number (or prompt)
+ * `--commit` - Commit changed files to Git
+ * `--tag` - Commit and tag changed files in Git
+ * `--push` - Commit and push changed files to remote Git repo
+ * `--all` - Commit/tag/push all files that have changed, not just the ones changed by bump
+ 
 ## TODO
 
- * `--files` get list of manifests for update
- * `--info` shows latest tag and manifests version
+ * `--files` Get list of manifests for update
+ * `--info` Shows latest tag and manifests version
 
 ## License
 

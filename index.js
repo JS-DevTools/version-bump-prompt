@@ -8,7 +8,7 @@ var semver = require('semver'),
 	version;
 
 function logError(err) {
-	console.log(err);
+	console.error(err);
 }
 
 exports.manifests = function() {
@@ -43,11 +43,14 @@ exports.bump = function(manifest, type) {
 	fs.writeFileSync(pkg, JSON.stringify(current, null, usedIndent));
 };
 
-exports.tag = function(push) {
-	exec('git commit ' + exports.manifests().join(' ') + ' -m "release v' + version + '"')
-		.then(function() {
-			// console.log(out.stdout);
-			return exec('git tag v' + version);
+exports.commit = function(all, tag, push) {
+	var filesToCommit = all ? '-a' : exports.manifests().join(' ');
+
+	console.log('all = %j, tag = %j, push = %j', all, tag, push);
+	exec('git commit ' + filesToCommit + ' -m "release v' + version + '"')
+		.then(function(out) {
+			out && console.log(out.stdout);
+			return tag && exec('git tag v' + version);
 		}, logError)
 
 		.then(function() {
@@ -56,8 +59,6 @@ exports.tag = function(push) {
 		}, logError)
 
 		.then(function(out) {
-			if (out) {
-				console.log(out.stdout);
-			}
+			out && console.log(out.stdout);
 		}, logError);
 };

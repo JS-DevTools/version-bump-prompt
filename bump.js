@@ -9,8 +9,10 @@ var multiline = require('multiline'),
 program
 	.version(require('./package').version)
 	.usage('[options]')
-	.option('--no-tags', 'Do not create git tag')
-	.option('--push', 'Push to remote repo')
+	.option('--commit', 'Commit changed files to Git')
+	.option('--tag', 'Commit and tag changed files in Git')
+	.option('--push', 'Commit and push changed files to remote Git repo')
+	.option('--all', 'Commit/tag/push all files that have changed, not just the ones changed by bump')
 	.option('--prompt', 'Prompt for type of bump (patch, minor, major)');
 
 ['patch', 'minor', 'major'].forEach(function(type) {
@@ -22,7 +24,7 @@ program
 				api.bump(manifest, type);
 			});
 
-			tagAndPush();
+			doGit();
 		}, 0);
 	});
 });
@@ -57,7 +59,7 @@ program.on('prompt', function() {
 			);
 		}
 		else {
-			tagAndPush();
+			doGit();
 		}
 	}
 
@@ -69,8 +71,8 @@ program.on('--help', function() {
   Usage:
 
    $ bump --patch
-   $ bump --major --no-tags
-   $ bump --prompt --push
+   $ bump --major --tag
+   $ bump --prompt --tag --push --all
 
 */
 	}));
@@ -82,9 +84,9 @@ if (program.rawArgs.length < 3) {
 	program.help();
 }
 
-function tagAndPush() {
-	if (program.tags) {
-		api.tag(program.push);
+function doGit() {
+	if (program.commit || program.tag || program.push) {
+		api.commit(program.all, program.tag, program.push);
 	}
 }
 
