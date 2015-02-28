@@ -46,7 +46,6 @@ exports.bump = function(manifest, type) {
 exports.commit = function(all, tag, push) {
 	var filesToCommit = all ? '-a' : exports.manifests().join(' ');
 
-	console.log('all = %j, tag = %j, push = %j', all, tag, push);
 	exec('git commit ' + filesToCommit + ' -m "release v' + version + '"')
 		.then(function(out) {
 			out && console.log(out.stdout);
