@@ -1,35 +1,42 @@
 {
-	"name": "version-bump-prompt",
-	"version": "1.0.1",
-	"description": "Automatically (or with prompts) bump your version number, GIT tag, and GIT push",
-	"keywords": [
-		"version",
-		"bump",
-		"npm",
-		"node",
-		"bower",
-		"package",
-		"tag",
-		"push",
-		"prompt"
-	],
-	"main": "index.js",
-	"bin": {
-		"bump": "./bump.js"
-	},
-	"license": "MIT",
-	"author": "Alexey Raspopov (https://github.com/alexeyraspopov)",
-	"homepage": "https://github.com/BigstickCarpet/version-bump-prompt",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
-	},
-	"dependencies": {
-		"child-process-promise": "^1.0.1",
-		"commander": "^2.6.0",
-		"detect-indent": "^3.0.1",
-		"inquirer": "^0.8.0",
-		"multiline": "^1.0.2",
-		"semver": "^4.3.1"
-	}
+ "name": "version-bump-prompt",
+ "version": "1.1.0",
+ "description": "Automatically (or with prompts) bump your version number, GIT tag, and GIT push",
+ "keywords": [
+  "version",
+  "bump",
+  "npm",
+  "node",
+  "bower",
+  "package",
+  "tag",
+  "push",
+  "prompt"
+ ],
+ "scripts": {
+  "release": "npm-check-updates -u && npm update && bump --prompt --tag --push --all"
+ },
+ "main": "index.js",
+ "bin": {
+  "bump": "./bump.js"
+ },
+ "license": "MIT",
+ "author": "Alexey Raspopov (https://github.com/alexeyraspopov)",
+ "homepage": "https://github.com/BigstickCarpet/version-bump-prompt",
+ "repository": {
+  "type": "git",
+  "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
+ },
+ "dependencies": {
+  "child-process-promise": "^1.0.2",
+  "commander": "^2.8.0",
+  "detect-indent": "^3.0.1",
+  "inquirer": "^0.8.2",
+  "multiline": "^1.0.2",
+  "semver": "^4.3.3"
+ },
+ "devDependencies": {
+  "npm-check-updates": "^1.5.1",
+  "version-bump-prompt": "^1.0.1"
+ }
 }
