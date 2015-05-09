@@ -2,7 +2,8 @@
 ._*
 .DS_Store
 npm-debug.log
-/.idea
 /node_modules
 /coverage
-/tests/.tmp
+/tests
+/gulpfile.js
+/.*

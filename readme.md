@@ -16,9 +16,11 @@
  * Pushes to GIT
  * Optionally prompts for type of version bump
 
+
 ## Install
 
 	npm install -g version-bump-prompt
+
 
 ## Usage
 
@@ -29,11 +31,7 @@
  * `--tag` - Commit and tag changed files in Git
  * `--push` - Commit and push changed files to remote Git repo
  * `--all` - Commit/tag/push all files that have changed, not just the ones changed by bump
- 
-## TODO
 
- * `--files` Get list of manifests for update
- * `--info` Shows latest tag and manifests version
 
 ## License
 
