@@ -4,17 +4,18 @@
 [![npm](http://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](http://en.wikipedia.org/wiki/MIT_License)
 
-![Build Status](https://github.com/BigstickCarpet/version-bump-prompt/blob/master/screenshot.gif)
+![Screenshot](http://bigstickcarpet.com/version-bump-prompt/img/screenshot.gif)
 
-#### Automate your release process with a single command that:
+#### Automate your release process with a single command that can:
 
- * Bumps the version number of:
+ * Bump the version number of JSON manifets, including:
      *  `package.json`
      *  `bower.json`
      *  `component.json`
- * Creates a GIT tag
- * Pushes to GIT
- * Optionally prompts for type of version bump
+ * Commit changes to GIT
+ * Tag the commit with the version number
+ * Push the commit to remote
+ * Optionally prompt for the type of version bump (major, minor, revision, beta, etc.)
 
 
 ## Install
@@ -26,11 +27,13 @@
 
 	bump [options]
 
- * `--patch`, `--minor`, `--major`, `--prompt` - Increase corresponding version number (or prompt)
+ * `--major`, `--minor`, `--patch`, `--premajor`, `--preminor`, `--prepatch`, `--prerelease`<br> - Bump the corresponding version number
+ * `--prompt` - Prompt for which version to bump
+ * `--preid [name]` - The identifier for pre-release versions (defaults to `beta`)
  * `--commit` - Commit changed files to Git
- * `--tag` - Commit and tag changed files in Git
- * `--push` - Commit and push changed files to remote Git repo
- * `--all` - Commit/tag/push all files that have changed, not just the ones changed by bump
+ * `--tag` - Tag the commit with the new version number
+ * `--push` - Push the commit to your remote Git repo
+ * `--all` - Commit/tag/push _all_ pending files, not just the ones changed by bump
 
 
 ## License
