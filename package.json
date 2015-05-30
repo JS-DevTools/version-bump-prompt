@@ -1,6 +1,6 @@
 {
   "name": "version-bump-prompt",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Automatically (or with prompts) bump your version number, commit, tag, and push",
   "keywords": [
     "version",
@@ -35,19 +35,20 @@
     "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
   },
   "dependencies": {
-    "child-process-promise": "^1.0.2",
+    "child-process-promise": "^1.1.0",
     "commander": "^2.8.1",
     "detect-indent": "^3.0.1",
-    "inquirer": "^0.8.3",
-    "semver": "^4.3.4"
+    "inquirer": "^0.8.5",
+    "log-symbols": "^1.0.2",
+    "semver": "^4.3.5"
   },
   "devDependencies": {
     "chai": "^2.3.0",
     "jscs": "^1.13.1",
     "jshint": "^2.7.0",
-    "lodash": "^3.8.0",
-    "mocha": "^2.2.4",
+    "lodash": "^3.9.3",
+    "mocha": "^2.2.5",
     "npm-check-updates": "^1.5.1",
-    "version-bump-prompt": "^1.2.2"
+    "version-bump-prompt": "^1.2.3"
   }
 }

@@ -34,6 +34,7 @@ program
 
 program.on('prompt', function() {
   var manifests = api.manifests();
+  var bumpType = 'patch';
   var i = 0;
 
   bumpNextManifest();
@@ -48,7 +49,7 @@ program.on('prompt', function() {
           type: 'list',
           name: 'bump',
           message: 'How would you like to bump it?',
-          default: 'patch',
+          default: bumpType,
           choices: [
             {value: 'major', name: 'major (' + version.nextMajor + ')'},
             {value: 'minor', name: 'minor (' + version.nextMinor + ')'},
@@ -60,7 +61,8 @@ program.on('prompt', function() {
           ]
         },
         function(answer) {
-          api.bump(manifest, answer.bump, program.preid);
+          bumpType = answer.bump;
+          api.bump(manifest, bumpType, program.preid);
           bumpNextManifest();
         }
       );
