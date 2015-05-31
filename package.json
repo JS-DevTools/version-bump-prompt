@@ -35,12 +35,12 @@
     "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
   },
   "dependencies": {
-    "child-process-promise": "^1.1.0",
     "commander": "^2.8.1",
     "detect-indent": "^3.0.1",
     "inquirer": "^0.8.5",
     "log-symbols": "^1.0.2",
-    "semver": "^4.3.5"
+    "semver": "^4.3.5",
+    "spawn-sync": "^1.0.11"
   },
   "devDependencies": {
     "chai": "^2.3.0",

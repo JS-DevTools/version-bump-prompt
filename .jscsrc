@@ -1,8 +1,7 @@
 {
   "excludeFiles": [
     "coverage/**",
-    "node_modules/**",
-    "tests/**"
+    "node_modules/**"
   ],
   "requireCurlyBraces": [
     "if",

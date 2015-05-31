@@ -1,5 +1,6 @@
 # Version-Bump-Prompt
 
+[![Build Status](https://img.shields.io/travis/BigstickCarpet/version-bump-prompt.svg)](https://travis-ci.org/BigstickCarpet/version-bump-prompt)
 [![Dependencies](https://img.shields.io/david/bigstickcarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
 [![npm](http://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](http://en.wikipedia.org/wiki/MIT_License)
@@ -38,5 +39,5 @@
 
 ## License
 
-Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).   
-Both the original project and this fork are licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)  
+Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).
+Both the original project and this fork are licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)

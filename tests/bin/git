@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var fs   = require('fs'),
+    path = require('path');
+
+// This script lets us verify that git was run with the correct command-line arguments.
+// It just writes its arguments to a text file, which can then be inspected in tests.
+var file = path.join(process.cwd(), 'git.txt');
+var data = process.argv.slice(2).join(' ') + '\n';
+fs.appendFileSync(file, data);
