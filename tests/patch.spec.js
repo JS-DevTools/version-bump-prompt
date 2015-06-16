@@ -3,8 +3,8 @@
 var helper = require('./helper');
 
 describe('bump --patch', function() {
-  it('should increment a non-existent version number', function() {
-    helper.bump('--patch', {}, {version: '0.0.1'});
+  it('should not increment a non-existent version number', function() {
+    helper.bump('--patch', {}, {});
   });
 
   it('should increment an all-zero version number', function() {

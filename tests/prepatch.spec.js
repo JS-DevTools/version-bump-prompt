@@ -3,8 +3,8 @@
 var helper = require('./helper');
 
 describe('bump --prepatch', function() {
-  it('should increment a non-existent version number', function() {
-    helper.bump('--prepatch', {}, {version: '0.0.1-beta.0'});
+  it('should not increment a non-existent version number', function() {
+    helper.bump('--prepatch', {}, {});
   });
 
   it('should increment an all-zero version number', function() {

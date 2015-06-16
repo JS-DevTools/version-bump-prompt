@@ -3,8 +3,8 @@
 var helper = require('./helper');
 
 describe('bump --premajor', function() {
-  it('should increment a non-existent version number', function() {
-    helper.bump('--premajor', {}, {version: '1.0.0-beta.0'});
+  it('should not increment a non-existent version number', function() {
+    helper.bump('--premajor', {}, {});
   });
 
   it('should increment an all-zero version number', function() {

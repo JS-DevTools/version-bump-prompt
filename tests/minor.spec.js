@@ -3,8 +3,8 @@
 var helper = require('./helper');
 
 describe('bump --minor', function() {
-  it('should increment a non-existent version number', function() {
-    helper.bump('--minor', {}, {version: '0.1.0'});
+  it('should not increment a non-existent version number', function() {
+    helper.bump('--minor', {}, {});
   });
 
   it('should increment an all-zero version number', function() {

@@ -3,8 +3,8 @@
 var helper = require('./helper');
 
 describe('bump --preminor', function() {
-  it('should increment a non-existent version number', function() {
-    helper.bump('--preminor', {}, {version: '0.1.0-beta.0'});
+  it('should not increment a non-existent version number', function() {
+    helper.bump('--preminor', {}, {});
   });
 
   it('should increment an all-zero version number', function() {

@@ -3,8 +3,8 @@
 var helper = require('./helper');
 
 describe('bump --prerelease', function() {
-  it('should increment a non-existent version number', function() {
-    helper.bump('--prerelease', {}, {version: '0.0.1-beta.0'});
+  it('should not increment a non-existent version number', function() {
+    helper.bump('--prerelease', {}, {});
   });
 
   it('should increment an all-zero version number', function() {

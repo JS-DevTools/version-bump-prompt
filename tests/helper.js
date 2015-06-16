@@ -62,7 +62,12 @@ function bump(args, initialJSON, finalJSON) {
   files.forEach(function(fileName) {
     // Check the console output
     var expectedOutput = util.format('Updated %s to %s\n', fileName, finalJSON.version);
-    expect(stdout).to.contain(expectedOutput);
+    if (_.isEmpty(finalJSON)) {
+      expect(stdout).not.to.contain(expectedOutput);
+    }
+    else {
+      expect(stdout).to.contain(expectedOutput);
+    }
 
     // Check the file contents
     var filePath = path.join(tmpPath, fileName);
