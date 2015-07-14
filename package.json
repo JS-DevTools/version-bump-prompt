@@ -13,42 +13,50 @@
     "push",
     "prompt"
   ],
-  "scripts": {
-    "semver": "semver",
-    "test": "mocha --recursive tests",
-    "build": "jshint . --verbose && jscs . --verbose",
-    "update-deps": "npm-check-updates -u && npm update",
-    "release": "npm run update-deps && npm test && bump --prompt --tag --push --all && npm publish"
-  },
-  "main": "lib/index.js",
-  "bin": {
-    "bump": "bin/bump.js"
+  "author": {
+    "name": "James Messinger",
+    "url": "http://jamesmessinger.com"
   },
   "license": "MIT",
-  "contributors": [
-    "Alexey Raspopov (https://github.com/alexeyraspopov)",
-    "James Messinger (http://JamesMessinger.com)"
-  ],
   "homepage": "https://github.com/BigstickCarpet/version-bump-prompt",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "jshint . --verbose && jscs . --verbose",
+    "test": "mocha --bail --recursive tests",
+    "upgrade": "npm-check-updates -u && npm update",
+    "bump": "bump --prompt --tag --push --all",
+    "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
+    "semver": "semver"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
   },
-  "dependencies": {
-    "chalk": "^1.0.0",
-    "commander": "^2.8.1",
-    "detect-indent": "^3.0.1",
-    "inquirer": "^0.8.5",
-    "log-symbols": "^1.0.2",
-    "semver": "^4.3.6",
-    "spawn-sync": "^1.0.11"
-  },
   "devDependencies": {
+    "istanbul": "^0.3.17",
+    "mocha": "^2.2.5",
     "chai": "^3.0.0",
+    "sinon": "^1.15.4",
     "jscs": "^1.13.1",
     "jshint": "^2.8.0",
-    "lodash": "^3.9.3",
-    "mocha": "^2.2.5",
-    "npm-check-updates": "^1.5.1"
+    "npm-check-updates": "^1.5.1",
+    "version-bump-prompt": "^1.4.0",
+    "lodash": "^3.10.0"
+  },
+  "dependencies": {
+    "chalk": "^1.1.0",
+    "commander": "^2.8.1",
+    "detect-indent": "^3.0.1",
+    "inquirer": "^0.9.0",
+    "log-symbols": "^1.0.2",
+    "semver": "^5.0.1",
+    "spawn-sync": "^1.0.11"
+  },
+  "contributors": [
+    "Alexey Raspopov (https://github.com/alexeyraspopov)",
+    "James Messinger (http://JamesMessinger.com)"
+  ],
+  "bin": {
+    "bump": "bin/bump.js"
   }
 }
