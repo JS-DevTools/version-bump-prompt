@@ -10,9 +10,14 @@
 #### Automate your release process with a single command that can:
 
  * Bump the version number of JSON manifets, including:
-     *  `package.json`
-     *  `bower.json`
-     *  `component.json`
+    -  `package.json`
+    -  `bower.json`
+    -  `component.json`
+ * Replace version number strings in text files, including:
+    -  config files
+    -  source code
+    -  README files
+    -  license files
  * Commit changes to GIT
  * Tag the commit with the version number
  * Push the commit to remote
@@ -26,15 +31,35 @@
 
 ## Usage
 
-	bump [options]
+```bash
+Usage: bump [options]
 
- * `--major`, `--minor`, `--patch`, `--premajor`, `--preminor`, `--prepatch`, `--prerelease`<br> - Bump the corresponding version number
- * `--prompt` - Prompt for which version to bump
- * `--preid [name]` - The identifier for pre-release versions (defaults to `beta`)
- * `--commit` - Commit changed files to Git
- * `--tag` - Tag the commit with the new version number
- * `--push` - Push the commit to your remote Git repo
- * `--all` - Commit/tag/push _all_ pending files, not just the ones changed by bump
+Options:
+
+  -h, --help            output usage information
+  -V, --version         output the version number
+  --major               Increase major version
+  --minor               Increase minor version
+  --patch               Increase patch version
+  --premajor            Increase major version, pre-release
+  --preminor            Increase preminor version, pre-release
+  --prepatch            Increase prepatch version, pre-release
+  --prerelease          Increase prerelease version
+  --prompt              Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)
+  --preid <name>        The identifier for prerelease versions (default is "beta")
+  --commit              Commit changed files to Git
+  --tag                 Tag the commit in Git
+  --push                Push the Git commit
+  --all                 Commit/tag/push ALL pending files, not just the ones changed by bump
+  --grep <filespec...>  Files and/or globs to do a text-replace of the old version number with the new one
+
+Examples:
+
+  $ bump --patch
+  $ bump --major --tag
+  $ bump --patch --tag --all --grep README.md LICENSE
+  $ bump --prompt --tag --push --all
+```
 
 
 ## License

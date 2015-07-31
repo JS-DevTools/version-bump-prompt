@@ -1,7 +1,7 @@
 {
   "name": "version-bump-prompt",
   "version": "1.4.2",
-  "description": "Automatically (or with prompts) bump your version number, commit, tag, and push",
+  "description": "Automatically (or with prompts) bump your version number, commit changes, tag, and push to Git",
   "keywords": [
     "version",
     "bump",
@@ -9,6 +9,7 @@
     "node",
     "bower",
     "package",
+    "git",
     "tag",
     "push",
     "prompt"
@@ -21,9 +22,11 @@
   "homepage": "https://github.com/BigstickCarpet/version-bump-prompt",
   "main": "lib/index.js",
   "scripts": {
-    "build": "jshint . --verbose && jscs . --verbose",
-    "test": "mocha --bail --recursive tests",
-    "upgrade": "npm-check-updates -u && npm update",
+    "lint": "jshint . --verbose && jscs . --verbose",
+    "build": "npm run lint",
+    "test": "npm run mocha",
+    "mocha": "mocha --bail --recursive tests",
+    "upgrade": "ncu -u && npm update",
     "bump": "bump --prompt --tag --push --all",
     "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
     "semver": "semver"
@@ -34,12 +37,13 @@
   },
   "devDependencies": {
     "istanbul": "^0.3.17",
+    "coveralls": "^2.11.2",
     "mocha": "^2.2.5",
     "chai": "^3.2.0",
     "sinon": "^1.15.4",
-    "jscs": "^1.13.1",
+    "jscs": "^2.0.0",
     "jshint": "^2.8.0",
-    "npm-check-updates": "^1.5.1",
+    "npm-check-updates": "^2.0.1",
     "version-bump-prompt": "^1.4.1",
     "lodash": "^3.10.0"
   },
@@ -47,6 +51,8 @@
     "chalk": "^1.1.0",
     "commander": "^2.8.1",
     "detect-indent": "^3.0.1",
+    "es6-promise": "^2.3.0",
+    "glob": "^5.0.14",
     "inquirer": "^0.9.0",
     "log-symbols": "^1.0.2",
     "semver": "^5.0.1",

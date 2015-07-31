@@ -8,5 +8,9 @@ node_js:
   - '0.10'
   - '0.11'
   - '0.12'
+branches:
+  only:
+    - /^v\d\.\d\.\d/    # only build tagged versions (rather than EVERY push)
+    - /^PR /            # also build pull requests
 after_success:
   - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js

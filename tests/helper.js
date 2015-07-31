@@ -8,7 +8,35 @@ var _         = require('lodash'),
     fs        = require('fs'),
     path      = require('path'),
     spawnSync = require('spawn-sync'),
-    expect    = require('chai').expect;
+    expect    = require('chai').expect,
+    tmpPath   = path.join(__dirname, '.tmp'),
+    files     = [];
+
+/**
+ * Reset the .tmp directory before each test
+ */
+beforeEach(function() {
+  if (!fs.existsSync(tmpPath)) {
+    // Make sure the .tmp directory exists
+    fs.mkdirSync(tmpPath)
+  }
+  else {
+    // Make sure the .tmp directory is empty
+    fs.readdirSync(tmpPath).forEach(function(file) {
+      fs.unlinkSync(path.join(tmpPath, file));
+    });
+  }
+
+  // Copy the sample files to the .tmp directory
+  var filesPath = path.join(__dirname, 'files');
+  files = [];
+  fs.readdirSync(filesPath).forEach(function(file) {
+    files.push(file);
+    var tmp = path.join(tmpPath, file);
+    file = path.join(filesPath, file);
+    fs.writeFileSync(tmp, fs.readFileSync(file));
+  });
+});
 
 /**
  * Runs bump with the given arguments, against the given JSON manifest.
@@ -19,21 +47,10 @@ var _         = require('lodash'),
  * @param {object} finalJSON - The expected contents of the manifest file after bump runs
  */
 function bump(args, initialJSON, finalJSON) {
-  // Make sure the .tmp directory exists and is empty
-  var tmpPath = path.join(__dirname, '.tmp');
-  if (!fs.existsSync(tmpPath)) {
-    fs.mkdirSync(tmpPath)
-  }
-  else {
-    fs.readdirSync(tmpPath).forEach(function(file) {
-      fs.unlinkSync(path.join(tmpPath, file));
-    });
-  }
-
   // Initialize the manifest files
-  var files = ['package.json', 'bower.json', 'component.json'];
-  files.forEach(function(fileName) {
-    var filePath = path.join(tmpPath, fileName);
+  var manifests = ['package.json', 'bower.json', 'component.json'];
+  manifests.forEach(function(manifest) {
+    var filePath = path.join(tmpPath, manifest);
     var data = initialJSON ? JSON.stringify(initialJSON, null, 2) : '';
     fs.writeFileSync(filePath, data);
   });
@@ -59,21 +76,33 @@ function bump(args, initialJSON, finalJSON) {
   }
 
   var stdout = output.stdout.toString();
-  files.forEach(function(fileName) {
-    // Check the console output
-    var expectedOutput = util.format('Updated %s to %s\n', fileName, finalJSON.version);
-    if (_.isEmpty(finalJSON)) {
-      expect(stdout).not.to.contain(expectedOutput);
-    }
-    else {
-      expect(stdout).to.contain(expectedOutput);
+
+  // The files that should have been modified
+  var modifiedFiles = args.indexOf('--grep') === -1 ? manifests : manifests.concat(files);
+
+  modifiedFiles.forEach(function(file) {
+    if (file !== 'script.js') {
+      // Check the console output
+      var expectedOutput = util.format('Updated %s to %s\n', file, finalJSON.version);
+      if (_.isEmpty(finalJSON)) {
+        expect(stdout).not.to.contain(expectedOutput);
+      }
+      else {
+        expect(stdout).to.contain(expectedOutput);
+      }
     }
 
     // Check the file contents
-    var filePath = path.join(tmpPath, fileName);
+    var filePath = path.join(tmpPath, file);
     var contents = fs.readFileSync(filePath, {encoding: 'utf8'});
-    var json = JSON.parse(contents);
-    expect(json).to.deep.equal(finalJSON);
+
+    if (manifests.indexOf(file) >= 0) {
+      var json = JSON.parse(contents);
+      expect(json).to.deep.equal(finalJSON);
+    }
+    else {
+      expect(contents).not.to.contain('1.2.3');
+    }
   });
 }
 
