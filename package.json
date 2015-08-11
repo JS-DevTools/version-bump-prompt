@@ -24,9 +24,9 @@
   "scripts": {
     "lint": "jshint . --verbose && jscs . --verbose",
     "build": "npm run lint",
-    "test": "npm run mocha",
+    "test": "istanbul cover _mocha -- --bail --recursive tests",
     "mocha": "mocha --bail --recursive tests",
-    "upgrade": "ncu -u && npm update",
+    "upgrade": "ncu --upgradeAll && npm update",
     "bump": "bump --prompt --tag --push --all",
     "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
     "semver": "semver"
@@ -37,21 +37,21 @@
   },
   "devDependencies": {
     "istanbul": "^0.3.17",
-    "coveralls": "^2.11.2",
+    "coveralls": "^2.11.3",
     "mocha": "^2.2.5",
     "chai": "^3.2.0",
     "sinon": "^1.15.4",
     "jscs": "^2.0.0",
     "jshint": "^2.8.0",
-    "npm-check-updates": "^2.0.1",
-    "version-bump-prompt": "^1.4.1",
-    "lodash": "^3.10.0"
+    "npm-check-updates": "^2.2.0",
+    "version-bump-prompt": "^1.5.0",
+    "lodash": "^3.10.1"
   },
   "dependencies": {
     "chalk": "^1.1.0",
     "commander": "^2.8.1",
     "detect-indent": "^3.0.1",
-    "es6-promise": "^2.3.0",
+    "es6-promise": "^3.0.2",
     "glob": "^5.0.14",
     "inquirer": "^0.9.0",
     "log-symbols": "^1.0.2",
