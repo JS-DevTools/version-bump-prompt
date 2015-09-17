@@ -36,26 +36,26 @@
     "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
   },
   "devDependencies": {
-    "istanbul": "^0.3.17",
-    "coveralls": "^2.11.3",
-    "mocha": "^2.2.5",
+    "istanbul": "^0.3.20",
+    "coveralls": "^2.11.4",
+    "mocha": "^2.3.2",
     "chai": "^3.2.0",
-    "sinon": "^1.15.4",
-    "jscs": "^2.0.0",
+    "sinon": "^1.16.1",
+    "jscs": "^2.1.1",
     "jshint": "^2.8.0",
-    "npm-check-updates": "^2.2.0",
-    "version-bump-prompt": "^1.5.0",
+    "npm-check-updates": "^2.2.3",
+    "version-bump-prompt": "^1.5.1",
     "lodash": "^3.10.1"
   },
   "dependencies": {
-    "chalk": "^1.1.0",
+    "chalk": "^1.1.1",
     "commander": "^2.8.1",
-    "detect-indent": "^3.0.1",
+    "detect-indent": "^4.0.0",
     "es6-promise": "^3.0.2",
     "glob": "^5.0.14",
-    "inquirer": "^0.9.0",
+    "inquirer": "^0.10.0",
     "log-symbols": "^1.0.2",
-    "semver": "^5.0.1",
+    "semver": "^5.0.3",
     "spawn-sync": "^1.0.13"
   },
   "contributors": [
