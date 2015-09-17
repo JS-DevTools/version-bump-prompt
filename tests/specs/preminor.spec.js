@@ -1,6 +1,6 @@
 'use strict';
 
-var helper = require('./helper');
+var helper = require('../fixtures/helper');
 
 describe('bump --preminor', function() {
   it('should not increment a non-existent version number', function() {

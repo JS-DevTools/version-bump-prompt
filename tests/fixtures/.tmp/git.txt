@@ -1,0 +1,4 @@
+commit package.json bower.json component.json -m "release v2.0.0-beta.0"
+tag v2.0.0-beta.0
+push
+push --tags

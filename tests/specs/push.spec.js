@@ -1,6 +1,6 @@
 'use strict';
 
-var helper = require('./helper');
+var helper = require('../fixtures/helper');
 
 describe('bump --push', function() {
   it('should push to git', function() {

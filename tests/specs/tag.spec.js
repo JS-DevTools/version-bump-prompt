@@ -1,6 +1,6 @@
 'use strict';
 
-var helper = require('./helper');
+var helper = require('../fixtures/helper');
 
 describe('bump --tag', function() {
   it('should add a git tag', function() {

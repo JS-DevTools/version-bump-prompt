@@ -1,6 +1,6 @@
 'use strict';
 
-var helper = require('./helper');
+var helper = require('../fixtures/helper');
 
 describe('bump --grep', function() {
   it('should replace the major version number in non-manifest files', function() {

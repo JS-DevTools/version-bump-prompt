@@ -62,7 +62,7 @@ function bump(args, initialJSON, finalJSON) {
   env.PATH = binPath + path.delimiter + env.PATH;
 
   // Run bump
-  var bump = path.resolve(__dirname, '..', 'bin', 'bump.js');
+  var bump = path.resolve(__dirname, '..', '..', 'bin', 'bump.js');
   args = [bump].concat(args.split(' '));
   var output = spawnSync('node', args, {cwd: tmpPath, env: env});
 

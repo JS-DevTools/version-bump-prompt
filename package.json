@@ -24,8 +24,9 @@
   "scripts": {
     "lint": "jshint . --verbose && jscs . --verbose",
     "build": "npm run lint",
-    "test": "istanbul cover _mocha -- --bail --recursive tests",
-    "mocha": "mocha --bail --recursive tests",
+    "mocha": "mocha --bail --recursive tests/fixtures tests/specs",
+    "istanbul": "istanbul cover _mocha --dir coverage/node -- --bail --recursive tests/fixtures tests/specs",
+    "test": "npm run istanbul",
     "upgrade": "ncu --upgradeAll && npm update",
     "bump": "bump --prompt --tag --push --all",
     "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",

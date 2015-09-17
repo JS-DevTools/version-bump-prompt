@@ -1,6 +1,6 @@
 'use strict';
 
-var helper = require('./helper');
+var helper = require('../fixtures/helper');
 
 describe('bump --commit', function() {
   it('should commit the manifest files to git', function() {
