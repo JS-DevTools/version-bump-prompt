@@ -18,7 +18,7 @@ program
   .option('--prerelease', 'Increase prerelease version')
   .option('--prompt', 'Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)')
   .option('--preid <name>', 'The identifier for prerelease versions (default is "beta")')
-  .option('--commit', 'Commit changed files to Git')
+  .option('--commit [message]', 'Commit changed files to Git (default is "release vX.X.X")')
   .option('--tag', 'Tag the commit in Git')
   .option('--push', 'Push the Git commit')
   .option('--all', 'Commit/tag/push ALL pending files, not just the ones changed by bump')
@@ -45,6 +45,11 @@ else {
   if (options.grep && program.args) {
     // If multiple --grep files are specified, then they are parsed as separate args
     options.grep = program.args.concat(options.grep);
+  }
+
+  if(typeof options.commit === 'string'){
+    options.commitMessage = options.commit;
+    options.commit = true;
   }
 
   var manifests = api.manifests();
@@ -138,4 +143,3 @@ function bumpManifest(manifest, defaultBumpType, options) {
     }
   });
 }
-
