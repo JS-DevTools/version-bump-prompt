@@ -16,4 +16,12 @@ describe('bump --commit', function() {
       'commit -a -m "release v1.1.0"'
     ])
   });
+
+  it('should commit the manifest files to git with a message', function() {
+    helper.bump('--patch --all --commit my-message', {version: '1.0.0'}, {version: '1.0.1'});
+    helper.git([
+      'commit -a -m "v1.0.1 my-message"'
+    ])
+  });
+
 });
