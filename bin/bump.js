@@ -47,7 +47,7 @@ else {
     options.grep = program.args.concat(options.grep);
   }
 
-  if(typeof options.commit === 'string'){
+  if (typeof options.commit === 'string') {
     options.commitMessage = options.commit;
     options.commit = true;
   }
