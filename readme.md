@@ -1,6 +1,6 @@
 # Version-Bump-Prompt
 
-[![Build Status](https://api.travis-ci.org/BigstickCarpet/version-bump-prompt.svg)](https://travis-ci.org/BigstickCarpet/version-bump-prompt)
+[![Build Status](https://api.travis-ci.org/BigstickCarpet/version-bump-prompt.svg?branch=master)](https://travis-ci.org/BigstickCarpet/version-bump-prompt)
 [![Dependencies](https://david-dm.org/BigstickCarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
 [![npm](http://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](http://en.wikipedia.org/wiki/MIT_License)

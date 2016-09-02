@@ -10,10 +10,7 @@ matrix:
     - node_js: 0.12
     - node_js: iojs
     - node_js: 4
-branches:
-  only:
-    - master            # only run CI on the master branch
-    - /^PR /            # also build pull requests
+
 after_success:
   - cat coverage/*/lcov.info > coveralls.txt                    # concatenate all code-coverage data into a single file
   - cat coveralls.txt                                           # output the file contents (for debugging)
