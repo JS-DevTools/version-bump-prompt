@@ -46,7 +46,7 @@
     "mocha": "^3.0.2",
     "npm-check": "^5.2.3",
     "sinon": "^1.16.1",
-    "version-bump-prompt": "^1.6.2"
+    "version-bump-prompt": "^1.6.3"
   },
   "dependencies": {
     "chalk": "^1.1.1",
