@@ -27,7 +27,7 @@
     "mocha": "mocha --bail --recursive tests/fixtures tests/specs",
     "istanbul": "istanbul cover _mocha --dir coverage/node -- --bail --recursive tests/fixtures tests/specs",
     "test": "npm run istanbul",
-    "upgrade": "ncu --upgradeAll && npm update",
+    "upgrade": "npm-check -u",
     "bump": "bump --prompt --tag --push --all",
     "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
     "semver": "semver"
@@ -37,24 +37,24 @@
     "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
   },
   "devDependencies": {
-    "istanbul": "^0.3.20",
-    "coveralls": "^2.11.4",
-    "mocha": "^2.3.2",
     "chai": "^3.2.0",
-    "sinon": "^1.16.1",
-    "jscs": "^2.1.1",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.4.5",
+    "jscs": "^3.0.7",
     "jshint": "^2.8.0",
-    "npm-check-updates": "^2.2.3",
-    "version-bump-prompt": "^1.5.1",
-    "lodash": "^3.10.1"
+    "lodash": "^4.15.0",
+    "mocha": "^3.0.2",
+    "npm-check": "^5.2.3",
+    "sinon": "^1.16.1",
+    "version-bump-prompt": "^1.5.1"
   },
   "dependencies": {
     "chalk": "^1.1.1",
     "commander": "^2.8.1",
     "detect-indent": "^4.0.0",
     "es6-promise": "^3.0.2",
-    "glob": "^5.0.14",
-    "inquirer": "^0.10.0",
+    "glob": "^7.0.6",
+    "inquirer": "^1.1.3",
     "log-symbols": "^1.0.2",
     "semver": "^5.0.3",
     "spawn-sync": "^1.0.13"
