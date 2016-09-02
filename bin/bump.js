@@ -105,24 +105,23 @@ function bumpManifest(manifest, defaultBumpType, options) {
       console.log('\nCurrent version in %s is %s', manifest, version.current);
 
       inquirer.prompt({
-          type: 'list',
-          name: 'bump',
-          message: 'How would you like to bump it?',
-          default: defaultBumpType,
-          choices: [
-            {value: 'major', name: 'major (' + version.nextMajor + ')'},
-            {value: 'minor', name: 'minor (' + version.nextMinor + ')'},
-            {value: 'patch', name: 'patch (' + version.nextPatch + ')'},
-            {value: 'premajor', name: 'pre-release major (' + version.nextPreMajor + ')'},
-            {value: 'preminor', name: 'pre-release minor (' + version.nextPreMinor + ')'},
-            {value: 'prepatch', name: 'pre-relase patch (' + version.nextPrePatch + ')'},
-            {value: 'prerelease', name: 'pre-release (' + version.nextPreRelease + ')'}
-          ]
-        },
-        function(answer) {
-          bump(answer.bump);
-        }
-      );
+        type: 'list',
+        name: 'bump',
+        message: 'How would you like to bump it?',
+        default: defaultBumpType,
+        choices: [
+          {value: 'major', name: 'major (' + version.nextMajor + ')'},
+          {value: 'minor', name: 'minor (' + version.nextMinor + ')'},
+          {value: 'patch', name: 'patch (' + version.nextPatch + ')'},
+          {value: 'premajor', name: 'pre-release major (' + version.nextPreMajor + ')'},
+          {value: 'preminor', name: 'pre-release minor (' + version.nextPreMinor + ')'},
+          {value: 'prepatch', name: 'pre-relase patch (' + version.nextPrePatch + ')'},
+          {value: 'prerelease', name: 'pre-release (' + version.nextPreRelease + ')'}
+        ]
+      })
+      .then(function(answer) {
+        bump(answer.bump);
+      });
     }
     else {
       var bumpType =
