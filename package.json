@@ -1,6 +1,6 @@
 {
   "name": "version-bump-prompt",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Automatically (or with prompts) bump your version number, commit changes, tag, and push to Git",
   "keywords": [
     "version",
@@ -46,7 +46,7 @@
     "mocha": "^3.0.2",
     "npm-check": "^5.2.3",
     "sinon": "^1.16.1",
-    "version-bump-prompt": "^1.5.1"
+    "version-bump-prompt": "^1.6.2"
   },
   "dependencies": {
     "chalk": "^1.1.1",
