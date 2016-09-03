@@ -24,9 +24,7 @@
   "scripts": {
     "lint": "jshint . --verbose && jscs . --verbose",
     "build": "npm run lint",
-    "mocha": "mocha --bail --recursive tests/fixtures tests/specs",
-    "istanbul": "istanbul cover _mocha --dir coverage/node -- --bail --recursive tests/fixtures tests/specs",
-    "test": "npm run istanbul",
+    "test": "mocha --bail --recursive tests/fixtures tests/specs",
     "upgrade": "npm-check -u",
     "release": "npm run upgrade && npm run build && npm test && bump --prompt --tag --push --all",
     "semver": "semver"
@@ -38,7 +36,6 @@
   "devDependencies": {
     "chai": "^3.2.0",
     "coveralls": "^2.11.4",
-    "istanbul": "^0.4.5",
     "jscs": "^3.0.7",
     "jshint": "^2.8.0",
     "lodash": "^4.15.0",
