@@ -18,7 +18,7 @@ program
   .option('--prerelease', 'Increase prerelease version')
   .option('--prompt', 'Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)')
   .option('--preid <name>', 'The identifier for prerelease versions (default is "beta")')
-  .option('--commit [message]', 'Commit changed files to Git (default is "release vX.X.X")')
+  .option('--commit [message]', 'Commit changed files to Git (default message is "release vX.X.X")')
   .option('--tag', 'Tag the commit in Git')
   .option('--push', 'Push the Git commit')
   .option('--all', 'Commit/tag/push ALL pending files, not just the ones changed by bump')
