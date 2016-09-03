@@ -26,7 +26,7 @@
     "build": "npm run lint",
     "test": "mocha --bail --recursive tests/fixtures tests/specs",
     "upgrade": "npm-check -u",
-    "release": "npm run upgrade && npm run build && npm test && bump --prompt --tag --push --all",
+    "release": "npm run upgrade && npm run build && npm test && node bin/bump.js --prompt --tag --push --all",
     "semver": "semver"
   },
   "repository": {
@@ -41,8 +41,7 @@
     "lodash": "^4.15.0",
     "mocha": "^3.0.2",
     "npm-check": "^5.2.3",
-    "sinon": "^1.16.1",
-    "version-bump-prompt": "^1.6.3"
+    "sinon": "^1.16.1"
   },
   "dependencies": {
     "chalk": "^1.1.1",
