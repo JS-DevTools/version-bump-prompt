@@ -4,7 +4,15 @@ var fs   = require('fs'),
     path = require('path');
 
 // This script lets us verify that git was run with the correct command-line arguments.
-// It just writes its arguments to a text file, which can then be inspected in tests.
-var file = path.join(process.cwd(), 'git.txt');
-var data = process.argv.slice(2).join(' ') + '\n';
-fs.appendFileSync(file, data);
+// It just writes its arguments to a JSON file, which can then be inspected in tests.
+var file = path.join(process.cwd(), 'git.json');
+
+// Read the existing JSON file
+var git = [];
+if (fs.existsSync(file)) {
+  git = JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+// Add this command's args to the array
+git.push(process.argv.slice(2));
+fs.writeFileSync(file, JSON.stringify(git, null, 2));

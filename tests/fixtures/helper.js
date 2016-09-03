@@ -109,15 +109,18 @@ function bump(args, initialJSON, finalJSON) {
 /**
  * Verifies that git was run with the expected arguments.
  *
- * @param {string[]} expected - An array of strings. Each string contains the arguments for a singlee git command.
+ * @param {array[]} expected
+ * An array of arrays. Each top-level item represents a single git command.
+ * Each 2nd-level array  contains the expected arguments for the command.
  */
 function git(expected) {
-  var gitPath = path.join(__dirname, '.tmp', 'git.txt');
-  var git = fs.readFileSync(gitPath, {encoding: 'utf8'});
-  git = git.trim().split('\n');
+  var gitPath = path.join(__dirname, '.tmp', 'git.json');
+  var git = JSON.parse(fs.readFileSync(gitPath, 'utf8'));
+
+  expect(git).to.be.an('array').with.lengthOf(expected.length);
 
   var length = Math.max(git.length, expected.length);
   for (var i = 0; i < length; i++) {
-    expect(git[i]).to.equal(expected[i]);
+    expect(git[i]).to.deep.equal(expected[i]);
   }
 }
