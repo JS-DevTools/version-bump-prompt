@@ -28,8 +28,7 @@
     "istanbul": "istanbul cover _mocha --dir coverage/node -- --bail --recursive tests/fixtures tests/specs",
     "test": "npm run istanbul",
     "upgrade": "npm-check -u",
-    "bump": "bump --prompt --tag --push --all",
-    "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
+    "release": "npm run upgrade && npm run build && npm test && bump --prompt --tag --push --all",
     "semver": "semver"
   },
   "repository": {
