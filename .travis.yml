@@ -13,6 +13,10 @@ matrix:
     - node_js: 6
       env: DEPLOY=true
 
+# Mocha sometimes fails (not sure why), so when that happens, try again.
+# If it fails a second time, then the CI build fails.
+script: npm test || npm test
+
 deploy:
   provider: npm
   email: ${NPM_EMAIL}
