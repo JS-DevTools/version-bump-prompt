@@ -16,13 +16,3 @@ matrix:
 # Mocha sometimes fails (not sure why), so when that happens, try again.
 # If it fails a second time, then the CI build fails.
 script: npm test || npm test
-
-deploy:
-  provider: npm
-  email: ${NPM_EMAIL}
-  api_key: ${NPM_API_KEY}
-  on:
-    tags: true
-    repo: BigstickCarpet/version-bump-prompt
-    branch: master
-    condition: $DEPLOY = true
