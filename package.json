@@ -26,7 +26,8 @@
     "build": "npm run lint",
     "test": "mocha --bail --recursive tests/fixtures tests/specs",
     "upgrade": "npm-check -u",
-    "release": "npm run upgrade && npm run build && npm test && node bin/bump.js --prompt --tag --push --all",
+    "bump": "node bin/bump.js --prompt --tag --push --all",
+    "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
     "semver": "semver"
   },
   "repository": {
