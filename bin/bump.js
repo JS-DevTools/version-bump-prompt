@@ -98,7 +98,7 @@ function bumpManifests(manifests, options) {
  * @returns {Promise}
  */
 function bumpManifest(manifest, defaultBumpType, options) {
-  return new Promise(function(resolve) {
+  return new Promise(function(resolve, reject) {
     if (options.prompt) {
       // Prompt the user for the type of bump to perform
       var version = api.versionInfo(manifest, options);
@@ -137,7 +137,11 @@ function bumpManifest(manifest, defaultBumpType, options) {
     }
 
     function bump(bumpType) {
-      api.bump(manifest, bumpType, options);
+      try {
+        api.bump(manifest, bumpType, options);
+      } catch(ex) {
+        reject(ex);
+      }
       resolve(bumpType);
     }
   });
