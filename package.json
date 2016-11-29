@@ -1,6 +1,6 @@
 {
   "name": "version-bump-prompt",
-  "version": "1.7.2",
+  "version": "2.0.0",
   "description": "Automatically (or with prompts) bump your version number, commit changes, tag, and push to Git",
   "keywords": [
     "version",
@@ -36,11 +36,11 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
-    "coveralls": "^2.11.14",
+    "coveralls": "^2.11.15",
     "jscs": "^3.0.7",
-    "jshint": "^2.8.0",
-    "lodash": "^4.16.4",
-    "mocha": "^3.1.1",
+    "jshint": "^2.9.4",
+    "lodash": "^4.17.2",
+    "mocha": "^3.2.0",
     "npm-check": "^5.4.0",
     "sinon": "^1.17.6"
   },
@@ -50,7 +50,7 @@
     "detect-indent": "^4.0.0",
     "es6-promise": "^4.0.5",
     "glob": "^7.1.1",
-    "inquirer": "^1.2.1",
+    "inquirer": "^1.2.3",
     "log-symbols": "^1.0.2",
     "semver": "^5.0.3",
     "spawn-sync": "^1.0.13"

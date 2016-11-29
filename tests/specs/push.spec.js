@@ -15,7 +15,7 @@ describe('bump --push', function() {
     helper.bump('--premajor --tag --push', {version: '1.0.0'}, {version: '2.0.0-beta.0'});
     helper.git([
       ['commit', 'package.json', 'bower.json', 'component.json', '-m', 'release v2.0.0-beta.0'],
-      ['tag', 'v2.0.0-beta.0'],
+      ['tag', '-a', 'v2.0.0-beta.0', '-m', '2.0.0-beta.0'],
       ['push'],
       ['push', '--tags']
     ])

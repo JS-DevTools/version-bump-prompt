@@ -7,7 +7,7 @@ describe('bump --tag', function() {
     helper.bump('--major --tag --commit', {version: '1.0.0'}, {version: '2.0.0'});
     helper.git([
       ['commit', 'package.json', 'bower.json', 'component.json', '-m', 'release v2.0.0'],
-      ['tag', 'v2.0.0']
+      ['tag', '-a', 'v2.0.0', '-m', '2.0.0']
     ])
   });
 
@@ -15,7 +15,7 @@ describe('bump --tag', function() {
     helper.bump('--minor --tag', {version: '1.0.0'}, {version: '1.1.0'});
     helper.git([
       ['commit', 'package.json', 'bower.json', 'component.json', '-m', 'release v1.1.0'],
-      ['tag', 'v1.1.0']
+      ['tag', '-a', 'v1.1.0', '-m', '1.1.0']
     ])
   });
 
@@ -23,7 +23,7 @@ describe('bump --tag', function() {
     helper.bump('--patch --tag --all', {version: '1.0.0'}, {version: '1.0.1'});
     helper.git([
       ['commit', '-a', '-m', 'release v1.0.1'],
-      ['tag', 'v1.0.1']
+      ['tag', '-a', 'v1.0.1', '-m', '1.0.1']
     ])
   });
 
@@ -31,7 +31,7 @@ describe('bump --tag', function() {
     helper.bump('--premajor --tag --push', {version: '1.0.0'}, {version: '2.0.0-beta.0'});
     helper.git([
       ['commit', 'package.json', 'bower.json', 'component.json', '-m', 'release v2.0.0-beta.0'],
-      ['tag', 'v2.0.0-beta.0'],
+      ['tag', '-a', 'v2.0.0-beta.0', '-m', '2.0.0-beta.0'],
       ['push'],
       ['push', '--tags']
     ])
