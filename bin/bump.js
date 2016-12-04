@@ -56,6 +56,9 @@ else {
   bumpManifests(manifests, options)
     .then(function() {
       api.grep(manifests, options);
+      manifests.forEach(function (manifest) {
+        api.runNpmScriptIfExists(manifest, 'version');
+      });
     })
     .then(function() {
       api.git(manifests, options);
@@ -120,6 +123,7 @@ function bumpManifest(manifest, defaultBumpType, options) {
         ]
       })
       .then(function(answer) {
+        api.runNpmScriptIfExists(manifest, 'preversion');
         bump(answer.bump);
       });
     }
@@ -133,6 +137,7 @@ function bumpManifest(manifest, defaultBumpType, options) {
             options.prepatch ? 'prepatch' :
             options.prerelease ? 'prerelease' :
             defaultBumpType;
+      api.runNpmScriptIfExists(manifest, 'preversion');
       bump(bumpType);
     }
 
