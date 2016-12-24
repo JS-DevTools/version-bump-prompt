@@ -21,6 +21,10 @@
   "license": "MIT",
   "homepage": "https://github.com/BigstickCarpet/version-bump-prompt",
   "main": "lib/index.js",
+  "files": [
+    "bin",
+    "lib"
+  ],
   "scripts": {
     "lint": "jshint . --verbose && jscs . --verbose",
     "build": "npm run lint",
