@@ -32,7 +32,7 @@
   "scripts": {
     "lint": "eslint lib test --fix",
     "build": "npm run lint",
-    "test": "mocha --bail --recursive --timeout 13000 tests/fixtures tests/specs",
+    "test": "mocha",
     "upgrade": "npm-check -u",
     "bump": "node bin/bump.js --prompt --tag --push --all",
     "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
