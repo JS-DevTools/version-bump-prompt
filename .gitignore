@@ -1,8 +1,41 @@
+# Git ignore
+# https://git-scm.com/docs/gitignore
+
+# Miscellaneous
 *~
-._*
-.DS_Store
-npm-debug.log
-/.idea
-/node_modules
+*#
+.DS_STORE
+Thumbs.db
+.netbeans
+nbproject
+.node_history
+
+# IDEs & Text Editors
+.idea
+.sublime-*
+.vscode
+.netbeans
+nbproject
+
+# Temporary files
+.tmp
+.temp
+.grunt
+.lock-wscript
+
+# Logs
+/logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependencies
+node_modules
+
+# Test output
+lib-cov
 /coverage
-/tests/.tmp
+/test/dir/**/*symlink*
