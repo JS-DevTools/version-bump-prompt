@@ -62,6 +62,25 @@ Examples:
 ```
 
 
+
+Contributing
+--------------------------
+I welcome any contributions, enhancements, and bug-fixes.  [File an issue](https://github.com/BigstickCarpet/version-bump-prompt/issues) on GitHub and [submit a pull request](https://github.com/BigstickCarpet/version-bump-prompt/pulls).
+
+#### Building
+To build the project locally on your computer:
+
+1. __Clone this repo__<br>
+`git clone https://github.com/bigstickcarpet/version-bump-prompt.git`
+
+2. __Install dependencies__<br>
+`npm install`
+
+3. __Run the tests__<br>
+`npm test`
+
+
+
 ## License
 
 Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).
