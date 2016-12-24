@@ -57,12 +57,10 @@
     "chalk": "^1.1.1",
     "commander": "^2.8.1",
     "detect-indent": "^4.0.0",
-    "es6-promise": "^4.0.5",
     "glob": "^7.1.1",
     "inquirer": "^1.2.3",
     "log-symbols": "^1.0.2",
-    "semver": "^5.0.3",
-    "spawn-sync": "^1.0.13"
+    "semver": "^5.0.3"
   },
   "bin": {
     "bump": "bin/bump.js"

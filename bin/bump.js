@@ -4,7 +4,6 @@
 var program  = require('commander'),
     inquirer = require('inquirer'),
     chalk    = require('chalk'),
-    Promise  = require('es6-promise').Promise,
     api      = require('../');
 
 program
