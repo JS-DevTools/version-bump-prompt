@@ -1,9 +1,0 @@
-*~
-._*
-.DS_Store
-npm-debug.log
-/node_modules
-/coverage
-/tests
-/gulpfile.js
-/.*
