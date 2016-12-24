@@ -21,8 +21,12 @@ beforeEach(function() {
     fs.mkdirSync(tmpPath)
   }
   else {
-    // Make sure the .tmp directory is empty
+    // Make sure the .tmp directory is empty, except for git.cmd,
+    // which is a hack to make appveyor build work (has some issues with PATH modification)
     fs.readdirSync(tmpPath).forEach(function(file) {
+      if (file === 'git.cmd') {
+        return;
+      }
       fs.unlinkSync(path.join(tmpPath, file));
     });
   }
@@ -58,7 +62,15 @@ function bump(args, initialJSON, finalJSON) {
   // Modify the PATH environment variable so bump will execute our fake `git`
   var binPath = path.join(__dirname, 'bin');
   fs.chmodSync(path.join(binPath, 'git'), '0777');
-  var env = _.clone(process.env);
+  var env = _.reduce(process.env, function (memo, value, key) {
+    //in windows, environment variables are case insensitive and can be defined as Path, path, ...
+    //since in code below we're relying on PATH to be uppercase, make sure it is cloned as uppercase
+    if (/^path$/i.test(key)) {
+      memo.PATH = value;
+    }
+    memo[key] = value;
+    return memo;
+  }, {});
   env.PATH = binPath + path.delimiter + env.PATH;
 
   // Run bump

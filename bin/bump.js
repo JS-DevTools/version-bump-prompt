@@ -56,6 +56,9 @@ else {
   bumpManifests(manifests, options)
     .then(function() {
       api.grep(manifests, options);
+      manifests.forEach(function (manifest) {
+        api.runNpmScriptIfExists(manifest, 'version');
+      });
     })
     .then(function() {
       api.git(manifests, options);
@@ -98,7 +101,7 @@ function bumpManifests(manifests, options) {
  * @returns {Promise}
  */
 function bumpManifest(manifest, defaultBumpType, options) {
-  return new Promise(function(resolve) {
+  return new Promise(function(resolve, reject) {
     if (options.prompt) {
       // Prompt the user for the type of bump to perform
       var version = api.versionInfo(manifest, options);
@@ -120,6 +123,7 @@ function bumpManifest(manifest, defaultBumpType, options) {
         ]
       })
       .then(function(answer) {
+        api.runNpmScriptIfExists(manifest, 'preversion');
         bump(answer.bump);
       });
     }
@@ -133,11 +137,16 @@ function bumpManifest(manifest, defaultBumpType, options) {
             options.prepatch ? 'prepatch' :
             options.prerelease ? 'prerelease' :
             defaultBumpType;
+      api.runNpmScriptIfExists(manifest, 'preversion');
       bump(bumpType);
     }
 
     function bump(bumpType) {
-      api.bump(manifest, bumpType, options);
+      try {
+        api.bump(manifest, bumpType, options);
+      } catch(ex) {
+        reject(ex);
+      }
       resolve(bumpType);
     }
   });
