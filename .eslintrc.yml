@@ -1,0 +1,9 @@
+# ESLint config
+# http://eslint.org/docs/user-guide/configuring
+# https://github.com/BigstickCarpet/eslint-config-modular
+
+extends:
+  - modular/best-practices
+  - modular/style
+  - modular/node
+  - modular/es6
