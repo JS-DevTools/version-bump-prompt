@@ -56,9 +56,9 @@
   "dependencies": {
     "chalk": "^1.1.1",
     "commander": "^2.8.1",
-    "detect-indent": "^4.0.0",
+    "detect-indent": "^5.0.0",
     "glob": "^7.1.1",
-    "inquirer": "^1.2.3",
+    "inquirer": "^2.0.0",
     "log-symbols": "^1.0.2",
     "semver": "^5.0.3"
   },
