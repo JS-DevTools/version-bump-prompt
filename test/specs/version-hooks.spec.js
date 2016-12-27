@@ -3,6 +3,7 @@
 const cli = require('../fixtures/cli');
 const mocks = require('../fixtures/mocks');
 const files = require('../fixtures/files');
+const check = require('../fixtures/check');
 const chai = require('chai');
 
 chai.should();
@@ -23,7 +24,7 @@ describe('npm version hooks', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 2.0.0',
+      `${check} Updated package.json to 2.0.0`,
     ]);
 
     let npm = mocks.npm();
@@ -47,7 +48,7 @@ describe('npm version hooks', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 2.0.0',
+      `${check} Updated package.json to 2.0.0`,
     ]);
 
     let npm = mocks.npm();
@@ -71,7 +72,7 @@ describe('npm version hooks', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 2.0.0',
+      `${check} Updated package.json to 2.0.0`,
     ]);
 
     let npm = mocks.npm();
@@ -97,10 +98,10 @@ describe('npm version hooks', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 2.0.0',
-      '✔ Git commit',
-      '✔ Git tag',
-      '✔ Git push',
+      `${check} Updated package.json to 2.0.0`,
+      `${check} Git commit`,
+      `${check} Git tag`,
+      `${check} Git push`,
     ]);
 
     let bin = mocks.all();

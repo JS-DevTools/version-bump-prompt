@@ -2,6 +2,7 @@
 
 const cli = require('../fixtures/cli');
 const files = require('../fixtures/files');
+const check = require('../fixtures/check');
 const chai = require('chai');
 
 chai.should();
@@ -32,9 +33,9 @@ describe('bump --prerelease', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 0.0.1-beta.0',
-      '✔ Updated bower.json to 0.0.1-beta.0',
-      '✔ Updated component.json to 0.0.1-beta.0',
+      `${check} Updated package.json to 0.0.1-beta.0`,
+      `${check} Updated bower.json to 0.0.1-beta.0`,
+      `${check} Updated component.json to 0.0.1-beta.0`,
     ]);
 
     files.json('package.json').should.deep.equal({ version: '0.0.1-beta.0' });
@@ -51,7 +52,7 @@ describe('bump --prerelease', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 0.0.1-beta.0',
+      `${check} Updated package.json to 0.0.1-beta.0`,
     ]);
 
     files.json('package.json').should.deep.equal({ version: '0.0.1-beta.0' });
@@ -66,7 +67,7 @@ describe('bump --prerelease', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 1.2.4-beta.0',
+      `${check} Updated package.json to 1.2.4-beta.0`,
     ]);
 
     files.json('package.json').should.deep.equal({ version: '1.2.4-beta.0' });
@@ -81,7 +82,7 @@ describe('bump --prerelease', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 1.2.3-beta.5',
+      `${check} Updated package.json to 1.2.3-beta.5`,
     ]);
 
     files.json('package.json').should.deep.equal({ version: '1.2.3-beta.5' });
@@ -96,7 +97,7 @@ describe('bump --prerelease', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 1.2.3-alpha.0',
+      `${check} Updated package.json to 1.2.3-alpha.0`,
     ]);
 
     files.json('package.json').should.deep.equal({ version: '1.2.3-alpha.0' });

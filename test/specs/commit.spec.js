@@ -3,6 +3,7 @@
 const cli = require('../fixtures/cli');
 const mocks = require('../fixtures/mocks');
 const files = require('../fixtures/files');
+const check = require('../fixtures/check');
 const chai = require('chai');
 
 chai.should();
@@ -18,8 +19,8 @@ describe('bump --commit', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 2.0.0',
-      '✔ Git commit',
+      `${check} Updated package.json to 2.0.0`,
+      `${check} Git commit`,
     ]);
 
     let git = mocks.git();
@@ -39,10 +40,10 @@ describe('bump --commit', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 1.1.0',
-      '✔ Updated bower.json to 1.1.0',
-      '✔ Updated component.json to 1.1.0',
-      '✔ Git commit',
+      `${check} Updated package.json to 1.1.0`,
+      `${check} Updated bower.json to 1.1.0`,
+      `${check} Updated component.json to 1.1.0`,
+      `${check} Git commit`,
     ]);
 
     let git = mocks.git();
@@ -60,8 +61,8 @@ describe('bump --commit', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 1.1.0',
-      '✔ Git commit',
+      `${check} Updated package.json to 1.1.0`,
+      `${check} Git commit`,
     ]);
 
     let git = mocks.git();
@@ -79,8 +80,8 @@ describe('bump --commit', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 1.0.1',
-      '✔ Git commit',
+      `${check} Updated package.json to 1.0.1`,
+      `${check} Git commit`,
     ]);
 
     let git = mocks.git();

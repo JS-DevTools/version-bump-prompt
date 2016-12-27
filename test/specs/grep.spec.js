@@ -2,6 +2,7 @@
 
 const cli = require('../fixtures/cli');
 const files = require('../fixtures/files');
+const check = require('../fixtures/check');
 const chai = require('chai');
 
 chai.should();
@@ -21,10 +22,10 @@ describe('bump --grep', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 2.0.0',
-      '✔ Updated README.md to 2.0.0',
-      '✔ Updated script1.js to 2.0.0',
-      '✔ Updated LICENSE to 2.0.0',
+      `${check} Updated package.json to 2.0.0`,
+      `${check} Updated README.md to 2.0.0`,
+      `${check} Updated script1.js to 2.0.0`,
+      `${check} Updated LICENSE to 2.0.0`,
     ]);
 
     files.json('package.json').version.should.equal('2.0.0');
@@ -48,10 +49,10 @@ describe('bump --grep', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 2.0.0',
-      '✔ Updated README.md to 2.0.0',
-      '✔ Updated script1.js to 2.0.0',
-      '✔ Updated LICENSE to 2.0.0',
+      `${check} Updated package.json to 2.0.0`,
+      `${check} Updated README.md to 2.0.0`,
+      `${check} Updated script1.js to 2.0.0`,
+      `${check} Updated LICENSE to 2.0.0`,
     ]);
 
     files.text('README.md').should.match(/version 5.6.7 and v8.9.10 should not be changed/);
@@ -71,7 +72,7 @@ describe('bump --grep', () => {
     output.status.should.equal(0);
 
     output.lines.should.deep.equal([
-      '✔ Updated package.json to 5.0.0',
+      `${check} Updated package.json to 5.0.0`,
     ]);
 
     files.json('package.json').version.should.equal('5.0.0');
