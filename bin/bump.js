@@ -60,7 +60,14 @@ else {
       });
     })
     .then(() => {
-      api.git(manifests, options);
+      if (options.commit || options.tag || options.push) {
+        api.git(manifests, options);
+      }
+      else {
+        manifests.forEach((manifest) => {
+          api.runNpmScriptIfExists(manifest, 'postversion');
+        });
+      }
     })
     .catch((err) => {
       console.error(chalk.red(err.message));
