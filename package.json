@@ -30,7 +30,7 @@
     "lib"
   ],
   "scripts": {
-    "lint": "eslint lib test --fix",
+    "lint": "eslint bin lib test --fix",
     "build": "npm run lint",
     "test": "mocha",
     "upgrade": "npm-check -u",
@@ -45,12 +45,11 @@
   "devDependencies": {
     "chai": "^3.2.0",
     "coveralls": "^2.11.15",
+    "del": "^2.2.2",
     "eslint": "^3.9.0",
     "eslint-config-modular": "^1.0.1",
-    "lodash": "^4.17.2",
     "mocha": "^3.2.0",
     "npm-check": "^5.4.0",
-    "npm-which": "^3.0.1",
     "sinon": "^1.17.6"
   },
   "dependencies": {
