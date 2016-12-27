@@ -13,7 +13,8 @@
 
 #### Automate your release process with a single command that can:
 
- * Bump the version number of JSON manifets, including:
+ * Optionally prompt for the type of version bump (major, minor, revision, beta, etc.)
+ * Bump the version number in all of your JSON manifets, including:
     -  `package.json`
     -  `bower.json`
     -  `component.json`
@@ -22,18 +23,23 @@
     -  source code
     -  README files
     -  license files
+ * Run your `preversion`, `version`, and `postversion` scripts
  * Commit changes to GIT
  * Tag the commit with the version number
  * Push the commit to remote
- * Optionally prompt for the type of version bump (major, minor, revision, beta, etc.)
 
 
-## Install
+Installation
+--------------------------
+You can install `version-bump-prompt` via [npm](https://docs.npmjs.com/getting-started/what-is-npm).
 
-	npm install -g version-bump-prompt
+```bash
+npm install -g version-bump-prompt
+```
 
 
-## Usage
+Usage
+--------------------------
 
 ```bash
 Usage: bump [options]
@@ -66,6 +72,15 @@ Examples:
 ```
 
 
+Version Scripts
+--------------------------
+`version-bump-prompt` will execute your `preversion`, `version`, and `postversion` scripts, just like [the `npm version` command](https://docs.npmjs.com/cli/version) does. If your `package.json` file contains any or all of these scripts, then they will be executed in the following order:
+
+  - The `preversion` script runs before the version is updated (and before the version prompt is shown)
+  - The `version` script runs after the version is updated, but _before_ `git commit` and `git tag`
+  - The `postversion` script runs after `git commit` and `git tag`, but _before_ `git push`
+
+
 
 Contributing
 --------------------------
@@ -85,7 +100,7 @@ To build the project locally on your computer:
 
 
 
-## License
-
+License
+--------------------------
 Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).
 Both the original project and this fork are licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)
