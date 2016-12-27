@@ -2,6 +2,7 @@
 'use strict';
 
 const program = require('commander');
+const SemVer = require('semver');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const api = require('../');
@@ -108,29 +109,45 @@ function bumpManifests (manifests, options) {
  */
 function bumpManifest (manifest, defaultBumpType, options) {
   return new Promise((resolve, reject) => {
+    api.runNpmScriptIfExists(manifest, 'preversion');
+
     if (options.prompt) {
       // Prompt the user for the type of bump to perform
       let version = api.versionInfo(manifest, options);
       console.log('\nCurrent version in %s is %s', manifest, version.current);
 
-      inquirer.prompt({
-        type: 'list',
-        name: 'bump',
-        message: 'How would you like to bump it?',
-        default: defaultBumpType,
-        choices: [
-          { value: 'major', name: 'major (' + version.nextMajor + ')' },
-          { value: 'minor', name: 'minor (' + version.nextMinor + ')' },
-          { value: 'patch', name: 'patch (' + version.nextPatch + ')' },
-          { value: 'premajor', name: 'pre-release major (' + version.nextPreMajor + ')' },
-          { value: 'preminor', name: 'pre-release minor (' + version.nextPreMinor + ')' },
-          { value: 'prepatch', name: 'pre-relase patch (' + version.nextPrePatch + ')' },
-          { value: 'prerelease', name: 'pre-release (' + version.nextPreRelease + ')' }
-        ]
-      })
-      .then((answer) => {
-        api.runNpmScriptIfExists(manifest, 'preversion');
-        bump(answer.bump);
+      inquirer.prompt([
+        {
+          type: 'list',
+          name: 'bumpType',
+          message: 'How would you like to bump it?',
+          default: defaultBumpType,
+          choices: [
+            { value: 'major', name: 'major (' + version.nextMajor + ')' },
+            { value: 'minor', name: 'minor (' + version.nextMinor + ')' },
+            { value: 'patch', name: 'patch (' + version.nextPatch + ')' },
+            { value: 'premajor', name: 'pre-release major (' + version.nextPreMajor + ')' },
+            { value: 'preminor', name: 'pre-release minor (' + version.nextPreMinor + ')' },
+            { value: 'prepatch', name: 'pre-relase patch (' + version.nextPrePatch + ')' },
+            { value: 'prerelease', name: 'pre-release (' + version.nextPreRelease + ')' },
+            new inquirer.Separator(),
+            { value: 'custom', name: 'custom...' },
+          ]
+        },
+        {
+          type: 'input',
+          name: 'newVersion',
+          message: 'Enter the new version number:',
+          default: version.current,
+          when: answers => answers.bumpType === 'custom',
+          filter: SemVer.clean,
+          validate: answer => {
+            return SemVer.valid(answer) ? true : "That's not a valid version number";
+          },
+        }
+      ])
+      .then((answers) => {
+        bump(answers.bumpType, answers.newVersion);
       });
     }
     else {
@@ -143,12 +160,13 @@ function bumpManifest (manifest, defaultBumpType, options) {
             : options.prepatch ? 'prepatch'
             : options.prerelease ? 'prerelease'
             : defaultBumpType;
-      api.runNpmScriptIfExists(manifest, 'preversion');
+
       bump(bumpType);
     }
 
-    function bump (bumpType) {
+    function bump (bumpType, newVersion) {
       try {
+        options.newVersion = newVersion;
         api.bump(manifest, bumpType, options);
       }
       catch (ex) {
