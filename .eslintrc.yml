@@ -5,5 +5,5 @@
 extends:
   - modular/best-practices
   - modular/style
-  - modular/node
   - modular/es6
+  - modular/node
