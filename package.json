@@ -47,10 +47,9 @@
     "coveralls": "^2.11.15",
     "del": "^2.2.2",
     "eslint": "^3.9.0",
-    "eslint-config-modular": "^1.0.1",
+    "eslint-config-modular": "^2.0.1",
     "mocha": "^3.2.0",
-    "npm-check": "^5.4.0",
-    "sinon": "^1.17.6"
+    "npm-check": "^5.4.0"
   },
   "dependencies": {
     "chalk": "^1.1.1",
