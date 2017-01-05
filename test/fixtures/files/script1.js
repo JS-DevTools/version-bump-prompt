@@ -1,3 +1,4 @@
+/* eslint strict:off */
 (function () {
   'use strict';
 
