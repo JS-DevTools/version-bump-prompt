@@ -31,11 +31,10 @@
   ],
   "scripts": {
     "lint": "eslint bin lib test --fix",
-    "build": "npm run lint",
-    "test": "mocha",
+    "test": "mocha && npm run lint",
     "upgrade": "npm-check -u",
     "bump": "node bin/bump.js --prompt --tag --push --all",
-    "release": "npm run upgrade && npm run build && npm test && npm run bump && npm publish",
+    "release": "npm run upgrade && npm test && npm run bump && npm publish",
     "semver": "semver"
   },
   "repository": {
