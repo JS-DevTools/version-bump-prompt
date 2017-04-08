@@ -128,7 +128,7 @@ function bumpManifest (manifest, defaultBumpType, options) {
             { value: 'patch', name: 'patch (' + version.nextPatch + ')' },
             { value: 'premajor', name: 'pre-release major (' + version.nextPreMajor + ')' },
             { value: 'preminor', name: 'pre-release minor (' + version.nextPreMinor + ')' },
-            { value: 'prepatch', name: 'pre-relase patch (' + version.nextPrePatch + ')' },
+            { value: 'prepatch', name: 'pre-release patch (' + version.nextPrePatch + ')' },
             { value: 'prerelease', name: 'pre-release (' + version.nextPreRelease + ')' },
             new inquirer.Separator(),
             { value: 'custom', name: 'custom...' },
