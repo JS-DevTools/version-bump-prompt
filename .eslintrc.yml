@@ -2,6 +2,8 @@
 # http://eslint.org/docs/user-guide/configuring
 # https://github.com/BigstickCarpet/eslint-config-modular
 
+root: true
+
 extends:
   - modular/best-practices
   - modular/style
