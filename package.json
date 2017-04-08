@@ -22,8 +22,12 @@
     "Alexey Raspopov (https://github.com/alexeyraspopov)",
     "James Messinger (http://JamesMessinger.com)"
   ],
-  "license": "MIT",
   "homepage": "https://github.com/BigstickCarpet/version-bump-prompt",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
+  },
   "main": "lib/index.js",
   "files": [
     "bin",
@@ -36,10 +40,6 @@
     "bump": "node bin/bump.js --prompt --tag --push --all",
     "release": "npm run upgrade && npm test && npm run bump && npm publish",
     "semver": "semver"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BigstickCarpet/version-bump-prompt.git"
   },
   "devDependencies": {
     "chai": "^3.2.0",
