@@ -3,9 +3,9 @@
 [![Build Status](https://api.travis-ci.org/BigstickCarpet/version-bump-prompt.svg?branch=master)](https://travis-ci.org/BigstickCarpet/version-bump-prompt)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/bigstickcarpet/version-bump-prompt?svg=true&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/BigstickCarpet/version-bump-prompt/branch/master)
 
-[![Dependencies](https://david-dm.org/BigstickCarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
 [![Codacy Score](https://api.codacy.com/project/badge/Grade/69891525ae984781996106144fda276c)](https://www.codacy.com/public/jamesmessinger/version-bump-prompt)
 [![Inline docs](http://inch-ci.org/github/BigstickCarpet/version-bump-prompt.svg?branch=master&style=shields)](http://inch-ci.org/github/BigstickCarpet/version-bump-prompt)
+[![Dependencies](https://david-dm.org/BigstickCarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
 
 [![npm](http://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](LICENSE)
