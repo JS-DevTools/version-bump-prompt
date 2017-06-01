@@ -15,7 +15,7 @@
 #### Automate your release process with a single command that can:
 
  * Optionally prompt for the type of version bump (major, minor, revision, beta, etc.)
- * Bump the version number in all of your JSON manifets, including:
+ * Bump the version number in all of your JSON manifests, including:
     -  `package.json`
     -  `bower.json`
     -  `component.json`
