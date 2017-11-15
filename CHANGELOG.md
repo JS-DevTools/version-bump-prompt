@@ -3,6 +3,13 @@ All notable changes will be documented in this file.
 `version-bump-prompt` adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [v4.0.0](https://github.com/BigstickCarpet/version-bump-prompt/tree/v4.0.0) (2017-11-15)
+
+- Dropped support for Node v4.x since it's no longer supported by [`inquirer`](https://www.npmjs.com/package/inquirer). As a result, Version-Bump-Prompt now only supports Node v6+.  You can continue using Version-Bump-Prompt v3.x on Node 4.
+
+[Full Changelog](https://github.com/BigstickCarpet/version-bump-prompt/compare/v3.0.0...v4.0.0)
+
+
 ## [v3.0.0](https://github.com/BigstickCarpet/version-bump-prompt/tree/v3.0.0) (2016-12-25)
 
 Two big changes in this version:
