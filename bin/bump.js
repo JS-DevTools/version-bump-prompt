@@ -146,20 +146,20 @@ function bumpManifest (manifest, defaultBumpType, options) {
           },
         }
       ])
-      .then((answers) => {
-        bump(answers.bumpType, answers.newVersion);
-      });
+        .then((answers) => {
+          bump(answers.bumpType, answers.newVersion);
+        });
     }
     else {
       let bumpType =
             options.major ? 'major'
-            : options.minor ? 'minor'
-            : options.patch ? 'patch'
-            : options.premajor ? 'premajor'
-            : options.preminor ? 'preminor'
-            : options.prepatch ? 'prepatch'
-            : options.prerelease ? 'prerelease'
-            : defaultBumpType;
+              : options.minor ? 'minor'
+                : options.patch ? 'patch'
+                  : options.premajor ? 'premajor'
+                    : options.preminor ? 'preminor'
+                      : options.prepatch ? 'prepatch'
+                        : options.prerelease ? 'prerelease'
+                          : defaultBumpType;
 
       bump(bumpType);
     }
