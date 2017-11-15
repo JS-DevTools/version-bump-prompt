@@ -42,23 +42,23 @@
     "semver": "semver"
   },
   "devDependencies": {
-    "chai": "^4.0.1",
-    "coveralls": "^2.13.1",
-    "del": "^2.2.2",
-    "eslint": "^3.19.0",
-    "eslint-config-modular": "^4.0.0",
-    "mocha": "^3.4.2",
-    "npm-check": "^5.4.4"
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "del": "^3.0.0",
+    "eslint": "^4.11.0",
+    "eslint-config-modular": "^4.1.0",
+    "mocha": "^4.0.1",
+    "npm-check": "^5.5.2"
   },
   "dependencies": {
-    "chalk": "^1.1.1",
-    "commander": "^2.8.1",
+    "chalk": "^2.3.0",
+    "commander": "^2.11.0",
     "cross-spawn": "^5.1.0",
     "detect-indent": "^5.0.0",
     "glob": "^7.1.2",
-    "inquirer": "^3.0.6",
-    "log-symbols": "^1.0.2",
-    "semver": "^5.0.3"
+    "inquirer": "^4.0.0",
+    "log-symbols": "^2.1.0",
+    "semver": "^5.4.1"
   },
   "bin": {
     "bump": "bin/bump.js"
