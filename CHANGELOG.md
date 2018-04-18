@@ -2,6 +2,9 @@
 All notable changes will be documented in this file.
 `version-bump-prompt` adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- Added `--lock` option to update the package-json.lock file
 
 ## [v4.0.0](https://github.com/BigstickCarpet/version-bump-prompt/tree/v4.0.0) (2017-11-15)
 
