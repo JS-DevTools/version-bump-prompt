@@ -23,6 +23,7 @@ program
   .option('--push', 'Push the Git commit')
   .option('--all', 'Commit/tag/push ALL pending files, not just the ones changed by bump')
   .option('--grep <filespec...>', 'Files and/or globs to do a text-replace of the old version number with the new one')
+  .option('--lock', 'Also update the package-lock.json')
   .on('--help', () => {
     console.log(
       '  Examples:\n' +
@@ -52,7 +53,7 @@ else {
     options.commit = true;
   }
 
-  let manifests = api.manifests();
+  let manifests = api.manifests(options.lock);
   bumpManifests(manifests, options)
     .then(() => {
       api.grep(manifests, options);
