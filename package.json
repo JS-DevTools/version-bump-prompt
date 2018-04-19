@@ -47,12 +47,12 @@
     "del": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-config-modular": "^4.1.2",
-    "mocha": "^5.0.5",
-    "npm-check": "^5.6.0",
+    "mocha": "^5.1.1",
+    "npm-check": "^5.7.0",
     "strip-ansi": "^4.0.0"
   },
   "dependencies": {
-    "chalk": "^2.3.2",
+    "chalk": "^2.4.0",
     "commander": "^2.15.1",
     "cross-spawn": "^6.0.5",
     "detect-indent": "^5.0.0",
