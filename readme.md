@@ -1,16 +1,16 @@
 # Version-Bump-Prompt
 
-[![Build Status](https://api.travis-ci.org/BigstickCarpet/version-bump-prompt.svg?branch=master)](https://travis-ci.org/BigstickCarpet/version-bump-prompt)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/bigstickcarpet/version-bump-prompt?svg=true&branch=master&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/BigstickCarpet/version-bump-prompt/branch/master)
+[![Build Status](https://api.travis-ci.org/James-Messinger/version-bump-prompt.svg?branch=master)](https://travis-ci.org/James-Messinger/version-bump-prompt)
+[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/james-messinger/version-bump-prompt?svg=true&branch=master&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/BigstickCarpet/version-bump-prompt/branch/master)
 
 [![Codacy Score](https://api.codacy.com/project/badge/Grade/69891525ae984781996106144fda276c)](https://www.codacy.com/public/jamesmessinger/version-bump-prompt)
-[![Inline docs](http://inch-ci.org/github/BigstickCarpet/version-bump-prompt.svg?branch=master&style=shields)](http://inch-ci.org/github/BigstickCarpet/version-bump-prompt)
-[![Dependencies](https://david-dm.org/BigstickCarpet/version-bump-prompt.svg)](https://david-dm.org/bigstickcarpet/version-bump-prompt)
+[![Inline docs](http://inch-ci.org/github/James-Messinger/version-bump-prompt.svg?branch=master&style=shields)](http://inch-ci.org/github/James-Messinger/version-bump-prompt)
+[![Dependencies](https://david-dm.org/James-Messinger/version-bump-prompt.svg)](https://david-dm.org/James-Messinger/version-bump-prompt)
 
 [![npm](http://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](LICENSE)
 
-![Screenshot](http://bigstickcarpet.com/version-bump-prompt/img/screenshot.gif)
+![Screenshot](https://jamesmessinger.com/version-bump-prompt/img/screenshot.gif)
 
 #### Automate your release process with a single command that can:
 
@@ -86,13 +86,13 @@ Version Scripts
 
 Contributing
 --------------------------
-I welcome any contributions, enhancements, and bug-fixes.  [File an issue](https://github.com/BigstickCarpet/version-bump-prompt/issues) on GitHub and [submit a pull request](https://github.com/BigstickCarpet/version-bump-prompt/pulls).
+I welcome any contributions, enhancements, and bug-fixes.  [File an issue](https://github.com/James-Messinger/version-bump-prompt/issues) on GitHub and [submit a pull request](https://github.com/James-Messinger/version-bump-prompt/pulls).
 
 #### Building
 To build the project locally on your computer:
 
 1. __Clone this repo__<br>
-`git clone https://github.com/bigstickcarpet/version-bump-prompt.git`
+`git clone https://github.com/James-Messinger/version-bump-prompt.git`
 
 2. __Install dependencies__<br>
 `npm install`
