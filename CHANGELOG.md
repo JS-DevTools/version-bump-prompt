@@ -2,6 +2,13 @@
 All notable changes will be documented in this file.
 `version-bump-prompt` adheres to [Semantic Versioning](http://semver.org/).
 
+## [v4.2.0](https://github.com/James-Messinger/version-bump-prompt/tree/v4.2.0) (2018-09-30)
+
+- Output of [npm version scripts](https://docs.npmjs.com/cli/version) is now shown.  Thanks to [@didoo](https://github.com/didoo) for [the PR](https://github.com/James-Messinger/version-bump-prompt/pull/27)!
+
+[Full Changelog](https://github.com/James-Messinger/version-bump-prompt/compare/v4.1.0...v4.2.0)
+
+
 ## [v4.1.0](https://github.com/James-Messinger/version-bump-prompt/tree/v4.1.0) (2017-11-15)
 
 - Added `--lock` option to update the `package-json.lock` file in addition to manifest files.  See [issue #20](https://github.com/James-Messinger/version-bump-prompt/issues/20) for details.  Thanks to [@browniebroke](https://github.com/browniebroke) for [the PR](https://github.com/James-Messinger/version-bump-prompt/pull/23/files)!
