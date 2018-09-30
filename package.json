@@ -36,6 +36,7 @@
   "scripts": {
     "lint": "eslint bin lib test --fix",
     "test": "mocha && npm run lint",
+    "coverage": "nyc --reporter=text --reporter=lcov mocha",
     "upgrade": "npm-check -u",
     "bump": "node bin/bump.js --prompt --tag --push --all",
     "release": "npm run upgrade && npm test && npm run bump && npm publish",
@@ -49,6 +50,7 @@
     "eslint-config-modular": "^4.2.1",
     "mocha": "^5.2.0",
     "npm-check": "^5.9.0",
+    "nyc": "^13.0.1",
     "strip-ansi": "^5.0.0"
   },
   "dependencies": {

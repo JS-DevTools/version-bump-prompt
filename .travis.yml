@@ -12,4 +12,5 @@ matrix:
     - node_js: 10
 
 script:
-  - npm test
+  - npm run lint
+  - npm run coverage

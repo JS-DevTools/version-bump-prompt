@@ -3,6 +3,7 @@
 [![Build Status](https://api.travis-ci.org/James-Messinger/version-bump-prompt.svg?branch=master)](https://travis-ci.org/James-Messinger/version-bump-prompt)
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/james-messinger/version-bump-prompt?svg=true&branch=master&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/BigstickCarpet/version-bump-prompt/branch/master)
 
+[![Coverage Status](https://coveralls.io/repos/github/James-Messinger/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/James-Messinger/version-bump-prompt)
 [![Codacy Score](https://api.codacy.com/project/badge/Grade/69891525ae984781996106144fda276c)](https://www.codacy.com/public/jamesmessinger/version-bump-prompt)
 [![Inline docs](http://inch-ci.org/github/James-Messinger/version-bump-prompt.svg?branch=master&style=shields)](http://inch-ci.org/github/James-Messinger/version-bump-prompt)
 [![Dependencies](https://david-dm.org/James-Messinger/version-bump-prompt.svg)](https://david-dm.org/James-Messinger/version-bump-prompt)
