@@ -5,10 +5,10 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/James-Messinger/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/James-Messinger/version-bump-prompt)
 [![Codacy Score](https://api.codacy.com/project/badge/Grade/69891525ae984781996106144fda276c)](https://www.codacy.com/public/jamesmessinger/version-bump-prompt)
-[![Inline docs](http://inch-ci.org/github/James-Messinger/version-bump-prompt.svg?branch=master&style=shields)](http://inch-ci.org/github/James-Messinger/version-bump-prompt)
+[![Inline docs](https://inch-ci.org/github/James-Messinger/version-bump-prompt.svg?branch=master&style=shields)](https://inch-ci.org/github/James-Messinger/version-bump-prompt)
 [![Dependencies](https://david-dm.org/James-Messinger/version-bump-prompt.svg)](https://david-dm.org/James-Messinger/version-bump-prompt)
 
-[![npm](http://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
+[![npm](https://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](LICENSE)
 
 ![Screenshot](https://jamesmessinger.com/version-bump-prompt/img/screenshot.gif)
