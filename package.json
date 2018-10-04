@@ -48,7 +48,7 @@
     "coveralls": "^3.0.2",
     "del": "^3.0.0",
     "eslint": "^5.6.1",
-    "eslint-config-modular": "^4.2.1",
+    "eslint-config-modular": "^4.2.2",
     "mocha": "^5.2.0",
     "npm-check": "^5.9.0",
     "nyc": "^13.0.1",
