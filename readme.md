@@ -43,7 +43,7 @@ npm install -g version-bump-prompt
 Usage
 --------------------------
 
-```bash
+```
 Usage: bump [options]
 
 Options:
