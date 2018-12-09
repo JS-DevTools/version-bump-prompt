@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-const fs = require('fs');
-const path = require('path');
-const files = require('../files');
+const fs = require("fs");
+const path = require("path");
+const files = require("../files");
 
 // Ensure that the mock binaries are executable
-fs.chmodSync(path.join(__dirname, 'git'), '0777');
-fs.chmodSync(path.join(__dirname, 'npm'), '0777');
+fs.chmodSync(path.join(__dirname, "git"), "0777");
+fs.chmodSync(path.join(__dirname, "npm"), "0777");
 
 // Inject our this directory path into the PATH variable,
 // so that version-bump-prompt runs our mock `git` and `npm` binaries
@@ -21,7 +21,7 @@ const mocks = module.exports = {
    * @returns {object[]}
    */
   git () {
-    return mocks.all().filter(mock => mock.bin === 'git');
+    return mocks.all().filter(mock => mock.bin === "git");
   },
 
   /**
@@ -30,7 +30,7 @@ const mocks = module.exports = {
    * @returns {object[]}
    */
   npm () {
-    return mocks.all().filter(mock => mock.bin === 'npm');
+    return mocks.all().filter(mock => mock.bin === "npm");
   },
 
   /**
@@ -39,7 +39,7 @@ const mocks = module.exports = {
    * @returns {object[]}
    */
   all () {
-    return files.json('mocks.json') || [];
+    return files.json("mocks.json") || [];
   },
 
   /**
@@ -50,21 +50,21 @@ const mocks = module.exports = {
    */
   record (bin, args) {
     // Open the existing file, if any
-    let array = files.json('mocks.json') || [];
+    let array = files.json("mocks.json") || [];
 
     // Add an entry for this execution
     array.push({
       bin,
 
       // Record the command that was executed
-      cmd: bin + ' ' + args.map(quoteArgs).join(' '),
+      cmd: bin + " " + args.map(quoteArgs).join(" "),
 
       // Record the version number at the time that the command was executed
-      version: files.json('package.json').version,
+      version: files.json("package.json").version,
     });
 
     // Save the changes
-    files.create('mocks.json', array);
+    files.create("mocks.json", array);
   },
 };
 
@@ -76,7 +76,7 @@ function getEnvPath () {
   let keys = Object.keys(process.env);
 
   for (let key of keys) {
-    if (key.toUpperCase() === 'PATH') {
+    if (key.toUpperCase() === "PATH") {
       return process.env[key];
     }
   }

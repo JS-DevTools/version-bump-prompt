@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const path = require('path');
-const spawnSync = require('child_process').spawnSync;
+const path = require("path");
+const spawnSync = require("child_process").spawnSync;
 
-const cliPath = path.resolve('bin/bump.js');
+const cliPath = path.resolve("bin/bump.js");
 
 module.exports = { exec };
 
@@ -14,10 +14,10 @@ module.exports = { exec };
  */
 function exec (args) {
   // Run bump
-  args = [cliPath].concat(args.split(' '));
-  let output = spawnSync('node', args, {
-    encoding: 'utf8',
-    cwd: path.resolve('test/.tmp'),
+  args = [cliPath].concat(args.split(" "));
+  let output = spawnSync("node", args, {
+    encoding: "utf8",
+    cwd: path.resolve("test/.tmp"),
   });
 
   // Check for errors
@@ -28,10 +28,10 @@ function exec (args) {
   // Create an array containing each line of output
   output.lines = [];
   if (output.stdout) {
-    output.lines = output.stdout.split('\n');
+    output.lines = output.stdout.split("\n");
 
     let lastLine = output.lines[output.lines.length - 1];
-    if (lastLine === '') {
+    if (lastLine === "") {
       output.lines.pop();
     }
   }

@@ -1,37 +1,37 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-const program = require('commander');
-const SemVer = require('semver');
-const inquirer = require('inquirer');
-const chalk = require('chalk');
-const api = require('../');
+const program = require("commander");
+const SemVer = require("semver");
+const inquirer = require("inquirer");
+const chalk = require("chalk");
+const api = require("../");
 
 program
-  .version(require('../package').version)
-  .option('--major', 'Increase major version')
-  .option('--minor', 'Increase minor version')
-  .option('--patch', 'Increase patch version')
-  .option('--premajor', 'Increase major version, pre-release')
-  .option('--preminor', 'Increase preminor version, pre-release')
-  .option('--prepatch', 'Increase prepatch version, pre-release')
-  .option('--prerelease', 'Increase prerelease version')
-  .option('--prompt', 'Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)')
-  .option('--preid <name>', 'The identifier for prerelease versions (default is "beta")')
-  .option('--commit [message]', 'Commit changed files to Git (default message is "release vX.X.X")')
-  .option('--tag', 'Tag the commit in Git')
-  .option('--push', 'Push the Git commit')
-  .option('--all', 'Commit/tag/push ALL pending files, not just the ones changed by bump')
-  .option('--grep <filespec...>', 'Files and/or globs to do a text-replace of the old version number with the new one')
-  .option('--lock', 'Also update the package-lock.json')
-  .on('--help', () => {
+  .version(require("../package").version)
+  .option("--major", "Increase major version")
+  .option("--minor", "Increase minor version")
+  .option("--patch", "Increase patch version")
+  .option("--premajor", "Increase major version, pre-release")
+  .option("--preminor", "Increase preminor version, pre-release")
+  .option("--prepatch", "Increase prepatch version, pre-release")
+  .option("--prerelease", "Increase prerelease version")
+  .option("--prompt", "Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)")
+  .option("--preid <name>", 'The identifier for prerelease versions (default is "beta")')
+  .option("--commit [message]", 'Commit changed files to Git (default message is "release vX.X.X")')
+  .option("--tag", "Tag the commit in Git")
+  .option("--push", "Push the Git commit")
+  .option("--all", "Commit/tag/push ALL pending files, not just the ones changed by bump")
+  .option("--grep <filespec...>", "Files and/or globs to do a text-replace of the old version number with the new one")
+  .option("--lock", "Also update the package-lock.json")
+  .on("--help", () => {
     console.log(
-      '  Examples:\n' +
-      '\n' +
-      '    $ bump --patch\n' +
-      '    $ bump --major --tag\n' +
-      '    $ bump --patch --tag --all --grep README.md\n' +
-      '    $ bump --prompt --tag --push --all\n'
+      "  Examples:\n" +
+      "\n" +
+      "    $ bump --patch\n" +
+      "    $ bump --major --tag\n" +
+      "    $ bump --patch --tag --all --grep README.md\n" +
+      "    $ bump --prompt --tag --push --all\n"
     );
   })
   .parse(process.argv);
@@ -48,7 +48,7 @@ else {
     options.grep = program.args.concat(options.grep);
   }
 
-  if (typeof options.commit === 'string') {
+  if (typeof options.commit === "string") {
     options.commitMessage = options.commit;
     options.commit = true;
   }
@@ -58,7 +58,7 @@ else {
     .then(() => {
       api.grep(manifests, options);
       manifests.forEach((manifest) => {
-        api.runNpmScriptIfExists(manifest, 'version');
+        api.runNpmScriptIfExists(manifest, "version");
       });
     })
     .then(() => {
@@ -67,7 +67,7 @@ else {
       }
       else {
         manifests.forEach((manifest) => {
-          api.runNpmScriptIfExists(manifest, 'postversion');
+          api.runNpmScriptIfExists(manifest, "postversion");
         });
       }
     })
@@ -87,7 +87,7 @@ else {
 function bumpManifests (manifests, options) {
   let i = 0;
 
-  return bumpNext('patch');
+  return bumpNext("patch");
 
   function bumpNext (defaultBumpType) {
     let manifest = manifests[i++];
@@ -110,37 +110,37 @@ function bumpManifests (manifests, options) {
  */
 function bumpManifest (manifest, defaultBumpType, options) {
   return new Promise((resolve, reject) => {
-    api.runNpmScriptIfExists(manifest, 'preversion');
+    api.runNpmScriptIfExists(manifest, "preversion");
 
     if (options.prompt) {
       // Prompt the user for the type of bump to perform
       let version = api.versionInfo(manifest, options);
-      console.log('\nCurrent version in %s is %s', manifest, version.current);
+      console.log("\nCurrent version in %s is %s", manifest, version.current);
 
       inquirer.prompt([
         {
-          type: 'list',
-          name: 'bumpType',
-          message: 'How would you like to bump it?',
+          type: "list",
+          name: "bumpType",
+          message: "How would you like to bump it?",
           default: defaultBumpType,
           choices: [
-            { value: 'major', name: 'major (' + version.nextMajor + ')' },
-            { value: 'minor', name: 'minor (' + version.nextMinor + ')' },
-            { value: 'patch', name: 'patch (' + version.nextPatch + ')' },
-            { value: 'premajor', name: 'pre-release major (' + version.nextPreMajor + ')' },
-            { value: 'preminor', name: 'pre-release minor (' + version.nextPreMinor + ')' },
-            { value: 'prepatch', name: 'pre-release patch (' + version.nextPrePatch + ')' },
-            { value: 'prerelease', name: 'pre-release (' + version.nextPreRelease + ')' },
+            { value: "major", name: "major (" + version.nextMajor + ")" },
+            { value: "minor", name: "minor (" + version.nextMinor + ")" },
+            { value: "patch", name: "patch (" + version.nextPatch + ")" },
+            { value: "premajor", name: "pre-release major (" + version.nextPreMajor + ")" },
+            { value: "preminor", name: "pre-release minor (" + version.nextPreMinor + ")" },
+            { value: "prepatch", name: "pre-release patch (" + version.nextPrePatch + ")" },
+            { value: "prerelease", name: "pre-release (" + version.nextPreRelease + ")" },
             new inquirer.Separator(),
-            { value: 'custom', name: 'custom...' },
+            { value: "custom", name: "custom..." },
           ]
         },
         {
-          type: 'input',
-          name: 'newVersion',
-          message: 'Enter the new version number:',
+          type: "input",
+          name: "newVersion",
+          message: "Enter the new version number:",
           default: version.current,
-          when: answers => answers.bumpType === 'custom',
+          when: answers => answers.bumpType === "custom",
           filter: SemVer.clean,
           validate: answer => {
             return SemVer.valid(answer) ? true : "That's not a valid version number";
@@ -153,13 +153,13 @@ function bumpManifest (manifest, defaultBumpType, options) {
     }
     else {
       let bumpType =
-            options.major ? 'major'
-              : options.minor ? 'minor'
-                : options.patch ? 'patch'
-                  : options.premajor ? 'premajor'
-                    : options.preminor ? 'preminor'
-                      : options.prepatch ? 'prepatch'
-                        : options.prerelease ? 'prerelease'
+            options.major ? "major"
+              : options.minor ? "minor"
+                : options.patch ? "patch"
+                  : options.premajor ? "premajor"
+                    : options.preminor ? "preminor"
+                      : options.prepatch ? "prepatch"
+                        : options.prerelease ? "prerelease"
                           : defaultBumpType;
 
       bump(bumpType);
