@@ -3,19 +3,19 @@
 # https://docs.travis-ci.com/user/customizing-the-build/
 # https://docs.travis-ci.com/user/migrating-from-legacy/
 
-dist: trusty
-sudo: false
 language: node_js
 
-matrix:
-  include:
-    - node_js: 6
-    - node_js: 8
-    - node_js: 10
+node_js:
+  - 10
+  - 8
+  - 6
 
-script:
-  - npm run lint
-  - npm run coverage
+os:
+  - linux
+  - osx
+  - windows
+
+script: npm run lint && npm run coverage
 
 after_success:
   # send code-coverage data to Coveralls

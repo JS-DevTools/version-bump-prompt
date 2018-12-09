@@ -1,7 +1,7 @@
 # Version-Bump-Prompt
 
-[![Build Status](https://api.travis-ci.org/JS-DevTools/version-bump-prompt.svg?branch=master)](https://travis-ci.org/JS-DevTools/version-bump-prompt)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/JS-DevTools/version-bump-prompt?svg=true&branch=master&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/JamesMessinger/version-bump-prompt/branch/master)
+[![Cross-Platform Compatibility](https://jsdevtools.org/img/os-badges.svg)](https://travis-ci.com/JS-DevTools/version-bump-prompt)
+[![Build Status](https://api.travis-ci.com/JS-DevTools/version-bump-prompt.svg?branch=master)](https://travis-ci.com/JS-DevTools/version-bump-prompt)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/version-bump-prompt)
 [![Dependencies](https://david-dm.org/JS-DevTools/version-bump-prompt.svg)](https://david-dm.org/JS-DevTools/version-bump-prompt)
