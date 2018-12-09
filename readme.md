@@ -4,8 +4,6 @@
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/JS-DevTools/version-bump-prompt?svg=true&branch=master&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/JamesMessinger/version-bump-prompt/branch/master)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/version-bump-prompt)
-[![Codacy Score](https://api.codacy.com/project/badge/Grade/69891525ae984781996106144fda276c)](https://www.codacy.com/public/JamesMessinger/version-bump-prompt)
-[![Inline docs](https://inch-ci.org/github/JS-DevTools/version-bump-prompt.svg?branch=master&style=shields)](https://inch-ci.org/github/JS-DevTools/version-bump-prompt)
 [![Dependencies](https://david-dm.org/JS-DevTools/version-bump-prompt.svg)](https://david-dm.org/JS-DevTools/version-bump-prompt)
 
 [![npm](https://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
