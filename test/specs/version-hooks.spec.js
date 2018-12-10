@@ -12,11 +12,12 @@ chai.should();
 
 describe.only("npm version hooks", () => {
   before("Delete npm.cmd from node_modules on Windows", () => {
+    // https://github.com/istanbuljs/nyc/issues/760
     if (process.platform === "win32") {
       let npmNames = ["npm", "npm.js", "npm.cmd", "npm-cli", "npm-cli.js", "npm-cli.cmd"];
       for (let npmName of npmNames) {
         try {
-          fs.unlinkSync(path.join("node_modules", ".bin", npmName));
+          fs.unlinkSync(path.join("node_modules", "npm", "bin", npmName));
           console.log(`Deleting ${npmName}: SUCCESS`);
         }
         catch (error) {
