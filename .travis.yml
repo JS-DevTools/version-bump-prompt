@@ -7,15 +7,15 @@ language: node_js
 
 node_js:
   - 10
-  # - 8
-  # - 6
+  - 8
+  - 6
 
 os:
-  # - linux
-  # - osx
+  - linux
+  - osx
   - windows
 
-script: npm run coverage
+script: npm run lint && npm run coverage
 
 after_success:
   # send code-coverage data to Coveralls

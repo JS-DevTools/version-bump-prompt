@@ -10,22 +10,12 @@ const chai = require("chai");
 
 chai.should();
 
-describe.only("npm version hooks", () => {
-  before("Delete npm.cmd from node_modules on Windows", () => {
-    // https://github.com/istanbuljs/nyc/issues/760
-    if (process.platform === "win32") {
-      let npmNames = ["npm", "npm.js", "npm.cmd", "npm-cli", "npm-cli.js", "npm-cli.cmd"];
-      for (let npmName of npmNames) {
-        try {
-          fs.unlinkSync(path.join("node_modules", "npm", "bin", npmName));
-          console.log(`Deleting ${npmName}: SUCCESS`);
-        }
-        catch (error) {
-          console.log(`Deleting ${npmName}: ${error.message}`);
-        }
-      }
-    }
-  });
+describe("npm version hooks", () => {
+  if (process.platform === "win32" && process.env.CI) {
+    // Spawning NPM fails on Windows due to a bug in NYC (actually in its dependency, spawn-wrap)
+    // So skip these tests until this bug is fixed: https://github.com/istanbuljs/nyc/issues/760
+    return;
+  }
 
   it("should run the preversion script before updating the version number", () => {
     files.create("package.json", {
