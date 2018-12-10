@@ -1,5 +1,6 @@
 "use strict";
 
+const fs = require("fs");
 const cli = require("../fixtures/cli");
 const mocks = require("../fixtures/mocks");
 const files = require("../fixtures/files");
@@ -9,6 +10,16 @@ const chai = require("chai");
 chai.should();
 
 describe.only("npm version hooks", () => {
+  before("Delete npm.cmd from node_modules on Windows", () => {
+    if (process.platform === "win32") {
+      fs.unlinkSync("node_modules\\.bin\\npm");
+      fs.unlinkSync("node_modules\\.bin\\npm.js");
+      fs.unlinkSync("node_modules\\.bin\\npm.cmd");
+      fs.unlinkSync("node_modules\\.bin\\npm-cli");
+      fs.unlinkSync("node_modules\\.bin\\npm-cli.js");
+      fs.unlinkSync("node_modules\\.bin\\npm-cli.cmd");
+    }
+  });
 
   it("should run the preversion script before updating the version number", () => {
     files.create("package.json", {

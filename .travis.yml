@@ -15,7 +15,7 @@ os:
   # - osx
   - windows
 
-script: npm run test
+script: npm run coverage
 
 after_success:
   # send code-coverage data to Coveralls
