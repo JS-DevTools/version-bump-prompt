@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const spawnSync = require("child_process").spawnSync;
+const spawnSync = require("cross-spawn").sync;
 
 const cliPath = path.resolve("bin/bump.js");
 

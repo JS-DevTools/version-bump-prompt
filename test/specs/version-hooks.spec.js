@@ -8,7 +8,7 @@ const chai = require("chai");
 
 chai.should();
 
-describe("npm version hooks", () => {
+describe.only("npm version hooks", () => {
 
   it("should run the preversion script before updating the version number", () => {
     files.create("package.json", {
