@@ -1,6 +1,7 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const cli = require("../fixtures/cli");
 const mocks = require("../fixtures/mocks");
 const files = require("../fixtures/files");
@@ -12,12 +13,16 @@ chai.should();
 describe.only("npm version hooks", () => {
   before("Delete npm.cmd from node_modules on Windows", () => {
     if (process.platform === "win32") {
-      fs.unlinkSync("node_modules\\.bin\\npm");
-      fs.unlinkSync("node_modules\\.bin\\npm.js");
-      fs.unlinkSync("node_modules\\.bin\\npm.cmd");
-      fs.unlinkSync("node_modules\\.bin\\npm-cli");
-      fs.unlinkSync("node_modules\\.bin\\npm-cli.js");
-      fs.unlinkSync("node_modules\\.bin\\npm-cli.cmd");
+      let npmNames = ["npm", "npm.js", "npm.cmd", "npm-cli", "npm-cli.js", "npm-cli.cmd"];
+      for (let npmName of npmNames) {
+        try {
+          fs.unlinkSync(path.join("node_modules", ".bin", npmName));
+          console.log(`Deleting ${npmName}: SUCCESS`);
+        }
+        catch (error) {
+          console.log(`Deleting ${npmName}: ${error.message}`);
+        }
+      }
     }
   });
 
