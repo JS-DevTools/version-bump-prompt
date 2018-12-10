@@ -15,7 +15,7 @@ os:
   # - osx
   - windows
 
-script: npm run lint && npm run coverage
+script: npm run test
 
 after_success:
   # send code-coverage data to Coveralls
