@@ -1,6 +1,6 @@
 # Version-Bump-Prompt
 
-[![Cross-Platform Compatibility](https://jsdevtools.org/img/os-badges.svg)](https://travis-ci.com/JS-DevTools/version-bump-prompt)
+[![Cross-Platform Compatibility](https://jsdevtools.org/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/version-bump-prompt)
 [![Build Status](https://api.travis-ci.com/JS-DevTools/version-bump-prompt.svg?branch=master)](https://travis-ci.com/JS-DevTools/version-bump-prompt)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/version-bump-prompt)
@@ -85,7 +85,7 @@ Version Scripts
 
 Contributing
 --------------------------
-I welcome any contributions, enhancements, and bug-fixes.  [File an issue](https://github.com/JS-DevTools/version-bump-prompt/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/version-bump-prompt/pulls).
+Contributions, enhancements, and bug-fixes are welcome!  [File an issue](https://github.com/JS-DevTools/version-bump-prompt/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/version-bump-prompt/pulls).
 
 #### Building
 To build the project locally on your computer:
@@ -105,3 +105,12 @@ License
 --------------------------
 Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).
 Both the original project and this fork are licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+
+
+Big Thanks To
+--------------------------
+Thanks to these awesome companies for their support of Open Source developers ❤
+
+[![Travis CI](https://jsdevtools.org/img/badges/travis-ci.svg)](https://travis-ci.com)
+[![SauceLabs](https://jsdevtools.org/img/badges/sauce-labs.svg)](https://saucelabs.com)
+[![Coveralls](https://jsdevtools.org/img/badges/coveralls.svg)](https://coveralls.io)
