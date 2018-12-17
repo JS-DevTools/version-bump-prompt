@@ -39,7 +39,7 @@
     "coverage": "nyc --reporter=text --reporter=lcov mocha",
     "upgrade": "npm-check -u",
     "bump": "node bin/bump.js --prompt --tag --push --all",
-    "release": "npm run upgrade && npm test && npm run bump && npm publish",
+    "release": "npm run upgrade && npm test && npm run bump",
     "semver": "semver"
   },
   "devDependencies": {
