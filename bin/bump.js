@@ -123,6 +123,7 @@ function bumpManifest (manifest, defaultBumpType, options) {
           name: "bumpType",
           message: "How would you like to bump it?",
           default: defaultBumpType,
+          pageSize: 9,
           choices: [
             { value: "major", name: "major (" + version.nextMajor + ")" },
             { value: "minor", name: "minor (" + version.nextMinor + ")" },
