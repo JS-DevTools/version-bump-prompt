@@ -1,28 +1,25 @@
 "use strict";
 
-const cli = require("../fixtures/cli");
 const mocks = require("../fixtures/mocks");
 const files = require("../fixtures/files");
 const check = require("../fixtures/check");
-const chai = require("chai");
-
-chai.should();
+const chaiExec = require("chai-exec");
 
 describe("bump --push", () => {
 
   it("should commit and push to git", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let output = cli.exec("--major --push");
+    let bump = chaiExec("--major --push");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0`,
-      `${check} Git commit`,
-      `${check} Git push`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0\n` +
+      `${check} Git commit\n` +
+      `${check} Git push\n`
+    );
 
     let git = mocks.git();
     git.length.should.equal(2);
@@ -34,16 +31,16 @@ describe("bump --push", () => {
   it("should push all files", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let output = cli.exec("--minor --push --all");
+    let bump = chaiExec("--minor --push --all");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 1.1.0`,
-      `${check} Git commit`,
-      `${check} Git push`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 1.1.0\n` +
+      `${check} Git commit\n` +
+      `${check} Git push\n`
+    );
 
     let git = mocks.git();
     git.length.should.equal(2);
@@ -55,17 +52,17 @@ describe("bump --push", () => {
   it("should push git tags", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let output = cli.exec("--premajor --tag --push");
+    let bump = chaiExec("--premajor --tag --push");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0-beta.0`,
-      `${check} Git commit`,
-      `${check} Git tag`,
-      `${check} Git push`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0-beta.0\n` +
+      `${check} Git commit\n` +
+      `${check} Git tag\n` +
+      `${check} Git push\n`
+    );
 
     let git = mocks.git();
     git.length.should.equal(4);

@@ -1,21 +1,18 @@
 "use strict";
 
-const cli = require("../fixtures/cli");
 const files = require("../fixtures/files");
 const check = require("../fixtures/check");
-const chai = require("chai");
-
-chai.should();
+const chaiExec = require("chai-exec");
 
 describe("bump --lock", () => {
   it("should not increment lock file by default", () => {
     files.create("package-lock.json", { version: "1.0.0" });
 
-    let output = cli.exec("--patch");
+    let bump = chaiExec("--patch");
 
-    output.stderr.should.be.empty;
-    output.stdout.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.stdout.should.be.empty;
+    bump.should.have.exitCode(0);
 
     files.json("package-lock.json").should.deep.equal({ version: "1.0.0" });
   });
@@ -23,14 +20,14 @@ describe("bump --lock", () => {
   it("should increment version when lock option is provided", () => {
     files.create("package-lock.json", { version: "0.0.0" });
 
-    let output = cli.exec("--patch --lock");
+    let bump = chaiExec("--patch --lock");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package-lock.json to 0.0.1`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package-lock.json to 0.0.1\n`
+    );
 
     files.json("package-lock.json").should.deep.equal({ version: "0.0.1" });
   });

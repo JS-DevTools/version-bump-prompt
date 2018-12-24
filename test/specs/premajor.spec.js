@@ -1,22 +1,19 @@
 "use strict";
 
-const cli = require("../fixtures/cli");
 const files = require("../fixtures/files");
 const check = require("../fixtures/check");
-const chai = require("chai");
-
-chai.should();
+const chaiExec = require("chai-exec");
 
 describe("bump --premajor", () => {
   it("should not increment a non-existent version number", () => {
     files.create("package.json", {});
     files.create("bower.json", { name: "my-app" });
 
-    let output = cli.exec("--premajor");
+    let bump = chaiExec("--premajor");
 
-    output.stderr.should.be.empty;
-    output.stdout.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.stdout.should.be.empty;
+    bump.should.have.exitCode(0);
 
     files.json("package.json").should.deep.equal({});
     files.json("bower.json").should.deep.equal({ name: "my-app" });
@@ -27,16 +24,16 @@ describe("bump --premajor", () => {
     files.create("bower.json", { version: null });
     files.create("component.json", { version: 0 });
 
-    let output = cli.exec("--premajor");
+    let bump = chaiExec("--premajor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 1.0.0-beta.0`,
-      `${check} Updated bower.json to 1.0.0-beta.0`,
-      `${check} Updated component.json to 1.0.0-beta.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 1.0.0-beta.0\n` +
+      `${check} Updated bower.json to 1.0.0-beta.0\n` +
+      `${check} Updated component.json to 1.0.0-beta.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "1.0.0-beta.0" });
     files.json("bower.json").should.deep.equal({ version: "1.0.0-beta.0" });
@@ -46,14 +43,14 @@ describe("bump --premajor", () => {
   it("should increment an all-zero version number", () => {
     files.create("package.json", { version: "0.0.0" });
 
-    let output = cli.exec("--premajor");
+    let bump = chaiExec("--premajor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 1.0.0-beta.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 1.0.0-beta.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "1.0.0-beta.0" });
   });
@@ -61,14 +58,14 @@ describe("bump --premajor", () => {
   it("should reset the minor and patch", () => {
     files.create("package.json", { version: "1.2.3" });
 
-    let output = cli.exec("--premajor");
+    let bump = chaiExec("--premajor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0-beta.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0-beta.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "2.0.0-beta.0" });
   });
@@ -76,14 +73,14 @@ describe("bump --premajor", () => {
   it("should reset the prerelease version", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let output = cli.exec("--premajor");
+    let bump = chaiExec("--premajor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0-beta.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0-beta.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "2.0.0-beta.0" });
   });
@@ -91,14 +88,14 @@ describe("bump --premajor", () => {
   it("should honor the --preid flag", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let output = cli.exec("--premajor --preid alpha");
+    let bump = chaiExec("--premajor --preid alpha");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0-alpha.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0-alpha.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "2.0.0-alpha.0" });
   });

@@ -1,12 +1,9 @@
 "use strict";
 
-const cli = require("../fixtures/cli");
 const mocks = require("../fixtures/mocks");
 const files = require("../fixtures/files");
 const check = require("../fixtures/check");
-const chai = require("chai");
-
-chai.should();
+const chaiExec = require("chai-exec");
 
 describe("npm version hooks", () => {
   if (process.platform === "win32" && process.env.CI) {
@@ -23,14 +20,14 @@ describe("npm version hooks", () => {
       },
     });
 
-    let output = cli.exec("--major");
+    let bump = chaiExec("--major");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0\n`
+    );
 
     let npm = mocks.npm();
     npm.length.should.equal(1);
@@ -47,14 +44,14 @@ describe("npm version hooks", () => {
       },
     });
 
-    let output = cli.exec("--major");
+    let bump = chaiExec("--major");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0\n`
+    );
 
     let npm = mocks.npm();
     npm.length.should.equal(1);
@@ -71,14 +68,14 @@ describe("npm version hooks", () => {
       },
     });
 
-    let output = cli.exec("--major");
+    let bump = chaiExec("--major");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0\n`
+    );
 
     let npm = mocks.npm();
     npm.length.should.equal(1);
@@ -97,17 +94,17 @@ describe("npm version hooks", () => {
       },
     });
 
-    let output = cli.exec("--major --commit --tag --push");
+    let bump = chaiExec("--major --commit --tag --push");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 2.0.0`,
-      `${check} Git commit`,
-      `${check} Git tag`,
-      `${check} Git push`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 2.0.0\n` +
+      `${check} Git commit\n` +
+      `${check} Git tag\n` +
+      `${check} Git push\n`
+    );
 
     let bin = mocks.all();
     bin.length.should.equal(7);

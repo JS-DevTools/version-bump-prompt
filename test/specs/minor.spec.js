@@ -1,22 +1,19 @@
 "use strict";
 
-const cli = require("../fixtures/cli");
 const files = require("../fixtures/files");
 const check = require("../fixtures/check");
-const chai = require("chai");
-
-chai.should();
+const chaiExec = require("chai-exec");
 
 describe("bump --minor", () => {
   it("should not increment a non-existent version number", () => {
     files.create("package.json", {});
     files.create("bower.json", { name: "my-app" });
 
-    let output = cli.exec("--minor");
+    let bump = chaiExec("--minor");
 
-    output.stderr.should.be.empty;
-    output.stdout.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.stdout.should.be.empty;
+    bump.should.have.exitCode(0);
 
     files.json("package.json").should.deep.equal({});
     files.json("bower.json").should.deep.equal({ name: "my-app" });
@@ -27,16 +24,16 @@ describe("bump --minor", () => {
     files.create("bower.json", { version: null });
     files.create("component.json", { version: 0 });
 
-    let output = cli.exec("--minor");
+    let bump = chaiExec("--minor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 0.1.0`,
-      `${check} Updated bower.json to 0.1.0`,
-      `${check} Updated component.json to 0.1.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 0.1.0\n` +
+      `${check} Updated bower.json to 0.1.0\n` +
+      `${check} Updated component.json to 0.1.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "0.1.0" });
     files.json("bower.json").should.deep.equal({ version: "0.1.0" });
@@ -46,14 +43,14 @@ describe("bump --minor", () => {
   it("should increment an all-zero version number", () => {
     files.create("package.json", { version: "0.0.0" });
 
-    let output = cli.exec("--minor");
+    let bump = chaiExec("--minor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 0.1.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 0.1.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "0.1.0" });
   });
@@ -61,14 +58,14 @@ describe("bump --minor", () => {
   it("should reset the patch", () => {
     files.create("package.json", { version: "1.2.3" });
 
-    let output = cli.exec("--minor");
+    let bump = chaiExec("--minor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 1.3.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 1.3.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "1.3.0" });
   });
@@ -76,14 +73,14 @@ describe("bump --minor", () => {
   it("should reset the prerelease version", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let output = cli.exec("--minor");
+    let bump = chaiExec("--minor");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 1.3.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 1.3.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "1.3.0" });
   });
@@ -91,14 +88,14 @@ describe("bump --minor", () => {
   it("should not be affected by the --preid flag", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let output = cli.exec("--minor --preid alpha");
+    let bump = chaiExec("--minor --preid alpha");
 
-    output.stderr.should.be.empty;
-    output.status.should.equal(0);
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
 
-    output.lines.should.deep.equal([
-      `${check} Updated package.json to 1.3.0`,
-    ]);
+    bump.should.have.stdout(
+      `${check} Updated package.json to 1.3.0\n`
+    );
 
     files.json("package.json").should.deep.equal({ version: "1.3.0" });
   });
