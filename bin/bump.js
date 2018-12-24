@@ -26,7 +26,7 @@ program
   .option("--lock", "Also update the package-lock.json")
   .on("--help", () => {
     console.log(
-      "  Examples:\n" +
+      "\n  Examples:\n" +
       "\n" +
       "    $ bump --patch\n" +
       "    $ bump --major --tag\n" +
