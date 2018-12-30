@@ -29,20 +29,29 @@
     "url": "https://github.com/JS-DevTools/version-bump-prompt.git"
   },
   "main": "lib/index.js",
+  "bin": {
+    "bump": "bin/bump.js"
+  },
   "files": [
     "bin",
     "lib"
   ],
   "scripts": {
-    "lint": "eslint bin lib test",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "lint": "npm run lint:typescript && npm run lint:javascript",
+    "lint:typescript": "tslint -p tsconfig.json",
+    "lint:javascript": "eslint test",
     "test": "mocha && npm run lint",
     "coverage": "nyc --reporter=text --reporter=lcov mocha",
     "upgrade": "npm-check -u",
-    "bump": "node bin/bump.js --prompt --tag --push --all",
-    "release": "npm run upgrade && npm test && npm run bump",
-    "semver": "semver"
+    "bump": "node bin/bump.js --tag --push --all",
+    "release": "npm run upgrade && npm run build && npm test && npm run bump"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.18",
     "chai": "^4.2.0",
     "chai-exec": "^1.1.1",
     "coveralls": "^3.0.2",
@@ -52,7 +61,11 @@
     "mocha": "^5.2.0",
     "npm-check": "^5.9.0",
     "nyc": "^13.1.0",
-    "strip-ansi": "^5.0.0"
+    "strip-ansi": "^5.0.0",
+    "tslint": "^5.12.0",
+    "tslint-modular": "^1.0.0",
+    "typescript": "^3.2.2",
+    "typescript-tslint-plugin": "^0.2.1"
   },
   "dependencies": {
     "chalk": "^2.4.1",
@@ -63,9 +76,6 @@
     "inquirer": "^6.2.1",
     "log-symbols": "^2.2.0",
     "semver": "^5.6.0"
-  },
-  "bin": {
-    "bump": "bin/bump.js"
   },
   "engines": {
     "node": ">=6"

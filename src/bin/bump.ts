@@ -1,81 +1,121 @@
 #!/usr/bin/env node
 "use strict";
 
-const program = require("commander");
-const SemVer = require("semver");
+const cli = require("commander");
+const semver = require("semver");
 const inquirer = require("inquirer");
 const chalk = require("chalk");
 const api = require("../");
 
-program
-  .version(require("../package").version)
-  .option("--major", "Increase major version")
-  .option("--minor", "Increase minor version")
-  .option("--patch", "Increase patch version")
-  .option("--premajor", "Increase major version, pre-release")
-  .option("--preminor", "Increase preminor version, pre-release")
-  .option("--prepatch", "Increase prepatch version, pre-release")
-  .option("--prerelease", "Increase prerelease version")
-  .option("--prompt", "Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)")
+cli
+  .arguments("[version] [files...]")
   .option("--preid <name>", 'The identifier for prerelease versions (default is "beta")')
   .option("--commit [message]", 'Commit changed files to Git (default message is "release vX.X.X")')
   .option("--tag", "Tag the commit in Git")
   .option("--push", "Push the Git commit")
   .option("--all", "Commit/tag/push ALL pending files, not just the ones changed by bump")
-  .option("--grep <filespec...>", "Files and/or globs to do a text-replace of the old version number with the new one")
-  .option("--lock", "Also update the package-lock.json")
+  .version(require("../package").version)
   .on("--help", () => {
-    console.log(
-      "\n  Examples:\n" +
-      "\n" +
-      "    $ bump --patch\n" +
-      "    $ bump --major --tag\n" +
-      "    $ bump --patch --tag --all --grep README.md\n" +
-      "    $ bump --prompt --tag --push --all\n"
+    console.log(`
+
+Version
+  One of the following:
+    - A semver version number (ex: 1.23.456)
+    - prompt: Prompt for the version number (this is the default)
+    - major: Increase major version
+    - minor: Increase minor version
+    - patch: Increase patch version
+    - premajor: Increase major version, pre-release
+    - preminor: Increase preminor version, pre-release
+    - prepatch: Increase prepatch version, pre-release
+    - prerelease: Increase prerelease version
+
+Files...
+  One or more files and/or globs to bump (ex: README.md *.txt).
+  package.json and package-lock.json are always updated.
+
+Examples:
+
+  bump patch
+
+    Bumps the patch version number in package.json and package-lock.json.
+    Nothing is committed to git.
+
+  bump --commit major
+
+    Bumps the major version number in package.json and package-lock.json.
+    Commits the package.json and package-lock.json to git, but does not tag the commit.
+
+  bump --tag --push --all README.md
+
+    Prompts for the new version number and updates package.json, package-lock.json, and README.md.
+    Commits ALL modified files to git, tags the commit, and pushes the commit.
+
+  bump --tag --push 4.27.9934 bower.json docs/**/*.md
+
+    Sets the version number to 4.27.9934 in package.json, package-lock.json, bower.json,
+    and all markdown files in the "docs" directory.  Commits the updated files to git,
+    tags the commit, and pushes the commit.
+`
     );
   })
   .parse(process.argv);
 
-// Show help if no options were given
-if (program.rawArgs.length < 3) {
-  program.help();
+// Convert CLI args to an Options object
+let options = {
+  version: "prompt",
+  preid: cli.preid || "beta",
+  commit: !!cli.commit,
+  commitMessage: "",
+  tag: !!cli.tag,
+  push: !!cli.push,
+  all: !!cli.all,
+  files: ["package.json", "package-lock.json"],
+};
+
+if (typeof cli.commit === "string") {
+  options.commitMessage = cli.commit;
 }
-else {
-  let options = program;
 
-  if (options.grep && program.args) {
-    // If multiple --grep files are specified, then they are parsed as separate args
-    options.grep = program.args.concat(options.grep);
+if (cli.args.length > 0) {
+  let firstArg = cli.args[0];
+  let bumps = ["prompt", "major", "minor", "patch", "premajor", "preminor", "prepatch", "prerelease"];
+
+  if (semver.valid(firstArg) || bumps.includes(firstArg)) {
+    options.version = firstArg;
+    cli.args.shift();
   }
 
-  if (typeof options.commit === "string") {
-    options.commitMessage = options.commit;
-    options.commit = true;
-  }
+  options.files.push(...cli.args);
+}
 
-  let manifests = api.manifests(options.lock);
-  bumpManifests(manifests, options)
-    .then(() => {
-      api.grep(manifests, options);
-      manifests.forEach((manifest) => {
-        api.runNpmScriptIfExists(manifest, "version");
-      });
-    })
-    .then(() => {
-      if (options.commit || options.tag || options.push) {
-        api.git(manifests, options);
-      }
-      else {
-        manifests.forEach((manifest) => {
-          api.runNpmScriptIfExists(manifest, "postversion");
-        });
-      }
-    })
-    .catch((err) => {
-      console.error(chalk.red(err.message));
-      process.exit(err.status || 1);
+console.log(options);
+process.exit(0);
+
+
+let manifests = api.manifests(options.lock);
+bumpManifests(manifests, options)
+  .then(() => {
+    api.grep(manifests, options);
+    manifests.forEach((manifest) => {
+      api.runNpmScriptIfExists(manifest, "version");
     });
-}
+  })
+  .then(() => {
+    if (options.commit || options.tag || options.push) {
+      api.git(manifests, options);
+    }
+    else {
+      manifests.forEach((manifest) => {
+        api.runNpmScriptIfExists(manifest, "postversion");
+      });
+    }
+  })
+  .catch((err) => {
+    console.error(chalk.red(err.message));
+    process.exit(err.status || 1);
+  });
+
 
 /**
  * Bumps each manifest sequentially
@@ -142,9 +182,9 @@ function bumpManifest (manifest, defaultBumpType, options) {
           message: "Enter the new version number:",
           default: version.current,
           when: answers => answers.bumpType === "custom",
-          filter: SemVer.clean,
+          filter: semver.clean,
           validate: answer => {
-            return SemVer.valid(answer) ? true : "That's not a valid version number";
+            return semver.valid(answer) ? true : "That's not a valid version number";
           },
         }
       ])
