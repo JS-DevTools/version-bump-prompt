@@ -31,7 +31,7 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
 
   let options = new Options(arg);
 
-  console.log(options);
+  console.log("\n\n", options);
   process.exit(0);
 
   return {
