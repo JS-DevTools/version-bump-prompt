@@ -1,3 +1,5 @@
+import { getNewVersion } from "./get-new-version";
+import { getOldVersion } from "./get-old-version";
 import { Options } from "./options";
 import { VersionBumpOptions } from "./version-bump-options";
 import { VersionBumpResults } from "./version-bump-results";
@@ -30,13 +32,12 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   }
 
   let options = new Options(arg);
-
-  console.log("\n\n", options);
-  process.exit(0);
+  let oldVersion = await getOldVersion(options.files);
+  let newVersion = await getNewVersion(oldVersion, options.version, options.preid);
 
   return {
-    oldVersion: "1.2.3",
-    newVersion: "1.2.3",
+    oldVersion,
+    newVersion,
     commit: options.commitMessage || false,
     tag: options.tagName || false,
     files: options.files,
