@@ -1,4 +1,5 @@
 import { VersionBumpOptions } from "./version-bump-options";
+import { VersionBumpType } from "./version-bump-type";
 
 /**
  * Normalized and sanitized options
@@ -15,11 +16,10 @@ export class Options {
   public files: string[];
 
   public constructor(props: VersionBumpOptions) {
-    this.version = props.version || "prompt";
+    this.version = props.version || VersionBumpType.Prompt;
     this.preid = props.preid || "beta";
     this.push = Boolean(props.push);
     this.all = Boolean(props.all);
-    this.files = Array.isArray(props.files) ? props.files : ["package.json", "package-lock.json"];
 
     if (typeof props.tag === "string") {
       this.tag = true;
@@ -43,6 +43,13 @@ export class Options {
     }
     else {
       this.commit = false;
+    }
+
+    if (Array.isArray(props.files) && props.files.length > 0) {
+      this.files = props.files.slice();
+    }
+    else {
+      this.files = ["package.json", "package-lock.json"];
     }
   }
 }
