@@ -8,7 +8,7 @@ const files = require("../files");
 fs.chmodSync(path.join(__dirname, "git"), "0777");
 fs.chmodSync(path.join(__dirname, "npm"), "0777");
 
-// Inject our this directory path into the PATH variable,
+// Inject our mocks directory path into the PATH variable,
 // so that version-bump-prompt runs our mock `git` and `npm` binaries
 // instead of the real ones.
 let otherPaths = getEnvPath();
