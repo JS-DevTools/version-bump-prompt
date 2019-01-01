@@ -8,9 +8,9 @@ export class Options {
   public version: string;
   public preid: string;
   public commit: boolean;
-  public commitMessage?: string;
+  public commitMessage: string;
   public tag: boolean;
-  public tagName?: string;
+  public tagName: string;
   public push: boolean;
   public all: boolean;
   public files: string[];
@@ -31,6 +31,7 @@ export class Options {
     }
     else {
       this.tag = false;
+      this.tagName = "";
     }
 
     if (typeof props.commit === "string") {
@@ -43,6 +44,7 @@ export class Options {
     }
     else {
       this.commit = false;
+      this.commitMessage = "";
     }
 
     if (Array.isArray(props.files) && props.files.length > 0) {

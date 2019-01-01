@@ -13,16 +13,18 @@ export interface VersionBumpResults {
   newVersion: string;
 
   /**
-   * The commit message that was used for the git commit.
-   * If no git commit was created, then this is `undefined`.
+   * The commit message that was used for the git commit, or `false` if no git commit was created.
+   *
+   * NOTE: This will never be an empty string.  It will always contain at least the new version number.
    */
-  commitMessage?: string;
+  commit: string | false;
 
   /**
-   * The tag name that was used for the git tag.
-   * If no tag was created, then this is `undefined`.
+   * The tag name that was used for the git tag, or `false` if no git tag was created.
+   *
+   * NOTE: This will never be an empty string.  It will always contain at least the new version number.
    */
-  tagName?: string;
+  tag: string | false;
 
   /**
    * The files that were updated.

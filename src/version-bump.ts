@@ -37,6 +37,8 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   return {
     oldVersion: "1.2.3",
     newVersion: "1.2.3",
+    commit: options.commitMessage || false,
+    tag: options.tagName || false,
     files: options.files,
   };
 }
