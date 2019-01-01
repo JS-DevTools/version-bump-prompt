@@ -5,7 +5,7 @@ const manifest = require("../../package.json") as Manifest;
 // Don't use the npm package name ("version-bump-prompt").
 // Use the name of the binary ("bump") instead.
 let name = Object.keys(manifest.bin)[0];
-const alteredManifest: Manifest = Object.assign({}, manifest, { name });
+const alteredManifest: Manifest = { ...manifest, name };
 export { alteredManifest as manifest };
 
 /**
