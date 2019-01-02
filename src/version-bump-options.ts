@@ -1,3 +1,5 @@
+import { ReadLineOptions } from "readline";
+
 /**
  * Options for the `versionBump()` function.
  */
@@ -65,4 +67,12 @@ export interface VersionBumpOptions {
    * Defaults to `process.cwd()`
    */
   cwd?: string;
+
+  /**
+   * Options for the command-line interface. This object is passed to `readline.createInterface()`.
+   *
+   * The `input` property defaults to `process.stdin`.
+   * The `output` property defaults to `process.stdout`.
+   */
+  interface?: Partial<ReadLineOptions>;
 }

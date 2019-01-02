@@ -1,3 +1,4 @@
+import { ReadLineOptions } from "readline";
 import { VersionBumpOptions } from "./version-bump-options";
 import { VersionBumpType } from "./version-bump-type";
 
@@ -15,19 +16,27 @@ export class Options {
   public all: boolean;
   public files: string[];
   public cwd: string;
+  public interface: ReadLineOptions;
 
   public constructor(props: VersionBumpOptions) {
-    this.version = props.version || VersionBumpType.Prompt;
-    this.preid = typeof props.preid === "string" ? props.preid : "beta";
-    this.push = Boolean(props.push);
-    this.all = Boolean(props.all);
-    this.cwd = props.cwd || process.cwd();
+    let { version, preid, commit, tag, push, all, files, cwd } = props;
 
-    if (typeof props.tag === "string") {
+    this.version = version || VersionBumpType.Prompt;
+    this.preid = typeof preid === "string" ? preid : "beta";
+    this.push = Boolean(push);
+    this.all = Boolean(all);
+    this.cwd = cwd || process.cwd();
+    this.interface = {
+      input: process.stdin,
+      output: process.stdout,
+      ...props.interface,
+    };
+
+    if (typeof tag === "string") {
       this.tag = true;
-      this.tagName = props.tag;
+      this.tagName = tag;
     }
-    else if (props.tag) {
+    else if (tag) {
       this.tag = true;
       this.tagName = "v";
     }
@@ -36,11 +45,11 @@ export class Options {
       this.tagName = "";
     }
 
-    if (typeof props.commit === "string") {
+    if (typeof commit === "string") {
       this.commit = true;
-      this.commitMessage = props.commit;
+      this.commitMessage = commit;
     }
-    else if (props.commit || this.tag || this.push) {
+    else if (commit || this.tag || this.push) {
       this.commit = true;
       this.commitMessage = "release v";
     }
@@ -49,8 +58,8 @@ export class Options {
       this.commitMessage = "";
     }
 
-    if (Array.isArray(props.files) && props.files.length > 0) {
-      this.files = props.files.slice();
+    if (Array.isArray(files) && files.length > 0) {
+      this.files = files.slice();
     }
     else {
       this.files = ["package.json", "package-lock.json"];
