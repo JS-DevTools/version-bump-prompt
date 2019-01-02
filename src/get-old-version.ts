@@ -2,15 +2,13 @@ import * as path from "path";
 import * as semver from "semver";
 import { Manifest } from "./cli/manifest";
 import { readJsonFile } from "./fs";
+import { Options } from "./options";
 
 /**
  * Returns the current version number from files such as package.json.
  * An error is thrown if no version number can be found.
- *
- * @param files - The files to check for a version number
- * @param cwd - The directory used to resolve relative file paths
  */
-export async function getOldVersion(files: string[], cwd: string): Promise<string> {
+export async function getOldVersion({ files, cwd }: Options): Promise<string> {
   // Check all JSON files in the files list
   let filesToCheck = files.filter((file) => file.endsWith(".json"));
 
