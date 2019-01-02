@@ -1,3 +1,4 @@
+import { ReleaseType } from "semver";
 import { getNewVersion } from "./get-new-version";
 import { getOldVersion } from "./get-old-version";
 import { Options } from "./options";
@@ -14,11 +15,14 @@ export async function versionBump(): Promise<VersionBumpResults>;
 /**
  * Bumps the version number in package.json, package-lock.json.
  *
- * @param version
- * The new version number, or a bump type, such as "major", "minor", "patch", etc.
- * Use "prompt" to prompt the user for the version number.
+ * @param release
+ * The release version or type. Can be one of the following:
+ *
+ * - The new version number (e.g. "1.23.456")
+ * - A release type (e.g. "major", "minor", "patch", "prerelease", etc.)
+ * - "prompt" to prompt the user for the version number
  */
-export async function versionBump(version: string): Promise<VersionBumpResults>;
+export async function versionBump(release: string): Promise<VersionBumpResults>;
 
 /**
  * Bumps the version number in one or more files, prompting the user if necessary.
@@ -28,18 +32,27 @@ export async function versionBump(options: VersionBumpOptions): Promise<VersionB
 
 export async function versionBump(arg: VersionBumpOptions | string = {}): Promise<VersionBumpResults> {
   if (typeof arg === "string") {
-    arg = { version: arg };
+    arg = { release: arg };
   }
 
   let options = new Options(arg);
-  let oldVersion = await getOldVersion(options.files);
-  let newVersion = await getNewVersion(oldVersion, options.version, options.preid);
+  let oldVersion = await getOldVersion(options);
+  let newVersion = await getNewVersion({ ...options, oldVersion });
+
+  if (options.commit) {
+    options.commit.message += newVersion;
+  }
+
+  if (options.tag) {
+    options.tag.name += newVersion;
+  }
 
   return {
+    release: typeof options.release === "string" ? options.release as ReleaseType : undefined,
     oldVersion,
     newVersion,
-    commit: options.commitMessage || false,
-    tag: options.tagName || false,
+    commit: options.commit ? options.commit.message : false,
+    tag: options.tag ? options.tag.name : false,
     files: options.files,
   };
 }

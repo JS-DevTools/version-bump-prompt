@@ -4,12 +4,12 @@ import { manifest } from "./manifest";
  * The CLI help text
  */
 export const helpText = `
-Usage: ${manifest.name} [version] [options] [files...]
+Usage: ${manifest.name} [release] [options] [files...]
 
 ${manifest.description}
 
-version
-  One of the following:
+release:
+  The release version or type.  Can be one of the following:
    - A semver version number (ex: 1.23.456)
    - prompt: Prompt for the version number (this is the default)
    - major: Increase major version

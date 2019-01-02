@@ -1,7 +1,7 @@
 import * as commandLineArgs from "command-line-args";
 import * as semver from "semver";
+import { isReleaseType } from "../release-type";
 import { VersionBumpOptions } from "../version-bump-options";
-import { isVersionBumpType } from "../version-bump-type";
 
 /**
  * The parsed command-line arguments
@@ -59,12 +59,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
     parsedArgs.options.tag = true;
   }
 
-  // If a version number or bump type was specified, then it will mistakenly be added to the "files" array
+  // If a version number or release type was specified, then it will mistakenly be added to the "files" array
   if (parsedArgs.options.files && parsedArgs.options.files.length > 0) {
     let firstArg = parsedArgs.options.files[0];
 
-    if (isVersionBumpType(firstArg) || semver.valid(firstArg)) {
-      parsedArgs.options.version = firstArg;
+    if (firstArg === "prompt" || isReleaseType(firstArg) || semver.valid(firstArg)) {
+      parsedArgs.options.release = firstArg;
       parsedArgs.options.files.shift();
     }
   }

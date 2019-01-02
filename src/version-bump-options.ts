@@ -5,13 +5,15 @@ import { ReadLineOptions } from "readline";
  */
 export interface VersionBumpOptions {
   /**
-   * The new version number (e.g. "1.23.456") or the type of version bump to perform
-   * (e.g. "major", "minor", "patch", "prerelease", etc.).  Use "prompt" to prompt the
-   * user for the version number.
+   * The release version or type. Can be one of the following:
+   *
+   * - The new version number (e.g. "1.23.456")
+   * - A release type (e.g. "major", "minor", "patch", "prerelease", etc.)
+   * - "prompt" to prompt the user for the version number
    *
    * Defaults to "prompt".
    */
-  version?: string;
+  release?: string;
 
   /**
    * The prerelease type (e.g. "alpha", "beta", "next").

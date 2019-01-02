@@ -1,7 +1,14 @@
+import { ReleaseType } from "./release-type";
+
 /**
  * Information about the work that was performed by the `versionBump()` function.
  */
 export interface VersionBumpResults {
+  /**
+   * The release type that was used, or `undefined` if an explicit version number was used.
+   */
+  release?: ReleaseType;
+
   /**
    * The previous version number in package.json.
    */

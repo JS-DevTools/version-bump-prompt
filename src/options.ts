@@ -1,27 +1,33 @@
 import { ReadLineOptions } from "readline";
+import { isReleaseType, ReleaseType } from "./release-type";
 import { VersionBumpOptions } from "./version-bump-options";
-import { VersionBumpType } from "./version-bump-type";
+
+interface Interface extends ReadLineOptions {
+  output: NodeJS.WritableStream;
+}
 
 /**
  * Normalized and sanitized options
  */
 export class Options {
-  public version: string;
+  public release: "prompt" | ReleaseType | { version: string };
   public preid: string;
-  public commit: boolean;
-  public commitMessage: string;
-  public tag: boolean;
-  public tagName: string;
+  public commit?: {
+    message: string;
+  };
+  public tag?: {
+    name: string;
+  };
   public push: boolean;
   public all: boolean;
   public files: string[];
   public cwd: string;
-  public interface: ReadLineOptions;
+  public interface: Interface;
 
   public constructor(props: VersionBumpOptions) {
-    let { version, preid, commit, tag, push, all, files, cwd } = props;
+    let { release, preid, commit, tag, push, all, files, cwd } = props;
 
-    this.version = version || VersionBumpType.Prompt;
+    // Set the simple properties first
     this.preid = typeof preid === "string" ? preid : "beta";
     this.push = Boolean(push);
     this.all = Boolean(all);
@@ -32,32 +38,34 @@ export class Options {
       ...props.interface,
     };
 
+    // release
+    if (!release || release === "prompt") {
+      this.release = "prompt";
+    }
+    else if (isReleaseType(release)) {
+      this.release = release;
+    }
+    else {
+      this.release = { version: release };
+    }
+
+    // tag
     if (typeof tag === "string") {
-      this.tag = true;
-      this.tagName = tag;
+      this.tag = { name: tag };
     }
     else if (tag) {
-      this.tag = true;
-      this.tagName = "v";
-    }
-    else {
-      this.tag = false;
-      this.tagName = "";
+      this.tag = { name: "v" };
     }
 
+    // commit  - This must come AFTER tag, because it relies on it
     if (typeof commit === "string") {
-      this.commit = true;
-      this.commitMessage = commit;
+      this.commit = { message: commit };
     }
     else if (commit || this.tag || this.push) {
-      this.commit = true;
-      this.commitMessage = "release v";
-    }
-    else {
-      this.commit = false;
-      this.commitMessage = "";
+      this.commit = { message: "release v" };
     }
 
+    // files
     if (Array.isArray(files) && files.length > 0) {
       this.files = files.slice();
     }
