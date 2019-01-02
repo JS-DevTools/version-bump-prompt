@@ -1,3 +1,4 @@
+import * as path from "path";
 import * as semver from "semver";
 import { Manifest } from "./cli/manifest";
 import { readJsonFile } from "./fs";
@@ -7,8 +8,9 @@ import { readJsonFile } from "./fs";
  * An error is thrown if no version number can be found.
  *
  * @param files - The files to check for a version number
+ * @param cwd - The directory used to resolve relative file paths
  */
-export async function getOldVersion(files: string[]): Promise<string> {
+export async function getOldVersion(files: string[], cwd: string): Promise<string> {
   // Check all JSON files in the files list
   let filesToCheck = files.filter((file) => file.endsWith(".json"));
 
@@ -19,7 +21,9 @@ export async function getOldVersion(files: string[]): Promise<string> {
 
   // Check each file, in order, and return the first valid version number we find
   for (let file of filesToCheck) {
+    file = path.join(cwd, file);
     let version = await readVersion(file);
+
     if (version) {
       return version;
     }

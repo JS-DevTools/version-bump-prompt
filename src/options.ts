@@ -14,12 +14,14 @@ export class Options {
   public push: boolean;
   public all: boolean;
   public files: string[];
+  public cwd: string;
 
   public constructor(props: VersionBumpOptions) {
     this.version = props.version || VersionBumpType.Prompt;
-    this.preid = props.preid || "beta";
+    this.preid = typeof props.preid === "string" ? props.preid : "beta";
     this.push = Boolean(props.push);
     this.all = Boolean(props.all);
+    this.cwd = props.cwd || process.cwd();
 
     if (typeof props.tag === "string") {
       this.tag = true;

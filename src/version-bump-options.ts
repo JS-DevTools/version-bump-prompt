@@ -58,4 +58,11 @@ export interface VersionBumpOptions {
    * Defaults to ["package.json", "package-lock.json"]
    */
   files?: string[];
+
+  /**
+   * The working directory, which is used as the basis for locating all files.
+   *
+   * Defaults to `process.cwd()`
+   */
+  cwd?: string;
 }
