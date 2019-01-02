@@ -1,4 +1,3 @@
-import { ReleaseType } from "semver";
 import { getNewVersion } from "./get-new-version";
 import { getOldVersion } from "./get-old-version";
 import { Options } from "./options";
@@ -37,7 +36,7 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
 
   let options = new Options(arg);
   let oldVersion = await getOldVersion(options);
-  let newVersion = await getNewVersion({ ...options, oldVersion });
+  let [newVersion, release] = await getNewVersion({ ...options, oldVersion });
 
   if (options.commit) {
     options.commit.message += newVersion;
@@ -48,7 +47,7 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   }
 
   return {
-    release: typeof options.release === "string" ? options.release as ReleaseType : undefined,
+    release,
     oldVersion,
     newVersion,
     commit: options.commit ? options.commit.message : false,
