@@ -24,7 +24,7 @@ export interface Manifest {
 /**
  * Determines whether the specified object is a package manifest.
  */
-export function isManifest (obj: any): obj is Manifest {
+export function isManifest(obj: any): obj is Manifest {
   return obj &&
     typeof obj === "object" &&
     typeof obj.version === "string";
