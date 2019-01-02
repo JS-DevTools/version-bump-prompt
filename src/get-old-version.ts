@@ -1,6 +1,6 @@
 import * as semver from "semver";
-import { Manifest } from "./cli/manifest";
 import { readJsonFile } from "./fs";
+import { isManifest } from "./manifest";
 import { Options } from "./options";
 
 /**
@@ -38,10 +38,9 @@ export async function getOldVersion({ files, cwd }: Options): Promise<string> {
  */
 async function readVersion(file: string, cwd: string): Promise<string | undefined> {
   try {
-    let { data } = await readJsonFile(file, cwd);
+    let { data: manifest } = await readJsonFile(file, cwd);
 
-    if (typeof data === "object" && data !== null && "version" in data) {
-      let manifest = data as Manifest;
+    if (isManifest(manifest)) {
       if (semver.valid(manifest.version)) {
         return manifest.version;
       }

@@ -1,4 +1,4 @@
-import { manifest } from "./manifest";
+import { manifest } from "../manifest";
 
 /**
  * The CLI help text

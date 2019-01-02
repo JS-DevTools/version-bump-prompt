@@ -1,8 +1,8 @@
 // tslint:disable: no-console
+import { manifest } from "../manifest";
 import { versionBump } from "../version-bump";
 import { VersionBumpOptions } from "../version-bump-options";
 import { helpText } from "./help";
-import { manifest } from "./manifest";
 import { parseArgs } from "./parse-args";
 
 enum ExitCode {
