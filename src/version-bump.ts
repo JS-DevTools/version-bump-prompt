@@ -1,6 +1,7 @@
 import { getNewVersion } from "./get-new-version";
 import { getOldVersion } from "./get-old-version";
 import { Options } from "./options";
+import { updateFiles } from "./update-files";
 import { VersionBumpOptions } from "./version-bump-options";
 import { VersionBumpResults } from "./version-bump-results";
 
@@ -37,6 +38,7 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   let options = new Options(arg);
   let oldVersion = await getOldVersion(options);
   let [newVersion, release] = await getNewVersion({ ...options, oldVersion });
+  let files = await updateFiles({ ...options, oldVersion, newVersion });
 
   if (options.commit) {
     options.commit.message += newVersion;
@@ -52,6 +54,6 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
     newVersion,
     commit: options.commit ? options.commit.message : false,
     tag: options.tag ? options.tag.name : false,
-    files: options.files,
+    files,
   };
 }
