@@ -1,4 +1,3 @@
-import * as path from "path";
 import * as semver from "semver";
 import { Manifest } from "./cli/manifest";
 import { readJsonFile } from "./fs";
@@ -19,8 +18,7 @@ export async function getOldVersion({ files, cwd }: Options): Promise<string> {
 
   // Check each file, in order, and return the first valid version number we find
   for (let file of filesToCheck) {
-    file = path.join(cwd, file);
-    let version = await readVersion(file);
+    let version = await readVersion(file, cwd);
 
     if (version) {
       return version;
@@ -38,12 +36,12 @@ export async function getOldVersion({ files, cwd }: Options): Promise<string> {
  *
  * @returns - The version number, or undefined if the file doesn't have a version number
  */
-async function readVersion(file: string): Promise<string | undefined> {
+async function readVersion(file: string, cwd: string): Promise<string | undefined> {
   try {
-    let pojo = await readJsonFile(file);
+    let { data } = await readJsonFile(file, cwd);
 
-    if (typeof pojo === "object" && pojo !== null && "version" in pojo) {
-      let manifest = pojo as Manifest;
+    if (typeof data === "object" && data !== null && "version" in data) {
+      let manifest = data as Manifest;
       if (semver.valid(manifest.version)) {
         return manifest.version;
       }

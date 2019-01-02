@@ -1,28 +1,86 @@
+import * as detectIndent from "detect-indent";
+import * as detectNewline from "detect-newline";
 import * as fs from "fs";
+import * as path from "path";
+
+/**
+ * Describes a plain-text file.
+ */
+export interface TextFile {
+  path: string;
+  data: string;
+}
+
+/**
+ * Describes a JSON file.
+ */
+interface JsonFile {
+  path: string;
+  data: unknown;
+  indent: string;
+  newline: string | null;
+}
+
+/**
+ * Reads a JSON file and returns the parsed data.
+ */
+export async function readJsonFile(name: string, cwd: string): Promise<JsonFile> {
+  let file = await readTextFile(name, cwd);
+  let data = JSON.parse(file.data) as unknown;
+  let indent = detectIndent(file.data).indent;
+  let newline = detectNewline(file.data);
+
+  return { ...file, data, indent, newline };
+}
+
+/**
+ * Writes the given data to the specified JSON file.
+ */
+export async function writeJsonFile(file: JsonFile): Promise<void> {
+  let json = JSON.stringify(file.data, undefined, file.indent);
+
+  if (file.newline) {
+    json += file.newline;
+  }
+
+  return writeTextFile({ ...file, data: json });
+}
 
 /**
  * Reads a text file and returns its contents.
  */
-export function readTextFile(file: string): Promise<string> { // tslint:disable-line: promise-function-async
+export function readTextFile(name: string, cwd: string): Promise<TextFile> { // tslint:disable-line: promise-function-async
   return new Promise((resolve, reject) => {
+    let filePath = path.join(cwd, name);
+
     // tslint:disable-next-line ban
-    fs.readFile(file, "utf8", (err, text) => {
+    fs.readFile(filePath, "utf8", (err, text) => {
       if (err) {
         reject(err);
       }
       else {
-        resolve(text);
+        resolve({
+          path: filePath,
+          data: text,
+        });
       }
     });
   });
 }
 
 /**
- * Reads a JSON file and returns the parsed data.
+ * Writes the given text to the specified file.
  */
-export async function readJsonFile(file: string): Promise<unknown> {
-  let json = await readTextFile(file);
-  let pojo = JSON.parse(json) as unknown;
-
-  return pojo;
+export function writeTextFile(file: TextFile): Promise<void> { // tslint:disable-line: promise-function-async
+  return new Promise((resolve, reject) => {
+    // tslint:disable-next-line ban
+    fs.writeFile(file.path, file.data, (err) => {
+      if (err) {
+        reject(err);
+      }
+      else {
+        resolve();
+      }
+    });
+  });
 }
