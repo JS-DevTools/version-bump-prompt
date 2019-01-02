@@ -68,7 +68,7 @@
     "nyc": "^13.1.0",
     "strip-ansi": "^5.0.0",
     "tslint": "^5.12.0",
-    "tslint-modular": "^1.1.1",
+    "tslint-modular": "^1.1.2",
     "typescript": "^3.2.2",
     "typescript-tslint-plugin": "^0.2.1"
   },
