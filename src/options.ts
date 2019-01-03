@@ -1,3 +1,4 @@
+import * as globby from "globby";
 import { ReadLineOptions } from "readline";
 import { isReleaseType, ReleaseType } from "./release-type";
 import { VersionBumpOptions } from "./version-bump-options";
@@ -6,71 +7,83 @@ interface Interface extends ReadLineOptions {
   output: NodeJS.WritableStream;
 }
 
+type Release = "prompt" | ReleaseType | { version: string };
+
 /**
  * Normalized and sanitized options
  */
 export class Options {
-  public release: "prompt" | ReleaseType | { version: string };
-  public preid: string;
+  public release!: Release;
+  public preid!: string;
   public commit?: {
     message: string;
   };
   public tag?: {
     name: string;
   };
-  public push: boolean;
-  public all: boolean;
-  public files: string[];
-  public cwd: string;
-  public interface: Interface;
+  public push!: boolean;
+  public all!: boolean;
+  public files!: string[];
+  public cwd!: string;
+  public interface!: Interface;
 
-  public constructor(props: VersionBumpOptions) {
-    let { release, preid, commit, tag, push, all, files, cwd } = props;
+  private constructor(props: Readonly<Options>) {
+    Object.assign(this, props);
+  }
 
+  /**
+   * Converts raw VersionBumpOptions to a normalized and sanitized Options object.
+   */
+  public static async normalize(raw: VersionBumpOptions): Promise<Options> {
     // Set the simple properties first
-    this.preid = typeof preid === "string" ? preid : "beta";
-    this.push = Boolean(push);
-    this.all = Boolean(all);
-    this.cwd = cwd || process.cwd();
-    this.interface = {
+    let preid = typeof raw.preid === "string" ? raw.preid : "beta";
+    let push = Boolean(raw.push);
+    let all = Boolean(raw.all);
+    let cwd = raw.cwd || process.cwd();
+    let ui = {
       input: process.stdin,
       output: process.stdout,
-      ...props.interface,
+      ...raw.interface,
     };
 
-    // release
-    if (!release || release === "prompt") {
-      this.release = "prompt";
+    let release: Release;
+    if (!raw.release || raw.release === "prompt") {
+      release = "prompt";
     }
-    else if (isReleaseType(release)) {
-      this.release = release;
-    }
-    else {
-      this.release = { version: release };
-    }
-
-    // tag
-    if (typeof tag === "string") {
-      this.tag = { name: tag };
-    }
-    else if (tag) {
-      this.tag = { name: "v" };
-    }
-
-    // commit  - This must come AFTER tag, because it relies on it
-    if (typeof commit === "string") {
-      this.commit = { message: commit };
-    }
-    else if (commit || this.tag || this.push) {
-      this.commit = { message: "release v" };
-    }
-
-    // files
-    if (Array.isArray(files) && files.length > 0) {
-      this.files = files.slice();
+    else if (isReleaseType(raw.release)) {
+      release = raw.release;
     }
     else {
-      this.files = ["package.json", "package-lock.json"];
+      release = { version: raw.release };
     }
+
+    let tag;
+    if (typeof raw.tag === "string") {
+      tag = { name: raw.tag };
+    }
+    else if (raw.tag) {
+      tag = { name: "v" };
+    }
+
+    // NOTE: This must come AFTER `tag` and `push`, because it relies on them
+    let commit;
+    if (typeof raw.commit === "string") {
+      commit = { message: raw.commit };
+    }
+    else if (raw.commit || tag || push) {
+      commit = { message: "release v" };
+    }
+
+    let files;
+    if (Array.isArray(raw.files) && raw.files.length > 0) {
+      files = await globby(raw.files, { cwd });
+    }
+    else {
+      files = ["package.json", "package-lock.json"];
+    }
+
+    return new Options({
+      release, preid, commit, tag, push, all, files, cwd, interface: ui
+    });
   }
 }

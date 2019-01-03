@@ -40,7 +40,7 @@ options:
   -h, --help                Show usage information
 
 files...
-  One or more files and/or globs to bump (ex: README.md *.txt).
+  One or more files and/or globs to bump (ex: README.md *.txt docs/**/*).
   Defaults to package.json and package-lock.json.
 
 Examples:

@@ -35,7 +35,7 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
     arg = { release: arg };
   }
 
-  let options = new Options(arg);
+  let options = await Options.normalize(arg);
   let oldVersion = await getOldVersion(options);
   let [newVersion, release] = await getNewVersion({ ...options, oldVersion });
   let files = await updateFiles({ ...options, oldVersion, newVersion });
