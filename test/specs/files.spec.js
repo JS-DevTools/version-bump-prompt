@@ -4,7 +4,7 @@ const files = require("../fixtures/files");
 const check = require("../fixtures/check");
 const chaiExec = require("chai-exec");
 
-describe("bump [files...]", () => {
+describe.skip("bump [files...]", () => {
 
   it("should replace the version number in non-manifest files", () => {
     files.create("package.json", { version: "1.2.3" });
