@@ -11,8 +11,8 @@ describe("bump --minor", () => {
 
     let bump = chaiExec("--minor");
 
-    bump.stderr.should.be.empty;
-    bump.stdout.should.be.empty;
+    bump.should.have.stderr("");
+    bump.should.have.stdout("");
     bump.should.have.exitCode(0);
 
     files.json("package.json").should.deep.equal({});
@@ -26,7 +26,7 @@ describe("bump --minor", () => {
 
     let bump = chaiExec("--minor");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -45,7 +45,7 @@ describe("bump --minor", () => {
 
     let bump = chaiExec("--minor");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -60,7 +60,7 @@ describe("bump --minor", () => {
 
     let bump = chaiExec("--minor");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -75,7 +75,7 @@ describe("bump --minor", () => {
 
     let bump = chaiExec("--minor");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -90,7 +90,7 @@ describe("bump --minor", () => {
 
     let bump = chaiExec("--minor --preid alpha");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(

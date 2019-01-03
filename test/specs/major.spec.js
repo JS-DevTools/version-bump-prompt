@@ -43,9 +43,9 @@ describe("bump --major", () => {
   it("should increment an all-zero version number", () => {
     files.create("package.json", { version: "0.0.0" });
 
-    let bump = chaiExec("--major");
+    let bump = chaiExec("major");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -60,7 +60,7 @@ describe("bump --major", () => {
 
     let bump = chaiExec("--major");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -75,7 +75,7 @@ describe("bump --major", () => {
 
     let bump = chaiExec("--major");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -90,7 +90,7 @@ describe("bump --major", () => {
 
     let bump = chaiExec("--major --preid alpha");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(

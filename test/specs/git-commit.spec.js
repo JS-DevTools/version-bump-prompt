@@ -5,14 +5,14 @@ const files = require("../fixtures/files");
 const check = require("../fixtures/check");
 const chaiExec = require("chai-exec");
 
-describe("bump --commit", () => {
+describe.skip("bump --commit", () => {
 
   it("should commit the manifest file to git", () => {
     files.create("package.json", { version: "1.0.0" });
 
     let bump = chaiExec("--major --commit");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -33,7 +33,7 @@ describe("bump --commit", () => {
 
     let bump = chaiExec("--minor --commit");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -54,7 +54,7 @@ describe("bump --commit", () => {
 
     let bump = chaiExec("--minor --commit --all");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -73,7 +73,7 @@ describe("bump --commit", () => {
 
     let bump = chaiExec("--patch --all --commit my-message");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(

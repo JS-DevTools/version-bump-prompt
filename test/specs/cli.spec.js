@@ -13,7 +13,7 @@ describe("bump", () => {
 
     bump.signal.should.equal("SIGKILL");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.stdout.should.contain("PROMPT TEXT");
   });
 
@@ -51,7 +51,7 @@ describe("bump", () => {
       let bump = chaiExec("--help");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.stdout.should.match(/^\nUsage: bump \[version\] \[options\] \[files...\]\n/);
       bump.stdout.should.contain(manifest.description);
     });
@@ -60,7 +60,7 @@ describe("bump", () => {
       let bump = chaiExec("-h");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.stdout.should.match(/^\nUsage: bump \[version\] \[options\] \[files...\]\n/);
       bump.stdout.should.contain(manifest.description);
     });
@@ -69,7 +69,7 @@ describe("bump", () => {
       let bump = chaiExec("--commit --help --tag");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.stdout.should.match(/^\nUsage: bump \[version\] \[options\] \[files...\]\n/);
       bump.stdout.should.contain(manifest.description);
     });
@@ -78,7 +78,7 @@ describe("bump", () => {
       let bump = chaiExec("-cht");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.stdout.should.match(/^\nUsage: bump \[version\] \[options\] \[files...\]\n/);
       bump.stdout.should.contain(manifest.description);
     });
@@ -89,7 +89,7 @@ describe("bump", () => {
       let bump = chaiExec("--version");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.should.have.stdout(manifest.version + "\n");
     });
 
@@ -97,7 +97,7 @@ describe("bump", () => {
       let bump = chaiExec("-v");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.should.have.stdout(manifest.version + "\n");
     });
 
@@ -105,7 +105,7 @@ describe("bump", () => {
       let bump = chaiExec("--commit --version --tag");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.should.have.stdout(manifest.version + "\n");
     });
 
@@ -113,7 +113,7 @@ describe("bump", () => {
       let bump = chaiExec("-cvt");
 
       bump.should.have.exitCode(0);
-      bump.stderr.should.be.empty;
+      bump.should.have.stderr("");
       bump.should.have.stdout(manifest.version + "\n");
     });
   });

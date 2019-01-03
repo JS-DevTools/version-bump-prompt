@@ -4,7 +4,7 @@ const files = require("../fixtures/files");
 const check = require("../fixtures/check");
 const chaiExec = require("chai-exec");
 
-describe("bump --grep", () => {
+describe("bump [files...]", () => {
 
   it("should replace the version number in non-manifest files", () => {
     files.create("package.json", { version: "1.2.3" });
@@ -15,7 +15,7 @@ describe("bump --grep", () => {
 
     let bump = chaiExec("--major --grep LICENSE README.* *.js");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -42,7 +42,7 @@ describe("bump --grep", () => {
 
     let bump = chaiExec("--major --grep LICENSE README.* *.js");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
@@ -65,7 +65,7 @@ describe("bump --grep", () => {
 
     let bump = chaiExec("--major --grep LICENSE README.* *.js");
 
-    bump.stderr.should.be.empty;
+    bump.should.have.stderr("");
     bump.should.have.exitCode(0);
 
     bump.should.have.stdout(
