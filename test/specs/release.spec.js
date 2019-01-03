@@ -4,41 +4,7 @@ const files = require("../fixtures/files");
 const check = require("../fixtures/check");
 const chaiExec = require("chai-exec");
 
-describe("bump --major", () => {
-  it("should not increment a non-existent version number", () => {
-    files.create("package.json", {});
-    files.create("bower.json", { name: "my-app" });
-
-    let bump = chaiExec("--major");
-
-    bump.stderr.should.be.empty;
-    bump.stdout.should.be.empty;
-    bump.should.have.exitCode(0);
-
-    files.json("package.json").should.deep.equal({});
-    files.json("bower.json").should.deep.equal({ name: "my-app" });
-  });
-
-  it("should treat empty version numbers as 0.0.0", () => {
-    files.create("package.json", { version: "" });
-    files.create("bower.json", { version: null });
-    files.create("component.json", { version: 0 });
-
-    let bump = chaiExec("--major");
-
-    bump.stderr.should.be.empty;
-    bump.should.have.exitCode(0);
-
-    bump.should.have.stdout(
-      `${check} Updated package.json to 1.0.0\n` +
-      `${check} Updated bower.json to 1.0.0\n` +
-      `${check} Updated component.json to 1.0.0\n`
-    );
-
-    files.json("package.json").should.deep.equal({ version: "1.0.0" });
-    files.json("bower.json").should.deep.equal({ version: "1.0.0" });
-    files.json("component.json").should.deep.equal({ version: "1.0.0" });
-  });
+describe.skip("bump [release]", () => {
 
   it("should increment an all-zero version number", () => {
     files.create("package.json", { version: "0.0.0" });
@@ -99,4 +65,35 @@ describe("bump --major", () => {
 
     files.json("package.json").should.deep.equal({ version: "2.0.0" });
   });
+
+  it("should error if there's no current version number", () => {
+    files.create("package.json", {});
+
+    let bump = chaiExec("major");
+
+    bump.should.have.stdout("");
+    bump.should.have.exitCode(2);
+
+    bump.should.have.stderr(
+      "Unable to determine the current version number. Checked package.json, package-lock.json.\n"
+    );
+
+    files.json("package.json").should.deep.equal({});
+  });
+
+  it("should print a more detailed error if DEBUG is set", () => {
+    files.create("package.json", { version: "" });
+
+    let bump = chaiExec("major", { env: { DEBUG: "true" }});
+
+    bump.should.have.stdout("");
+    bump.should.have.exitCode(2);
+
+    bump.should.have.stderr.that.matches(
+      /^Error: Unable to determine the current version number. Checked package.json, package-lock.json.\n\s+at \w+/
+    );
+
+    files.json("package.json").should.deep.equal({});
+  });
+
 });
