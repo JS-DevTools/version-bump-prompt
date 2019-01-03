@@ -48,7 +48,13 @@ async function bump(options: VersionBumpOptions): Promise<void> {
     console.log("\n\nRESULTS:", results, "\n\n");
   }
   catch (error) {
-    console.error((error as Error).stack || (error as Error).message);
+    let message = (error as Error).message;
+
+    if (process.env.DEBUG || process.env.NODE_ENV === "development") {
+      message = (error as Error).stack || message;
+    }
+
+    console.error(message);
     process.exit(ExitCode.RuntimeError);
   }
 }
