@@ -1,4 +1,3 @@
-import { ReadLineOptions } from "readline";
 
 /**
  * Options for the `versionBump()` function.
@@ -71,10 +70,47 @@ export interface VersionBumpOptions {
   cwd?: string;
 
   /**
-   * Options for the command-line interface. This object is passed to `readline.createInterface()`.
+   * Options for the command-line interface. Can be one of the following:
    *
-   * The `input` property defaults to `process.stdin`.
-   * The `output` property defaults to `process.stdout`.
+   * - `true` - To default to `process.stdin` and `process.stdout`.
+   * - `false` - To disable all CLI output. Cannot be used when `release` is "prompt".
+   * - An object that will be passed to `readline.createInterface()`.
+   *
+   * Defaults to `true`.
    */
-  interface?: Partial<ReadLineOptions>;
+  interface?: boolean | InterfaceOptions;
+}
+
+/**
+ * Options for the command-line interface.
+ */
+export interface InterfaceOptions {
+  /**
+   * The stream that will be used to read user input.  Can be one of the following:
+   *
+   * - `true` - To default to `process.stdin`
+   * - `false` - To disable all CLI input
+   * - Any readable stream
+   *
+   * Defaults to `true`.
+   */
+  input?: NodeJS.ReadableStream | NodeJS.ReadStream | boolean;
+
+  /**
+   * The stream that will be used to write output, such as prompts and progress.
+   * Can be one of the following:
+   *
+   * - `true` - To default to `process.stdout`
+   * - `false` - To disable all CLI output
+   * - Any writable stream
+   *
+   * Defaults to `true`.
+   */
+  output?: NodeJS.WritableStream | NodeJS.WriteStream | boolean;
+
+  /**
+   * Any other properties will be passed directly to `readline.createInterface()`.
+   * See the `ReadLineOptions` interface for possible options.
+   */
+  [key: string]: unknown;
 }

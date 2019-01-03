@@ -1,10 +1,11 @@
 import * as globby from "globby";
-import { ReadLineOptions } from "readline";
 import { isReleaseType, ReleaseType } from "./release-type";
 import { VersionBumpOptions } from "./version-bump-options";
 
-interface Interface extends ReadLineOptions {
-  output: NodeJS.WritableStream;
+interface Interface {
+  input?: NodeJS.ReadableStream | NodeJS.ReadStream | false;
+  output?: NodeJS.WritableStream | NodeJS.WriteStream | false;
+  [key: string]: unknown;
 }
 
 type Release = "prompt" | ReleaseType | { version: string };
@@ -29,6 +30,10 @@ export class Options {
 
   private constructor(props: Readonly<Options>) {
     Object.assign(this, props);
+
+    if (this.release === "prompt" && !(this.interface.input && this.interface)) {
+      throw new Error(`Cannot prompt for the version number because input or output has been disabled.`);
+    }
   }
 
   /**
@@ -40,11 +45,6 @@ export class Options {
     let push = Boolean(raw.push);
     let all = Boolean(raw.all);
     let cwd = raw.cwd || process.cwd();
-    let ui = {
-      input: process.stdin,
-      output: process.stdout,
-      ...raw.interface,
-    };
 
     let release: Release;
     if (!raw.release || raw.release === "prompt") {
@@ -80,6 +80,27 @@ export class Options {
     }
     else {
       files = ["package.json", "package-lock.json"];
+    }
+
+    let ui: Interface;
+    if (raw.interface === false) {
+      ui = { input: false, outut: false };
+    }
+    else if (raw.interface === true || !raw.interface) {
+      ui = { input: process.stdin, output: process.stdout };
+    }
+    else {
+      let { input, output, ...other } = raw.interface;
+
+      if (input === true || (input !== false && !input)) {
+        input = process.stdin;
+      }
+
+      if (output === true || (output !== false && !input)) {
+        output = process.stdout;
+      }
+
+      ui = { input, output, ...other };
     }
 
     return new Options({
