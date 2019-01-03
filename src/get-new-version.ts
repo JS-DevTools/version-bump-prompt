@@ -94,7 +94,7 @@ async function promptForNewVersion(params: Params): Promise<VersionAndReleaseTyp
         { value: "prepatch", name: `pre-release patch (${next.prepatch})` },
         { value: "prerelease", name: `pre-release (${next.prerelease})` },
         new inquirer.Separator(),
-        { value: "none", name: `leave as-is (${oldVersion})`},
+        { value: "none", name: `leave as-is (${oldVersion})` },
         { value: "custom", name: "custom..." },
       ]
     },
