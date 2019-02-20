@@ -68,6 +68,25 @@ describe("bump --commit", () => {
     git[0].cmd.should.equal('git commit -a -m "release v1.1.0"');
   });
 
+  it("should commit without running pre-commit hooks", () => {
+    files.create("package.json", { version: "1.0.0" });
+
+    let bump = chaiExec("--minor --commit --all --no-verify");
+
+    bump.stderr.should.be.empty;
+    bump.should.have.exitCode(0);
+
+    bump.should.have.stdout(
+      `${check} Updated package.json to 1.1.0\n` +
+      `${check} Git commit\n`
+    );
+
+    let git = mocks.git();
+    git.length.should.equal(1);
+
+    git[0].cmd.should.equal('git commit --no-verify -a -m "release v1.1.0"');
+  });
+
   it("should commit the manifest files to git with a message", () => {
     files.create("package.json", { version: "1.0.0" });
 
