@@ -1,0 +1,12 @@
+# Mocha options
+# https://mochajs.org/#configuring-mocha-nodejs
+# https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml
+
+spec:
+  - test/fixtures/**/*.js
+  - test/specs/**/*.spec.js
+
+bail: true
+timeout: 6000
+retries: 2
+recursive: true
