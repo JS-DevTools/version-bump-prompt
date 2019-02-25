@@ -1,10 +1,12 @@
+// tslint:disable: no-default-export
 import { versionBump } from "./version-bump";
 
-export { versionBump } from "./version-bump";
-export { VersionBumpOptions } from "./version-bump-options";
-export { VersionBumpResults } from "./version-bump-results";
+// Exprot the external type definitions as named exports
+export * from "./version-bump-options";
+export * from "./version-bump-results";
 
-// tslint:disable-next-line: no-default-export
+// Export `versionBump` as a named export and the default export
+export { versionBump };
 export default versionBump;
 
 // CommonJS default export hack

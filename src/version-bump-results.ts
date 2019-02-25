@@ -1,5 +1,7 @@
 import { ReleaseType } from "./release-type";
 
+export { ReleaseType };
+
 /**
  * Information about the work that was performed by the `versionBump()` function.
  */
