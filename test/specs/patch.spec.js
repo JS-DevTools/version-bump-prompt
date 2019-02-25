@@ -1,7 +1,7 @@
 "use strict";
 
 const { check, files } = require("../utils");
-const chaiExec = require("chai-exec");
+const { chaiExec, expect } = require("../utils/chai");
 
 describe.skip("bump --patch", () => {
   it("should not increment a non-existent version number", () => {

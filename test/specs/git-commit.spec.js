@@ -1,7 +1,7 @@
 "use strict";
 
 const { check, files, mocks } = require("../utils");
-const chaiExec = require("chai-exec");
+const { chaiExec, expect } = require("../utils/chai");
 
 describe.skip("bump --commit", () => {
 

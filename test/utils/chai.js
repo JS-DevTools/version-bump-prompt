@@ -3,6 +3,11 @@
 const chai = require("chai");
 const chaiExec = require("chai-exec");
 
+module.exports = {
+  chaiExec,
+  expect: chai.expect,
+};
+
 chai.use(chaiExec);
 chai.should();
 

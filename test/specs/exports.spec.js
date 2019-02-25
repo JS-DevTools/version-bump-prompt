@@ -3,7 +3,7 @@
 const commonJSExport = require("../../");
 const { default: defaultExport, versionBump: namedExport } = require("../../");
 
-describe.only("version-bump-prompt module exports", () => {
+describe("version-bump-prompt module exports", () => {
 
   it("should export the versionBump() function as the default CommonJS export", () => {
     commonJSExport.should.be.a("function");

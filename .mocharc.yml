@@ -4,7 +4,6 @@
 
 spec:
   - test/fixtures/mocha-hooks.js
-  - test/fixtures/setup-chai.js
   - test/specs/**/*.spec.js
 
 bail: true
