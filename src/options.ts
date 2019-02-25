@@ -31,7 +31,7 @@ export class Options {
   private constructor(props: Readonly<Options>) {
     Object.assign(this, props);
 
-    if (this.release === "prompt" && !(this.interface.input && this.interface)) {
+    if (this.release === "prompt" && !(this.interface.input && this.interface.output)) {
       throw new Error(`Cannot prompt for the version number because input or output has been disabled.`);
     }
   }
@@ -96,7 +96,7 @@ export class Options {
         input = process.stdin;
       }
 
-      if (output === true || (output !== false && !input)) {
+      if (output === true || (output !== false && !output)) {
         output = process.stdout;
       }
 
