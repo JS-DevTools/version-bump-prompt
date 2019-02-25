@@ -31,7 +31,7 @@
 
 Installation
 --------------------------
-You can install `version-bump-prompt` via [npm](https://docs.npmjs.com/getting-started/what-is-npm).
+You can install `version-bump-prompt` via [npm](https://docs.npmjs.com/about-npm/).
 
 ```bash
 npm install -g version-bump-prompt
