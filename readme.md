@@ -96,7 +96,10 @@ To build the project locally on your computer:
 2. __Install dependencies__<br>
 `npm install`
 
-3. __Run the tests__<br>
+3. __Build the code__<br>
+`npm run build`
+
+4. __Run the tests__<br>
 `npm test`
 
 
