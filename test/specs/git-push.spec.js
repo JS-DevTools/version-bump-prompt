@@ -1,8 +1,6 @@
 "use strict";
 
-const mocks = require("../utils/mocks");
-const files = require("../utils/files");
-const check = require("../utils/check");
+const { check, files, mocks } = require("../utils");
 const chaiExec = require("chai-exec");
 
 describe.skip("bump --push", () => {

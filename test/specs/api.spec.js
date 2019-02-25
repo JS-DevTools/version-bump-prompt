@@ -1,8 +1,7 @@
 "use strict";
 
 const versionBump = require("../../");
-const mocks = require("../utils/mocks");
-const files = require("../utils/files");
+const { files, mocks } = require("../utils");
 
 const ORIGINAL_CWD = process.cwd();
 

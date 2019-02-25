@@ -1,6 +1,6 @@
 "use strict";
 
-const files = require("../utils/files");
+const { files } = require("../utils");
 const chaiExec = require("chai-exec");
 const manifest = require("../../package.json");
 
