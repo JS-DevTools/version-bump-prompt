@@ -14,8 +14,8 @@ describe.skip("bump [files...]", () => {
 
     let bump = chaiExec("--major --grep LICENSE README.* *.js");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
@@ -24,12 +24,12 @@ describe.skip("bump [files...]", () => {
       `${check} Updated LICENSE to 2.0.0\n`
     );
 
-    files.json("package.json").version.should.equal("2.0.0");
-    files.text("LICENSE").should.match(/MyApp v2.0.0 Copyright/);
-    files.text("README.md").should.match(/version 2.0.0 and v2.0.0 should both get updated/);
-    files.text("script1.js").should.match(/make sure v2.0.0 gets replaced correctly/);
-    files.text("script1.js").should.match(/let version = "2.0.0";/);
-    files.text("script1.js").should.match(/let version = "2.0.0";/);
+    expect(files.json("package.json").version).to.equal("2.0.0");
+    expect(files.text("LICENSE")).to.match(/MyApp v2.0.0 Copyright/);
+    expect(files.text("README.md")).to.match(/version 2.0.0 and v2.0.0 should both get updated/);
+    expect(files.text("script1.js")).to.match(/make sure v2.0.0 gets replaced correctly/);
+    expect(files.text("script1.js")).to.match(/let version = "2.0.0";/);
+    expect(files.text("script1.js")).to.match(/let version = "2.0.0";/);
   });
 
   it("should not replace other version numbers in non-manifest files", () => {
@@ -41,8 +41,8 @@ describe.skip("bump [files...]", () => {
 
     let bump = chaiExec("--major --grep LICENSE README.* *.js");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
@@ -51,8 +51,8 @@ describe.skip("bump [files...]", () => {
       `${check} Updated LICENSE to 2.0.0\n`
     );
 
-    files.text("README.md").should.match(/version 5.6.7 and v8.9.10 should not be changed/);
-    files.text("script2.js").should.match(/version 3.2.1 and v8.9.10 don't match the old version number/);
+    expect(files.text("README.md")).to.match(/version 5.6.7 and v8.9.10 should not be changed/);
+    expect(files.text("script2.js")).to.match(/version 3.2.1 and v8.9.10 don't match the old version number/);
   });
 
   it("should not not modify non-manifest files that don't contain the old version number", () => {
@@ -64,21 +64,21 @@ describe.skip("bump [files...]", () => {
 
     let bump = chaiExec("--major --grep LICENSE README.* *.js");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 5.0.0\n`
     );
 
-    files.json("package.json").version.should.equal("5.0.0");
-    files.text("LICENSE").should.match(/MyApp v1.2.3 Copyright/);
-    files.text("README.md").should.match(/version 5.6.7 and v8.9.10 should not be changed/);
-    files.text("README.md").should.match(/version 1.2.3 and v1.2.3 should both get updated/);
-    files.text("script1.js").should.match(/make sure v1.2.3 gets replaced correctly/);
-    files.text("script1.js").should.match(/let version = "1.2.3";/);
-    files.text("script1.js").should.match(/let version = "1.2.3";/);
-    files.text("script2.js").should.match(/version 3.2.1 and v8.9.10 don't match the old version number/);
+    expect(files.json("package.json").version).to.equal("5.0.0");
+    expect(files.text("LICENSE")).to.match(/MyApp v1.2.3 Copyright/);
+    expect(files.text("README.md")).to.match(/version 5.6.7 and v8.9.10 should not be changed/);
+    expect(files.text("README.md")).to.match(/version 1.2.3 and v1.2.3 should both get updated/);
+    expect(files.text("script1.js")).to.match(/make sure v1.2.3 gets replaced correctly/);
+    expect(files.text("script1.js")).to.match(/let version = "1.2.3";/);
+    expect(files.text("script1.js")).to.match(/let version = "1.2.3";/);
+    expect(files.text("script2.js")).to.match(/version 3.2.1 and v8.9.10 don't match the old version number/);
   });
 
 });

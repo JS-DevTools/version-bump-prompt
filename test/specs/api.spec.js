@@ -2,6 +2,7 @@
 
 const versionBump = require("../../");
 const { files, mocks } = require("../utils");
+const { expect } = require("../utils/chai");
 
 const ORIGINAL_CWD = process.cwd();
 
@@ -29,11 +30,11 @@ describe("versionBup() API", () => {
     });
 
     // The package.json file should have been updated
-    files.json("package.json").should.deep.equal({ version: "2.34.567" });
+    expect(files.json("package.json")).to.deep.equal({ version: "2.34.567" });
 
     // Git and NPM should NOT have been called
-    mocks.git().should.be.empty;
-    mocks.npm().should.be.empty;
+    expect(mocks.git()).to.be.empty;
+    expect(mocks.npm()).to.be.empty;
   });
 
   it("should accept a bump type", async () => {
@@ -54,11 +55,11 @@ describe("versionBup() API", () => {
     });
 
     // The package.json file should have been updated
-    files.json("package.json").should.deep.equal({ version: "1.1.0" });
+    expect(files.json("package.json")).to.deep.equal({ version: "1.1.0" });
 
     // Git and NPM should NOT have been called
-    mocks.git().should.be.empty;
-    mocks.npm().should.be.empty;
+    expect(mocks.git()).to.be.empty;
+    expect(mocks.npm()).to.be.empty;
   });
 
   it.skip("should accept options", async () => {
@@ -95,10 +96,10 @@ describe("versionBup() API", () => {
     });
 
     // The CWD should not have changed
-    process.cwd().should.equal(ORIGINAL_CWD);
+    expect(process.cwd()).to.equal(ORIGINAL_CWD);
 
     // The package.json file should NOT have been updated, because it wasn't in the `files` list
-    files.json("package.json").should.deep.equal({ version: "1.0.0" });
+    expect(files.json("package.json")).to.deep.equal({ version: "1.0.0" });
 
     // The other two files should have been updated
     files.text("README.md", "The latest release is v1.1.0-test.1\n");
@@ -115,7 +116,7 @@ describe("versionBup() API", () => {
     ]);
 
     // NPM should NOT have been called
-    mocks.npm().should.be.empty;
+    expect(mocks.npm()).to.be.empty;
   });
 
   it("should throw an error if the options are invalid", async () => {
@@ -127,8 +128,8 @@ describe("versionBup() API", () => {
       );
     }
     catch (error) {
-      error.should.be.an.instanceOf(Error);
-      error.message.should.equal("Invalid Version: hello world");
+      expect(error).to.be.an.instanceOf(Error);
+      expect(error.message).to.equal("Invalid Version: hello world");
     }
   });
 
@@ -147,21 +148,21 @@ describe("versionBup() API", () => {
       );
     }
     catch (error) {
-      error.should.be.an.instanceOf(Error);
+      expect(error).to.be.an.instanceOf(Error);
       error.message.should.equal(
         "Unable to determine the current version number. " +
         "Checked package.json, package-lock.json."
       );
 
       // The CWD should not have changed
-      process.cwd().should.equal(ORIGINAL_CWD);
+      expect(process.cwd()).to.equal(ORIGINAL_CWD);
 
       // The package.json file should not have changed
-      files.json("package.json").should.deep.equal({ version: "hello world" });
+      expect(files.json("package.json")).to.deep.equal({ version: "hello world" });
 
       // Git and NPM should NOT have been called
-      mocks.git().should.be.empty;
-      mocks.npm().should.be.empty;
+      expect(mocks.git()).to.be.empty;
+      expect(mocks.npm()).to.be.empty;
     }
   });
 

@@ -10,8 +10,8 @@ describe.skip("bump --tag", () => {
 
     let bump = chaiExec("--major --commit --tag");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
@@ -20,10 +20,10 @@ describe.skip("bump --tag", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(2);
+    expect(git.length).to.equal(2);
 
-    git[0].cmd.should.equal('git commit package.json -m "release v2.0.0"');
-    git[1].cmd.should.equal("git tag -a v2.0.0 -m 2.0.0");
+    expect(git[0].cmd).to.equal('git commit package.json -m "release v2.0.0"');
+    expect(git[1].cmd).to.equal("git tag -a v2.0.0 -m 2.0.0");
   });
 
   it("should add a git tag, even if --commit is not specified", () => {
@@ -31,8 +31,8 @@ describe.skip("bump --tag", () => {
 
     let bump = chaiExec("--minor --tag");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
@@ -41,10 +41,10 @@ describe.skip("bump --tag", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(2);
+    expect(git.length).to.equal(2);
 
-    git[0].cmd.should.equal('git commit package.json -m "release v1.1.0"');
-    git[1].cmd.should.equal("git tag -a v1.1.0 -m 1.1.0");
+    expect(git[0].cmd).to.equal('git commit package.json -m "release v1.1.0"');
+    expect(git[1].cmd).to.equal("git tag -a v1.1.0 -m 1.1.0");
   });
 
   it("should tag all files", () => {
@@ -52,8 +52,8 @@ describe.skip("bump --tag", () => {
 
     let bump = chaiExec("--patch --tag --all");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 1.0.1\n` +
@@ -62,10 +62,10 @@ describe.skip("bump --tag", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(2);
+    expect(git.length).to.equal(2);
 
-    git[0].cmd.should.equal('git commit -a -m "release v1.0.1"');
-    git[1].cmd.should.equal("git tag -a v1.0.1 -m 1.0.1");
+    expect(git[0].cmd).to.equal('git commit -a -m "release v1.0.1"');
+    expect(git[1].cmd).to.equal("git tag -a v1.0.1 -m 1.0.1");
   });
 
   it("should push git tags", () => {
@@ -74,8 +74,8 @@ describe.skip("bump --tag", () => {
 
     let bump = chaiExec("--premajor --tag --push");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 2.0.0-beta.0\n` +
@@ -86,11 +86,11 @@ describe.skip("bump --tag", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(4);
+    expect(git.length).to.equal(4);
 
-    git[0].cmd.should.equal('git commit package.json bower.json -m "release v2.0.0-beta.0"');
-    git[1].cmd.should.equal("git tag -a v2.0.0-beta.0 -m 2.0.0-beta.0");
-    git[2].cmd.should.equal("git push");
-    git[3].cmd.should.equal("git push --tags");
+    expect(git[0].cmd).to.equal('git commit package.json bower.json -m "release v2.0.0-beta.0"');
+    expect(git[1].cmd).to.equal("git tag -a v2.0.0-beta.0 -m 2.0.0-beta.0");
+    expect(git[2].cmd).to.equal("git push");
+    expect(git[3].cmd).to.equal("git push --tags");
   });
 });

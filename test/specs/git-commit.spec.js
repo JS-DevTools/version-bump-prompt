@@ -10,8 +10,8 @@ describe.skip("bump --commit", () => {
 
     let bump = chaiExec("--major --commit");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
@@ -19,9 +19,9 @@ describe.skip("bump --commit", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(1);
+    expect(git.length).to.equal(1);
 
-    git[0].cmd.should.equal('git commit package.json -m "release v2.0.0"');
+    expect(git[0].cmd).to.equal('git commit package.json -m "release v2.0.0"');
   });
 
   it("should commit multiple manifest files to git", () => {
@@ -31,8 +31,8 @@ describe.skip("bump --commit", () => {
 
     let bump = chaiExec("--minor --commit");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
@@ -42,9 +42,9 @@ describe.skip("bump --commit", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(1);
+    expect(git.length).to.equal(1);
 
-    git[0].cmd.should.equal('git commit package.json bower.json component.json -m "release v1.1.0"');
+    expect(git[0].cmd).to.equal('git commit package.json bower.json component.json -m "release v1.1.0"');
   });
 
   it("should commit all files to git", () => {
@@ -52,8 +52,8 @@ describe.skip("bump --commit", () => {
 
     let bump = chaiExec("--minor --commit --all");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
@@ -61,9 +61,9 @@ describe.skip("bump --commit", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(1);
+    expect(git.length).to.equal(1);
 
-    git[0].cmd.should.equal('git commit -a -m "release v1.1.0"');
+    expect(git[0].cmd).to.equal('git commit -a -m "release v1.1.0"');
   });
 
   it("should commit the manifest files to git with a message", () => {
@@ -71,8 +71,8 @@ describe.skip("bump --commit", () => {
 
     let bump = chaiExec("--patch --all --commit my-message");
 
-    bump.should.have.stderr("");
-    bump.should.have.exitCode(0);
+    expect(bump).to.have.stderr("");
+    expect(bump).to.have.exitCode(0);
 
     bump.should.have.stdout(
       `${check} Updated package.json to 1.0.1\n` +
@@ -80,9 +80,9 @@ describe.skip("bump --commit", () => {
     );
 
     let git = mocks.git();
-    git.length.should.equal(1);
+    expect(git.length).to.equal(1);
 
-    git[0].cmd.should.equal('git commit -a -m "v1.0.1 my-message"');
+    expect(git[0].cmd).to.equal('git commit -a -m "v1.0.1 my-message"');
   });
 
 });
