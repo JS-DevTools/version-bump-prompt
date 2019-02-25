@@ -44,8 +44,7 @@ export async function main(args: string[]): Promise<void> {
 
 async function bump(options: VersionBumpOptions): Promise<void> {
   try {
-    let results = await versionBump(options);
-    console.log("\n\nRESULTS:", results, "\n\n");
+    await versionBump(options);
   }
   catch (error) {
     let message = (error as Error).message;
