@@ -1,8 +1,8 @@
 "use strict";
 
-const mocks = require("../fixtures/mocks");
-const files = require("../fixtures/files");
-const check = require("../fixtures/check");
+const mocks = require("../utils/mocks");
+const files = require("../utils/files");
+const check = require("../utils/check");
 const chaiExec = require("chai-exec");
 
 describe.skip("npm version hooks", () => {

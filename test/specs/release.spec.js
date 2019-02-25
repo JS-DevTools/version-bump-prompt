@@ -1,7 +1,7 @@
 "use strict";
 
-const files = require("../fixtures/files");
-const check = require("../fixtures/check");
+const files = require("../utils/files");
+const check = require("../utils/check");
 const chaiExec = require("chai-exec");
 
 describe.skip("bump [release]", () => {

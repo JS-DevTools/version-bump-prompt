@@ -3,7 +3,8 @@
 # https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml
 
 spec:
-  - test/fixtures/**/*.js
+  - test/fixtures/mocha-hooks.js
+  - test/fixtures/setup-chai.js
   - test/specs/**/*.spec.js
 
 bail: true

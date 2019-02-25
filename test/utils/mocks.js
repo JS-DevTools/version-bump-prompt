@@ -2,17 +2,19 @@
 
 const fs = require("fs");
 const path = require("path");
-const files = require("../files");
+const files = require("./files");
+
+const mocksDir = path.resolve("test", "fixtures", "mocks");
 
 // Ensure that the mock binaries are executable
-fs.chmodSync(path.join(__dirname, "git"), "0777");
-fs.chmodSync(path.join(__dirname, "npm"), "0777");
+fs.chmodSync(path.join(mocksDir, "git"), "0777");
+fs.chmodSync(path.join(mocksDir, "npm"), "0777");
 
 // Inject our mocks directory path into the PATH variable,
 // so that version-bump-prompt runs our mock `git` and `npm` binaries
 // instead of the real ones.
 let otherPaths = getEnvPath();
-process.env.PATH = __dirname + path.delimiter + otherPaths; // eslint-disable-line no-path-concat
+process.env.PATH = mocksDir + path.delimiter + otherPaths; // eslint-disable-line no-path-concat
 
 const mocks = module.exports = {
   /**

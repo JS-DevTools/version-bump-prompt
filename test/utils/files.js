@@ -3,8 +3,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const srcDir = __dirname;
-const destDir = path.join(__dirname, "../../.tmp");
+const filesDir = path.resolve("test", "fixtures", "files");
+const tempDir = path.resolve("test", ".tmp");
 
 const files = module.exports = {
   /**
@@ -17,7 +17,7 @@ const files = module.exports = {
     if (typeof contents === "object") {
       contents = JSON.stringify(contents, null, 2);
     }
-    fs.writeFileSync(path.join(destDir, name), contents);
+    fs.writeFileSync(path.join(tempDir, name), contents);
   },
 
   /**
@@ -26,7 +26,7 @@ const files = module.exports = {
    * @param {string} name - The name of the file to copy (e.g. "README.md", "script1.js")
    */
   copy (name) {
-    let contents = fs.readFileSync(path.join(srcDir, name), "utf8");
+    let contents = fs.readFileSync(path.join(filesDir, name), "utf8");
     files.create(name, contents);
   },
 
@@ -38,7 +38,7 @@ const files = module.exports = {
    */
   text (name) {
     try {
-      return fs.readFileSync(path.join(destDir, name), "utf8");
+      return fs.readFileSync(path.join(tempDir, name), "utf8");
     }
     catch (e) {
       return "";
