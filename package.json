@@ -18,17 +18,14 @@
     "name": "James Messinger",
     "url": "https://jamesmessinger.com"
   },
-  "contributors": [
-    "Alexey Raspopov (https://github.com/alexeyraspopov)",
-    "James Messinger (https://jamesmessinger.com)"
-  ],
-  "homepage": "https://jsdevtools.org/version-bump-prompt",
   "license": "MIT",
+  "homepage": "https://jsdevtools.org/version-bump-prompt",
   "repository": {
     "type": "git",
     "url": "https://github.com/JS-DevTools/version-bump-prompt.git"
   },
   "main": "lib/index.js",
+  "types": "lib/index.d.js",
   "bin": {
     "bump": "bin/bump.js"
   },
@@ -37,16 +34,17 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
+    "clean": "shx rm -rf .nyc_output coverage lib",
     "lint": "npm run lint:typescript && npm run lint:javascript",
     "lint:typescript": "tslint -p tsconfig.json",
     "lint:javascript": "eslint test",
+    "build": "tsc",
+    "watch": "tsc --watch",
     "test": "mocha && npm run lint",
     "coverage": "nyc --reporter=text --reporter=lcov mocha",
     "upgrade": "npm-check -u",
     "bump": "node bin/bump.js --tag --push --all",
-    "release": "npm run upgrade && npm run build && npm test && npm run bump"
+    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
