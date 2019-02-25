@@ -8,7 +8,6 @@ export { VersionBumpResults } from "./version-bump-results";
 export default versionBump;
 
 // CommonJS default export hack
-if (typeof module === "object" && typeof exports === "object") {
-  module.exports = versionBump;
-  Object.assign(versionBump, exports);
+if (typeof module === "object" && typeof module.exports === "object") {
+  module.exports = Object.assign(module.exports.default, module.exports);  // tslint:disable-line: no-unsafe-any
 }
