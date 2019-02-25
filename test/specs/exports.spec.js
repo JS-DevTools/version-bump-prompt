@@ -1,24 +1,27 @@
 "use strict";
 
-const defaultExport = require("../../");
-const { versionBump: namedExport } = require("../../");
+const commonJSExport = require("../../");
+const { default: defaultExport, versionBump: namedExport } = require("../../");
 
-describe("version-bump-prompt module exports", () => {
+describe.only("version-bump-prompt module exports", () => {
 
-  it("should export the versionBump() function as the default export", () => {
+  it("should export the versionBump() function as the default CommonJS export", () => {
+    commonJSExport.should.be.a("function");
+    commonJSExport.name.should.equal("versionBump");
+  });
+
+  it("should export the versionBump() function as the default ESM export", () => {
     defaultExport.should.be.a("function");
-    defaultExport.should.have.property("default");
-    defaultExport.default.should.equal(defaultExport);
+    defaultExport.should.equal(commonJSExport);
   });
 
   it("should export the versionBump() function as a named export", () => {
-    defaultExport.should.have.property("versionBump");
     namedExport.should.be.a("function");
-    namedExport.should.equal(defaultExport);
+    namedExport.should.equal(commonJSExport);
   });
 
   it("should not export anything else", () => {
-    Object.keys(defaultExport).should.have.same.members([
+    Object.keys(commonJSExport).should.have.same.members([
       "default",
       "versionBump",
     ]);
