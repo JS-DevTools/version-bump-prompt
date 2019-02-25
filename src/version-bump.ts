@@ -30,6 +30,10 @@ export async function versionBump(release: string): Promise<VersionBumpResults>;
  */
 export async function versionBump(options: VersionBumpOptions): Promise<VersionBumpResults>;
 
+/**
+ * Bumps the version number in one or more files, prompting the user if necessary.
+ * Optionally also commits, tags, and pushes to git.
+ */
 export async function versionBump(arg: VersionBumpOptions | string = {}): Promise<VersionBumpResults> {
   if (typeof arg === "string") {
     arg = { release: arg };
