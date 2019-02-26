@@ -33,7 +33,11 @@ options:
   -p, --push                Push the Git commit.
 
   -a, --all                 Commit/tag/push ALL pending files,
-                            not just the ones changed by bump (git commit -a)
+                            not just the ones that were bumped.
+                            (same as "git commit -a")
+
+  --no-verify               Bypass Git commit hooks
+                            (same as "git commit --no-verify")
 
   -v, --version             Show the version number
 

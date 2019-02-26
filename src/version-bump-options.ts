@@ -53,6 +53,13 @@ export interface VersionBumpOptions {
   all?: boolean;
 
   /**
+   * Indicates whether to bypass git commit hooks (`git commit --noverify`).
+   *
+   * Defaults to `false`.
+   */
+  noVerify?: boolean;
+
+  /**
    * The files to be updated. For certain known files ("package.json", "bower.json", etc.)
    * `versionBump()` will explicitly update the file's version number.  For other files
    * (ReadMe files, config files, source code, etc.) it will simply do a global replacement

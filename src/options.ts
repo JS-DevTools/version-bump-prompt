@@ -24,6 +24,7 @@ export class Options {
   };
   public push!: boolean;
   public all!: boolean;
+  public noVerify!: boolean;
   public files!: string[];
   public cwd!: string;
   public interface!: Interface;
@@ -44,6 +45,7 @@ export class Options {
     let preid = typeof raw.preid === "string" ? raw.preid : "beta";
     let push = Boolean(raw.push);
     let all = Boolean(raw.all);
+    let noVerify = Boolean(raw.noVerify);
     let cwd = raw.cwd || process.cwd();
 
     let release: Release;
@@ -104,7 +106,7 @@ export class Options {
     }
 
     return new Options({
-      release, preid, commit, tag, push, all, files, cwd, interface: ui
+      release, preid, commit, tag, push, all, noVerify, files, cwd, interface: ui
     });
   }
 }
