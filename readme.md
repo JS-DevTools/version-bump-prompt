@@ -58,6 +58,7 @@ Options:
   --prompt              Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)
   --preid <name>        The identifier for prerelease versions (default is "beta")
   --commit [message]    Commit changed files to Git (default message is "release vX.X.X")
+  --no-verify           Bypasses the pre-commit and commit-msg hooks
   --tag                 Tag the commit in Git
   --push                Push the Git commit
   --all                 Commit/tag/push ALL pending files, not just the ones changed by bump
