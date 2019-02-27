@@ -1,10 +1,10 @@
 import * as inquirer from "inquirer";
 import * as semver from "semver";
 import { ReleaseType, SemVer } from "semver"; // tslint:disable-line: no-duplicate-imports
-import { Options } from "./options";
+import { NormalizedOptions } from "./normalize-options";
 import { isPrerelease, isReleaseType, releaseTypes } from "./release-type";
 
-type Params = Options & { oldVersion: string };
+type Params = NormalizedOptions & { oldVersion: string };
 type VersionAndReleaseType = [string, ReleaseType?];
 
 /**

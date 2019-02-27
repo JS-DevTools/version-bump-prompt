@@ -1,7 +1,7 @@
 import * as ezSpawn from "ez-spawn";
-import { Options } from "./options";
+import { NormalizedOptions } from "./normalize-options";
 
-type Params = Options & { files: string[]; newVersion: string };
+type Params = NormalizedOptions & { files: string[]; newVersion: string };
 
 /**
  * Commits the modififed files to Git, if the `commit` option is enabled.
@@ -69,7 +69,7 @@ export async function gitTag({ commit, tag, newVersion }: Params): Promise<strin
 /**
  * Pushes the Git commit and tag, if the `push` option is enabled.
  */
-export async function gitPush({ push, tag }: Options): Promise<void> {
+export async function gitPush({ push, tag }: NormalizedOptions): Promise<void> {
   if (!push) {
     return;
   }

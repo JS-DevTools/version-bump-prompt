@@ -1,9 +1,9 @@
 import * as path from "path";
 import { readJsonFile, readTextFile, writeJsonFile, writeTextFile } from "./fs";
 import { isManifest } from "./manifest";
-import { Options } from "./options";
+import { NormalizedOptions } from "./normalize-options";
 
-type Params = Options & { oldVersion: string; newVersion: string };
+type Params = NormalizedOptions & { oldVersion: string; newVersion: string };
 type FileParams = Params & { name: string };
 
 /**

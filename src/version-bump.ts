@@ -1,7 +1,7 @@
 import { getNewVersion } from "./get-new-version";
 import { getOldVersion } from "./get-old-version";
 import { gitCommit, gitPush, gitTag } from "./git";
-import { Options } from "./options";
+import { normalizeOptions } from "./normalize-options";
 import { updateFiles } from "./update-files";
 import { VersionBumpOptions } from "./version-bump-options";
 import { VersionBumpResults } from "./version-bump-results";
@@ -41,7 +41,7 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   }
 
   // Validate and normalize the options
-  let options = await Options.normalize(arg);
+  let options = await normalizeOptions(arg);
 
   // Get the old and new version numbers
   let oldVersion = await getOldVersion(options);
