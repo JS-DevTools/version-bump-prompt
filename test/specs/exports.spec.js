@@ -4,7 +4,7 @@ const commonJSExport = require("../../");
 const { expect } = require("../utils/chai");
 const { default: defaultExport, versionBump: namedExport } = require("../../");
 
-describe("version-bump-prompt module exports", () => {
+describe("version-bump-prompt package exports", () => {
 
   it("should export the versionBump() function as the default CommonJS export", () => {
     expect(commonJSExport).to.be.a("function");
