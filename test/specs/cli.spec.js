@@ -6,15 +6,26 @@ const manifest = require("../../package.json");
 
 describe("bump", () => {
 
-  it.skip("should run without any arguments", () => {
+  it("should run without any arguments", function () {
+    // Create a dummy package.json, otherwise an error will occur
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("", { timeout: 1000 });
+    // Run the CLI without any arguments.
+    // It will prompt the user and wait forever, so add a timeout.
+    this.timeout(Math.max(5000, this.timeout()));
+    let bump = chaiExec("", { timeout: 2500 });
 
-    expect(bump.signal).to.equal("SIGKILL");
+    if (bump.status) {
+      // The CLI threw an error, because there is no STDIN
+      expect(bump).to.have.exitCode(1);
+    }
+    else {
+      expect(bump.signal).to.be.oneOf(["SIGINT", "SIGTERM"]);
+    }
 
+    // Regardless of how it exited, it should have prompted for input
+    expect(bump.stdout).to.contain("The current version is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
     expect(bump).to.have.stderr("");
-    expect(bump.stdout).to.contain("PROMPT TEXT");
   });
 
   it("should error if an invalid argument is used", () => {
