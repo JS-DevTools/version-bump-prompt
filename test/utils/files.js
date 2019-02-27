@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const mkdirp = require("mkdirp");
 
 const filesDir = path.resolve("test", "fixtures", "files");
 const tempDir = path.resolve("test", ".tmp");
@@ -17,7 +18,12 @@ const files = module.exports = {
     if (typeof contents === "object") {
       contents = JSON.stringify(contents, null, 2);
     }
-    fs.writeFileSync(path.join(tempDir, name), contents);
+
+    let filePath = path.join(tempDir, name);
+    let dirPath = path.dirname(filePath);
+
+    mkdirp.sync(dirPath);
+    fs.writeFileSync(filePath, contents);
   },
 
   /**
