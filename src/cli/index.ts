@@ -5,11 +5,15 @@ import { VersionBumpOptions } from "../version-bump-options";
 import { helpText } from "./help";
 import { parseArgs } from "./parse-args";
 
+/**
+ * @see https://nodejs.org/api/process.html#process_exit_codes
+ */
 enum ExitCode {
   Success = 0,
-  SytaxError = 1,
-  RuntimeError = 2,
+  FatalError = 1,
+  InvalidArgument = 9,
 }
+
 
 /**
  * The main entry point of the CLI
@@ -38,7 +42,7 @@ export async function main(args: string[]): Promise<void> {
     // There was an error parsing the command-line args
     console.error((error as Error).message);
     console.error(helpText);
-    process.exit(ExitCode.SytaxError);
+    process.exit(ExitCode.InvalidArgument);
   }
 }
 
