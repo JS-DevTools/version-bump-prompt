@@ -20,7 +20,7 @@ describe("bump", () => {
   it("should error if an invalid argument is used", () => {
     let bump = chaiExec("--commit --help --fizzbuzz --tag");
 
-    expect(bump).to.have.exitCode(1);
+    expect(bump).to.have.exitCode(9);
     expect(bump).to.have.stdout("");
     expect(bump.stderr).to.match(/^Unknown option: --fizzbuzz\n\nUsage: bump \[release\] \[options\] \[files...\]\n/);
     expect(bump.stderr).to.contain(manifest.description);
@@ -29,7 +29,7 @@ describe("bump", () => {
   it("should error if an invalid shorthand argument is used", () => {
     let bump = chaiExec("-chzt");
 
-    expect(bump).to.have.exitCode(1);
+    expect(bump).to.have.exitCode(9);
     expect(bump).to.have.stdout("");
     expect(bump.stderr).to.match(/^Unknown option: -z\n\nUsage: bump \[release\] \[options\] \[files...\]\n/);
     expect(bump.stderr).to.contain(manifest.description);
@@ -38,7 +38,7 @@ describe("bump", () => {
   it("should error if an argument is missing its value", () => {
     let bump = chaiExec("--commit --help --preid --tag");
 
-    expect(bump).to.have.exitCode(1);
+    expect(bump).to.have.exitCode(9);
     expect(bump).to.have.stdout("");
     bump.stderr.should.match(
       /^The --preid option requires a value, such as "alpha", "beta", etc\.\n\nUsage: bump \[release\] \[options\] \[files...\]\n/
