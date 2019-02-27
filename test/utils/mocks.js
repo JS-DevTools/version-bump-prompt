@@ -4,12 +4,30 @@ const files = require("./files");
 
 const mocks = module.exports = {
   /**
+   * Returns the `git` commands that were executed.
+   *
+   * @returns {string[]}
+   */
+  git () {
+    return mocks.gitDetails().map(mock => mock.cmd);
+  },
+
+  /**
    * Returns information about each time `git` was executed.
    *
    * @returns {object[]}
    */
-  git () {
+  gitDetails () {
     return mocks.all().filter(mock => mock.bin === "git");
+  },
+
+  /**
+   * Returns the `npm` commands that were executed.
+   *
+   * @returns {string[]}
+   */
+  npm () {
+    return mocks.npmDetails().map(mock => mock.cmd);
   },
 
   /**
@@ -17,7 +35,7 @@ const mocks = module.exports = {
    *
    * @returns {object[]}
    */
-  npm () {
+  npmDetails () {
     return mocks.all().filter(mock => mock.bin === "npm");
   },
 
@@ -43,6 +61,8 @@ const mocks = module.exports = {
     // Add an entry for this execution
     array.push({
       bin,
+
+      args,
 
       // Record the command that was executed
       cmd: bin + " " + args.map(quoteArgs).join(" "),
