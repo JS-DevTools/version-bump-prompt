@@ -9,7 +9,7 @@ type FileParams = Params & { name: string };
 /**
  * Updates the version number in the specified files.
  *
- * @returns - The files that were actually modified
+ * @returns - The relative paths of the files that were actually modified
  */
 export async function updateFiles(params: Params): Promise<string[]> {
   let { files } = params;

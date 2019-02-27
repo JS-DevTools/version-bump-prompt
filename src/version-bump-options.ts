@@ -23,7 +23,9 @@ export interface VersionBumpOptions {
 
   /**
    * Indicates whether to create a git commit. Can be set to a custom commit message string
-   * or `true` to use "release v" (the version number will be appended).
+   * or `true` to use "release v".  Any `%s` placeholders in the message string will be replaced
+   * with the new version number.  If the message string does _not_ contain any `%s` placeholders,
+   * then the new version number will be appended to the message.
    *
    * Defaults to `false`.
    */
@@ -31,7 +33,9 @@ export interface VersionBumpOptions {
 
   /**
    * Indicates whether to tag the git commit. Can be set to a custom tag string
-   * or `true` to use "v" (the version number will be appended).
+   * or `true` to use "v".  Any `%s` placeholders in the tag string will be replaced
+   * with the new version number.  If the tag string does _not_ contain any `%s` placeholders,
+   * then the new version number will be appended to the tag.
    *
    * Defaults to `false`.
    */
@@ -45,7 +49,7 @@ export interface VersionBumpOptions {
   push?: boolean;
 
   /**
-   * Indicates whether the git commit should include ALL files (`git commit -a`)
+   * Indicates whether the git commit should include ALL files (`git commit --all`)
    * rather than just the files that were modified by `versionBump()`.
    *
    * Defaults to `false`.
@@ -53,7 +57,7 @@ export interface VersionBumpOptions {
   all?: boolean;
 
   /**
-   * Indicates whether to bypass git commit hooks (`git commit --noverify`).
+   * Indicates whether to bypass git commit hooks (`git commit --no-verify`).
    *
    * Defaults to `false`.
    */

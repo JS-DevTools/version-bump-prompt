@@ -18,13 +18,13 @@ export class Options {
   public preid!: string;
   public commit?: {
     message: string;
+    noVerify: boolean;
+    all: boolean;
   };
   public tag?: {
     name: string;
   };
   public push!: boolean;
-  public all!: boolean;
-  public noVerify!: boolean;
   public files!: string[];
   public cwd!: string;
   public interface!: Interface;
@@ -70,10 +70,10 @@ export class Options {
     // NOTE: This must come AFTER `tag` and `push`, because it relies on them
     let commit;
     if (typeof raw.commit === "string") {
-      commit = { message: raw.commit };
+      commit = { all, noVerify, message: raw.commit };
     }
     else if (raw.commit || tag || push) {
-      commit = { message: "release v" };
+      commit = { all, noVerify, message: "release v" };
     }
 
     let files;
@@ -106,7 +106,7 @@ export class Options {
     }
 
     return new Options({
-      release, preid, commit, tag, push, all, noVerify, files, cwd, interface: ui
+      release, preid, commit, tag, push, files, cwd, interface: ui
     });
   }
 }

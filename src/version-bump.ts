@@ -1,5 +1,6 @@
 import { getNewVersion } from "./get-new-version";
 import { getOldVersion } from "./get-old-version";
+import { gitCommit, gitPush, gitTag } from "./git";
 import { Options } from "./options";
 import { updateFiles } from "./update-files";
 import { VersionBumpOptions } from "./version-bump-options";
@@ -39,25 +40,27 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
     arg = { release: arg };
   }
 
+  // Validate and normalize the options
   let options = await Options.normalize(arg);
+
+  // Get the old and new version numbers
   let oldVersion = await getOldVersion(options);
   let [newVersion, release] = await getNewVersion({ ...options, oldVersion });
+
+  // Update the version number in all files
   let files = await updateFiles({ ...options, oldVersion, newVersion });
 
-  if (options.commit) {
-    options.commit.message += newVersion;
-  }
-
-  if (options.tag) {
-    options.tag.name += newVersion;
-  }
+  // Git commit, tag, push (if enabled)
+  let commit = await gitCommit({ ...options, files, newVersion });
+  let tag = await gitTag({ ...options, newVersion });
+  await gitPush(options);
 
   return {
     release,
     oldVersion,
     newVersion,
-    commit: options.commit ? options.commit.message : false,
-    tag: options.tag ? options.tag.name : false,
+    commit,
+    tag,
     files,
   };
 }
