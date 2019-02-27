@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
 /**
  *
@@ -8,5 +8,5 @@
  *
  */
 
-const mocks = require('./index');
-mocks.record('git', process.argv.slice(2));
+const mocks = require("../../utils/mocks");
+mocks.record("git", process.argv.slice(2));
