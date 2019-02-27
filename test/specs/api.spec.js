@@ -62,9 +62,10 @@ describe("versionBup() API", () => {
     expect(mocks.npm()).to.be.empty;
   });
 
-  it.skip("should accept options", async () => {
+  it("should accept options", async () => {
     files.create("package.json", { version: "1.0.0" });
     files.create("README.md", "The latest release is v1.0.0\n");
+    files.create("subdir/deep/changelog.md", "# Changelog\n\n## v1.0.0\n\n## v0.0.1\n");
     files.create("random-file.json", {
       name: "v1.0.0",
       version: "1.0.0",
@@ -91,7 +92,8 @@ describe("versionBup() API", () => {
       tag: "1.1.0-test.1",
       files: [
         "random-file.json",
-        "README.md"
+        "README.md",
+        "subdir/deep/changelog.md"
       ],
     });
 
@@ -101,8 +103,11 @@ describe("versionBup() API", () => {
     // The package.json file should NOT have been updated, because it wasn't in the `files` list
     expect(files.json("package.json")).to.deep.equal({ version: "1.0.0" });
 
-    // The other two files should have been updated
+    // The other files should have been updated
     files.text("README.md", "The latest release is v1.1.0-test.1\n");
+
+    files.text("subdir/deep/changelog.md", "# Changelog\n\n## v1.1.0-test.1\n\n## v0.0.1\n");
+
     files.json("random-file.json").should.deep.equal({
       name: "v1.1.0-test.1",
       version: "1.1.0-test.1",
@@ -111,8 +116,8 @@ describe("versionBup() API", () => {
 
     // A git commit and tag should have been created
     mocks.git().should.deep.equal([
-      'git commit package.json -m "release v2.0.0"',
-      'git tag package.json -m "release v2.0.0"',
+      'git commit --message "A test of the upcoming v1.1.0-test.1" random-file.json README.md subdir/deep/changelog.md',
+      'git tag --annotate --message "A test of the upcoming v1.1.0-test.1" 1.1.0-test.1',
     ]);
 
     // NPM should NOT have been called
