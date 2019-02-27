@@ -22,6 +22,11 @@ enum ExitCode {
  */
 export async function main(args: string[]): Promise<void> {
   try {
+    // Setup global error handlers
+    process.on("uncaughtException", errorHandler);
+    process.on("unhandledRejection", errorHandler);
+
+    // Parse the command-line arguments
     let { help, version, options } = parseArgs(args);
 
     if (help) {
@@ -51,13 +56,18 @@ async function bump(options: VersionBumpOptions): Promise<void> {
     await versionBump(options);
   }
   catch (error) {
-    let message = (error as Error).message;
-
-    if (process.env.DEBUG || process.env.NODE_ENV === "development") {
-      message = (error as Error).stack || message;
-    }
-
-    console.error(message);
-    process.exit(ExitCode.RuntimeError);
+    errorHandler(error as Error);
   }
+}
+
+
+function errorHandler(error: Error): void {
+  let message = error.message || String(error);
+
+  if (process.env.DEBUG || process.env.NODE_ENV === "development") {
+    message = error.stack || message;
+  }
+
+  console.error(message);
+  process.exit(ExitCode.FatalError);
 }
