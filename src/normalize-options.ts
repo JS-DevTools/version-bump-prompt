@@ -8,14 +8,32 @@ interface Interface {
   [key: string]: unknown;
 }
 
-type Release = "prompt" | ReleaseType | { version: string };
+/**
+ * A specific version release.
+ */
+export interface VersionRelease {
+  type: "version";
+  version: string;
+}
+
+/**
+ * A bump release (prompted or otherwise), relative to the current version number.
+ */
+export interface BumpRelease {
+  type: "prompt" | ReleaseType;
+  preid: string;
+}
+
+/**
+ * One of the possible Release types.
+ */
+export type Release = VersionRelease | BumpRelease;
 
 /**
  * Normalized and sanitized options
  */
 export interface NormalizedOptions {
   release: Release;
-  preid: string;
   commit?: {
     message: string;
     noVerify: boolean;
@@ -43,13 +61,13 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
 
   let release: Release;
   if (!raw.release || raw.release === "prompt") {
-    release = "prompt";
+    release = { type: "prompt", preid };
   }
   else if (isReleaseType(raw.release)) {
-    release = raw.release;
+    release = { type: raw.release, preid };
   }
   else {
-    release = { version: raw.release };
+    release = { type: "version", version: raw.release };
   }
 
   let tag;
@@ -98,9 +116,9 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
     ui = { input, output, ...other };
   }
 
-  if (release === "prompt" && !(ui.input && ui.output)) {
+  if (release.type === "prompt" && !(ui.input && ui.output)) {
     throw new Error(`Cannot prompt for the version number because input or output has been disabled.`);
   }
 
-  return { release, preid, commit, tag, push, files, cwd, interface: ui };
+  return { release, commit, tag, push, files, cwd, interface: ui };
 }

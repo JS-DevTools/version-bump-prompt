@@ -1,8 +1,8 @@
 import * as inquirer from "inquirer";
 import * as semver from "semver";
 import { ReleaseType, SemVer } from "semver"; // tslint:disable-line: no-duplicate-imports
-import { NormalizedOptions } from "./normalize-options";
-import { isPrerelease, isReleaseType, releaseTypes } from "./release-type";
+import { BumpRelease, NormalizedOptions } from "./normalize-options";
+import { isPrerelease, releaseTypes } from "./release-type";
 
 type Params = NormalizedOptions & { oldVersion: string };
 type VersionAndReleaseType = [string, ReleaseType?];
@@ -15,29 +15,32 @@ type VersionAndReleaseType = [string, ReleaseType?];
 export async function getNewVersion(params: Params): Promise<VersionAndReleaseType> {
   let { release } = params;
 
-  if (release === "prompt") {
-    return promptForNewVersion(params);
-  }
-  else if (isReleaseType(release)) {
-    return [getNextVersion(params), release];
-  }
-  else {
-    let newSemVer = new SemVer(release.version, true);
-    return [newSemVer.version];
+  switch (release.type) {
+    case "prompt":
+      return promptForNewVersion(params);
+
+    case "version":
+      let newSemVer = new SemVer(release.version, true);
+      return [newSemVer.version];
+
+    default:
+      return [getNextVersion(params), release.type];
   }
 }
 
 /**
  * Returns the next version number of the specified type.
  */
-function getNextVersion({ oldVersion, release, preid }: Params): string {
+function getNextVersion({ oldVersion, release }: Params): string {
+  let bump = release as BumpRelease;
+
   let oldSemVer = new SemVer(oldVersion);
-  let newSemVer = oldSemVer.inc(release as ReleaseType, preid);
+  let newSemVer = oldSemVer.inc(bump.type as ReleaseType, bump.preid);
 
   if (
     isPrerelease(release) &&
     newSemVer.prerelease.length === 2 &&
-    newSemVer.prerelease[0] === preid &&
+    newSemVer.prerelease[0] === bump.preid &&
     String(newSemVer.prerelease[1]) === "0"
   ) {
     // This is a special case when going from a non-prerelease version to a prerelease version.
@@ -54,10 +57,11 @@ function getNextVersion({ oldVersion, release, preid }: Params): string {
  * Returns the next version number for all release types.
  */
 function getNextVersions(params: Params): Record<ReleaseType, string> {
+  let release = params.release as BumpRelease;
   let next: Record<string, string> = {};
 
-  for (let release of releaseTypes) {
-    next[release] = getNextVersion({ ...params, release });
+  for (let type of releaseTypes) {
+    next[type] = getNextVersion({ ...params, release: { ...release, type }});
   }
 
   return next;
