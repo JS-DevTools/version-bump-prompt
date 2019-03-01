@@ -2,6 +2,7 @@
 import { versionBump } from "./version-bump";
 
 // Exprot the external type definitions as named exports
+export { ReleaseType } from "./release-type";
 export * from "./version-bump-options";
 export * from "./version-bump-results";
 
