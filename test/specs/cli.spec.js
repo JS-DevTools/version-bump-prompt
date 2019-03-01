@@ -15,17 +15,8 @@ describe("bump", () => {
     this.timeout(Math.max(5000, this.timeout()));
     let bump = chaiExec("", { timeout: 2500 });
 
-    if (bump.status) {
-      // The CLI threw an error, because there is no STDIN
-      expect(bump).to.have.exitCode(1);
-    }
-    else {
-      expect(bump.signal).to.be.oneOf(["SIGINT", "SIGTERM"]);
-    }
-
-    // Regardless of how it exited, it should have prompted for input
+    // It should have prompted for input
     expect(bump.stdout).to.contain("The current version is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
-    expect(bump).to.have.stderr("");
   });
 
   it("should error if an invalid argument is used", () => {
