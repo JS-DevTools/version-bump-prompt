@@ -17,17 +17,25 @@ export interface VersionRelease {
 }
 
 /**
- * A bump release (prompted or otherwise), relative to the current version number.
+ * Prompt the user for the release number.
+ */
+export interface PromptRelease {
+  type: "prompt";
+  preid: string;
+}
+
+/**
+ * A bump release, relative to the current version number.
  */
 export interface BumpRelease {
-  type: "prompt" | ReleaseType;
+  type: ReleaseType;
   preid: string;
 }
 
 /**
  * One of the possible Release types.
  */
-export type Release = VersionRelease | BumpRelease;
+export type Release = VersionRelease | PromptRelease | BumpRelease;
 
 /**
  * Normalized and sanitized options

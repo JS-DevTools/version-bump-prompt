@@ -1,19 +1,17 @@
 import * as ezSpawn from "ez-spawn";
-import { NormalizedOptions } from "./normalize-options";
-
-type Params = NormalizedOptions & { files: string[]; newVersion: string };
+import { Operation } from "./operation";
+import { ProgressEvent } from "./version-bump-progress";
 
 /**
  * Commits the modififed files to Git, if the `commit` option is enabled.
- *
- * @returns - The commit message, or `false` if nothing was committed
  */
-export async function gitCommit({ commit, files, newVersion }: Params): Promise<string | false> {
-  if (!commit) {
-    return false;
+export async function gitCommit(operation: Operation): Promise<Operation> {
+  if (!operation.options.commit) {
+    return operation;
   }
 
-  let { all, noVerify, message } = commit;
+  let { all, noVerify, message } = operation.options.commit;
+  let { files, newVersion } = operation.state;
   let args = [];
 
   if (all) {
@@ -27,8 +25,8 @@ export async function gitCommit({ commit, files, newVersion }: Params): Promise<
   }
 
   // Create the commit message
-  message = formatVersionString(message, newVersion);
-  args.push("--message", message);
+  let commitMessage = formatVersionString(message, newVersion);
+  args.push("--message", commitMessage);
 
   // Append the file names last, as variadic arguments
   if (!all) {
@@ -36,18 +34,20 @@ export async function gitCommit({ commit, files, newVersion }: Params): Promise<
   }
 
   await ezSpawn.async("git", ["commit", ...args]);
-  return message;
+
+  return operation.update({ event: ProgressEvent.GitCommit, commitMessage });
 }
 
 /**
  * Tags the Git commit, if the `tag` option is enabled.
- *
- * @returns - The tag name, or `false` if no tag was created
  */
-export async function gitTag({ commit, tag, newVersion }: Params): Promise<string | false> {
-  if (!commit || !tag) {
-    return false;
+export async function gitTag(operation: Operation): Promise<Operation> {
+  if (!operation.options.tag) {
+    return operation;
   }
+
+  let { commit, tag } = operation.options;
+  let { newVersion } = operation.state;
 
   let args = [
     // Create an annotated tag, which is recommended for releases.
@@ -55,32 +55,33 @@ export async function gitTag({ commit, tag, newVersion }: Params): Promise<strin
     "--annotate",
 
     // Use the same commit message for the tag
-    "--message", formatVersionString(commit.message, newVersion),
+    "--message", formatVersionString(commit!.message, newVersion),
   ];
 
   // Create the Tag name
-  let name = formatVersionString(tag.name, newVersion);
-  args.push(name);
+  let tagName = formatVersionString(tag.name, newVersion);
+  args.push(tagName);
 
   await ezSpawn.async("git", ["tag", ...args]);
-  return name;
+
+  return operation.update({ event: ProgressEvent.GitTag, tagName });
 }
 
 /**
  * Pushes the Git commit and tag, if the `push` option is enabled.
  */
-export async function gitPush({ push, tag }: NormalizedOptions): Promise<void> {
-  if (!push) {
-    return;
+export async function gitPush(operation: Operation): Promise<Operation> {
+  if (operation.options.push) {
+    // Push the commit
+    await ezSpawn.async("git", "push");
+
+    if (operation.options.tag) {
+      // Push the tag
+      await ezSpawn.async("git", ["push", "--tags"]);
+    }
   }
 
-  // Push the commit
-  await ezSpawn.async("git", "push");
-
-  if (tag) {
-    // Push the tag
-    await ezSpawn.async("git", ["push", "--tags"]);
-  }
+  return operation.update({ event: ProgressEvent.GitPush });
 }
 
 /**

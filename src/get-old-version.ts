@@ -1,13 +1,15 @@
 import * as semver from "semver";
 import { readJsonFile } from "./fs";
 import { isManifest } from "./manifest";
-import { NormalizedOptions } from "./normalize-options";
+import { Operation } from "./operation";
 
 /**
- * Returns the current version number from files such as package.json.
+ * Finds the current version number from files such as package.json.
  * An error is thrown if no version number can be found.
  */
-export async function getOldVersion({ files, cwd }: NormalizedOptions): Promise<string> {
+export async function getOldVersion(operation: Operation): Promise<Operation> {
+  let { cwd, files } = operation.options;
+
   // Check all JSON files in the files list
   let filesToCheck = files.filter((file) => file.endsWith(".json"));
 
@@ -21,7 +23,11 @@ export async function getOldVersion({ files, cwd }: NormalizedOptions): Promise<
     let version = await readVersion(file, cwd);
 
     if (version) {
-      return version;
+      // We found the current version number!
+      return operation.update({
+        oldVersionSource: file,
+        oldVersion: version,
+      });
     }
   }
 

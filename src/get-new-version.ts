@@ -1,44 +1,44 @@
 import * as inquirer from "inquirer";
 import * as semver from "semver";
 import { ReleaseType, SemVer } from "semver"; // tslint:disable-line: no-duplicate-imports
-import { BumpRelease, NormalizedOptions } from "./normalize-options";
+import { BumpRelease, PromptRelease } from "./normalize-options";
+import { Operation } from "./operation";
 import { isPrerelease, releaseTypes } from "./release-type";
 
-type Params = NormalizedOptions & { oldVersion: string };
-type VersionAndReleaseType = [string, ReleaseType?];
-
 /**
- * Returns the new version number, possibly by prompting the user for it.
- *
- * @returns - A tuple containing the new version number and the release type (if any)
+ * Determines the new version number, possibly by prompting the user for it.
  */
-export async function getNewVersion(params: Params): Promise<VersionAndReleaseType> {
-  let { release } = params;
+export async function getNewVersion(operation: Operation): Promise<Operation> {
+  let { release } = operation.options;
+  let { oldVersion } = operation.state;
 
   switch (release.type) {
     case "prompt":
-      return promptForNewVersion(params);
+      return promptForNewVersion(operation);
 
     case "version":
       let newSemVer = new SemVer(release.version, true);
-      return [newSemVer.version];
+      return operation.update({
+        newVersion: newSemVer.version,
+      });
 
     default:
-      return [getNextVersion(params), release.type];
+      return operation.update({
+        release: release.type,
+        newVersion: getNextVersion(oldVersion, release),
+      });
   }
 }
 
 /**
  * Returns the next version number of the specified type.
  */
-function getNextVersion({ oldVersion, release }: Params): string {
-  let bump = release as BumpRelease;
-
+function getNextVersion(oldVersion: string, bump: BumpRelease): string {
   let oldSemVer = new SemVer(oldVersion);
-  let newSemVer = oldSemVer.inc(bump.type as ReleaseType, bump.preid);
+  let newSemVer = oldSemVer.inc(bump.type, bump.preid);
 
   if (
-    isPrerelease(release) &&
+    isPrerelease(bump.type) &&
     newSemVer.prerelease.length === 2 &&
     newSemVer.prerelease[0] === bump.preid &&
     String(newSemVer.prerelease[1]) === "0"
@@ -56,12 +56,11 @@ function getNextVersion({ oldVersion, release }: Params): string {
 /**
  * Returns the next version number for all release types.
  */
-function getNextVersions(params: Params): Record<ReleaseType, string> {
-  let release = params.release as BumpRelease;
+function getNextVersions(oldVersion: string, preid: string): Record<ReleaseType, string> {
   let next: Record<string, string> = {};
 
   for (let type of releaseTypes) {
-    next[type] = getNextVersion({ ...params, release: { ...release, type }});
+    next[type] = getNextVersion(oldVersion, { type, preid });
   }
 
   return next;
@@ -72,10 +71,12 @@ function getNextVersions(params: Params): Record<ReleaseType, string> {
  *
  * @returns - A tuple containing the new version number and the release type (if any)
  */
-async function promptForNewVersion(params: Params): Promise<VersionAndReleaseType> {
-  let { oldVersion, interface: ui } = params;
-  let next = getNextVersions(params);
-  let prompts = inquirer.createPromptModule(ui as inquirer.StreamOptions);
+async function promptForNewVersion(operation: Operation): Promise<Operation> {
+  let { oldVersion, oldVersionSource } = operation.state;
+  let release = operation.options.release as PromptRelease;
+  let prompts = inquirer.createPromptModule(operation.options.interface as inquirer.StreamOptions);
+
+  let next = getNextVersions(oldVersion, release.preid);
 
   let answers: {
     release: ReleaseType | "none" | "custom";
@@ -86,7 +87,7 @@ async function promptForNewVersion(params: Params): Promise<VersionAndReleaseTyp
     {
       type: "list",
       name: "release",
-      message: `\nThe current version is ${oldVersion}\nHow would you like to bump it?`,
+      message: `\nThe current version in ${oldVersionSource} is ${oldVersion}\nHow would you like to bump it?`,
       default: "patch",
       pageSize: 10,
       choices: [
@@ -107,7 +108,7 @@ async function promptForNewVersion(params: Params): Promise<VersionAndReleaseTyp
       name: "newVersion",
       message: "Enter the new version number:",
       default: oldVersion,
-      when: ({ release }) => release === "custom",
+      when: (previousAnswer) => previousAnswer.release === "custom",
       filter: semver.clean,
       validate: (newVersion: string) => {
         return semver.valid(newVersion) ? true : "That's not a valid version number";
@@ -117,12 +118,15 @@ async function promptForNewVersion(params: Params): Promise<VersionAndReleaseTyp
 
   switch (answers.release) {
     case "none":
-      return [oldVersion];
+      return operation.update({ newVersion: oldVersion });
 
     case "custom":
-      return [answers.newVersion!];
+      return operation.update({ newVersion: answers.newVersion! });
 
     default:
-      return [next[answers.release], answers.release];
+      return operation.update({
+        release: answers.release,
+        newVersion: next[answers.release],
+      });
   }
 }

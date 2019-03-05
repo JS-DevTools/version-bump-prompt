@@ -1,29 +1,27 @@
 import * as path from "path";
 import { readJsonFile, readTextFile, writeJsonFile, writeTextFile } from "./fs";
 import { isManifest } from "./manifest";
-import { NormalizedOptions } from "./normalize-options";
-
-type Params = NormalizedOptions & { oldVersion: string; newVersion: string };
-type FileParams = Params & { name: string };
+import { Operation } from "./operation";
+import { ProgressEvent } from "./version-bump-progress";
 
 /**
  * Updates the version number in the specified files.
- *
- * @returns - The relative paths of the files that were actually modified
  */
-export async function updateFiles(params: Params): Promise<string[]> {
-  let { files } = params;
-  let modifiedFiles = [];
+export async function updateFiles(operation: Operation): Promise<Operation> {
+  let { files } = operation.options;
 
   for (let name of files) {
-    let modified = await updateFile({ ...params, name });
+    let modified = await updateFile(name, operation);
 
     if (modified) {
-      modifiedFiles.push(name);
+      operation.update({
+        event: ProgressEvent.FileUpdated,
+        files: [name],
+      });
     }
   }
 
-  return modifiedFiles;
+  return operation;
 }
 
 /**
@@ -31,8 +29,7 @@ export async function updateFiles(params: Params): Promise<string[]> {
  *
  * @returns - `true` if the file was actually modified
  */
-async function updateFile(params: FileParams): Promise<boolean> {
-  let { name } = params;
+async function updateFile(name: string, operation: Operation): Promise<boolean> {
   name = path.basename(name).trim().toLowerCase();
 
   switch (name) {
@@ -40,10 +37,10 @@ async function updateFile(params: FileParams): Promise<boolean> {
     case "package-lock.json":
     case "bower.json":
     case "component.json":
-      return updateManifestFile(params);
+      return updateManifestFile(name, operation);
 
     default:
-      return updateTextFile(params);
+      return updateTextFile(name, operation);
   }
 }
 
@@ -55,8 +52,9 @@ async function updateFile(params: FileParams): Promise<boolean> {
  *
  * @returns - `true` if the file was actually modified
  */
-async function updateManifestFile(params: FileParams): Promise<boolean> {
-  let { name, cwd, newVersion } = params;
+async function updateManifestFile(name: string, operation: Operation): Promise<boolean> {
+  let { cwd } = operation.options;
+  let { newVersion } = operation.state;
   let modified = false;
 
   try {
@@ -83,8 +81,9 @@ async function updateManifestFile(params: FileParams): Promise<boolean> {
  *
  * @returns - `true` if the file was actually modified
  */
-async function updateTextFile(params: FileParams): Promise<boolean> {
-  let { name, cwd, oldVersion, newVersion } = params;
+async function updateTextFile(name: string, operation: Operation): Promise<boolean> {
+  let { cwd } = operation.options;
+  let { oldVersion, newVersion } = operation.state;
   let modified = false;
 
   try {
