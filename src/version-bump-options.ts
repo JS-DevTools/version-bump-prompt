@@ -1,3 +1,4 @@
+import { VersionBumpProgress } from "./version-bump-progress";
 
 /**
  * Options for the `versionBump()` function.
@@ -90,6 +91,11 @@ export interface VersionBumpOptions {
    * Defaults to `true`.
    */
   interface?: boolean | InterfaceOptions;
+
+  /**
+   * A callback that is provides information about the progress of the `versionBump()` function.
+   */
+  progress?(progress: VersionBumpProgress): void;
 }
 
 /**

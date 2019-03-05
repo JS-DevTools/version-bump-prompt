@@ -5,6 +5,7 @@ import { versionBump } from "./version-bump";
 export { ReleaseType } from "./release-type";
 export * from "./version-bump-options";
 export * from "./version-bump-results";
+export * from "./version-bump-progress";
 
 // Export `versionBump` as a named export and the default export
 export { versionBump };
