@@ -55,7 +55,7 @@ export class Operation {
       newVersion: state.newVersion,
       commit: options.commit ? state.commitMessage : false,
       tag: options.tag ? state.tagName : false,
-      files: state.files,
+      files: state.files.slice(),
     };
   }
 
