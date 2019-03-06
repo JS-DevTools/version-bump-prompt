@@ -1,6 +1,6 @@
 import * as ezSpawn from "ez-spawn";
 import { Operation } from "./operation";
-import { ProgressEvent } from "./version-bump-progress";
+import { ProgressEvent } from "./types/version-bump-progress";
 
 /**
  * Commits the modififed files to Git, if the `commit` option is enabled.

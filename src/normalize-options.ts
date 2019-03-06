@@ -1,6 +1,6 @@
 import * as globby from "globby";
 import { isReleaseType, ReleaseType } from "./release-type";
-import { VersionBumpOptions } from "./version-bump-options";
+import { VersionBumpOptions } from "./types/version-bump-options";
 
 interface Interface {
   input?: NodeJS.ReadableStream | NodeJS.ReadStream | false;

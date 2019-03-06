@@ -1,4 +1,4 @@
-import { ReleaseType } from "./release-type";
+import { ReleaseType } from "../release-type";
 
 /**
  * Information about the work that was performed by the `versionBump()` function.

@@ -2,7 +2,7 @@ import * as path from "path";
 import { readJsonFile, readTextFile, writeJsonFile, writeTextFile } from "./fs";
 import { isManifest } from "./manifest";
 import { Operation } from "./operation";
-import { ProgressEvent } from "./version-bump-progress";
+import { ProgressEvent } from "./types/version-bump-progress";
 
 /**
  * Updates the version number in the specified files.

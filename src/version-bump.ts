@@ -2,9 +2,9 @@ import { getNewVersion } from "./get-new-version";
 import { getOldVersion } from "./get-old-version";
 import { gitCommit, gitPush, gitTag } from "./git";
 import { Operation } from "./operation";
+import { VersionBumpOptions } from "./types/version-bump-options";
+import { VersionBumpResults } from "./types/version-bump-results";
 import { updateFiles } from "./update-files";
-import { VersionBumpOptions } from "./version-bump-options";
-import { VersionBumpResults } from "./version-bump-results";
 
 /**
  * Prompts the user for a version number and updates package.json and package-lock.json.

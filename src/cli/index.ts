@@ -1,8 +1,8 @@
 // tslint:disable: no-console
 import { success } from "log-symbols";
 import { manifest } from "../manifest";
+import { ProgressEvent, VersionBumpProgress } from "../types/version-bump-progress";
 import { versionBump } from "../version-bump";
-import { ProgressEvent, VersionBumpProgress } from "../version-bump-progress";
 import { ExitCode } from "./exit-code";
 import { helpText } from "./help";
 import { parseArgs } from "./parse-args";

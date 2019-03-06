@@ -1,8 +1,8 @@
 import { NormalizedOptions, normalizeOptions } from "./normalize-options";
 import { ReleaseType } from "./release-type";
-import { VersionBumpOptions } from "./version-bump-options";
-import { ProgressEvent, VersionBumpProgress } from "./version-bump-progress";
-import { VersionBumpResults } from "./version-bump-results";
+import { VersionBumpOptions } from "./types/version-bump-options";
+import { ProgressEvent, VersionBumpProgress } from "./types/version-bump-progress";
+import { VersionBumpResults } from "./types/version-bump-results";
 
 type ProgressCallback = (progress: VersionBumpProgress) => void;
 
