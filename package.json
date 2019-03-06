@@ -53,6 +53,7 @@
     "@types/detect-newline": "^2.1.0",
     "@types/globby": "^8.0.0",
     "@types/inquirer": "0.0.43",
+    "@types/log-symbols": "^2.0.0",
     "@types/mocha": "^5.2.6",
     "@types/node": "^11.9.5",
     "@types/semver": "^5.5.0",

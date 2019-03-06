@@ -1,7 +1,9 @@
 // tslint:disable: no-console
+import { success } from "log-symbols";
 import { manifest } from "../manifest";
 import { versionBump } from "../version-bump";
 import { VersionBumpOptions } from "../version-bump-options";
+import { ProgressEvent, VersionBumpProgress } from "../version-bump-progress";
 import { helpText } from "./help";
 import { parseArgs } from "./parse-args";
 
@@ -13,7 +15,6 @@ enum ExitCode {
   FatalError = 1,
   InvalidArgument = 9,
 }
-
 
 /**
  * The main entry point of the CLI
@@ -53,10 +54,32 @@ export async function main(args: string[]): Promise<void> {
 
 async function bump(options: VersionBumpOptions): Promise<void> {
   try {
+    options.progress = progress;
     await versionBump(options);
   }
   catch (error) {
     errorHandler(error as Error);
+  }
+}
+
+function progress({ event, files, newVersion }: VersionBumpProgress): void {
+  // tslint:disable-next-line: switch-default
+  switch (event) {
+    case ProgressEvent.FileUpdated:
+      console.log(success, `Updated ${files.pop()} to ${newVersion}`);
+      break;
+
+    case ProgressEvent.GitCommit:
+      console.log(success, "Git commit");
+      break;
+
+    case ProgressEvent.GitTag:
+      console.log(success, "Git tag");
+      break;
+
+    case ProgressEvent.GitPush:
+      console.log(success, "Git push");
+      break;
   }
 }
 
