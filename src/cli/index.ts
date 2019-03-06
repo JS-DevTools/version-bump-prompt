@@ -2,19 +2,10 @@
 import { success } from "log-symbols";
 import { manifest } from "../manifest";
 import { versionBump } from "../version-bump";
-import { VersionBumpOptions } from "../version-bump-options";
 import { ProgressEvent, VersionBumpProgress } from "../version-bump-progress";
+import { ExitCode } from "./exit-code";
 import { helpText } from "./help";
 import { parseArgs } from "./parse-args";
-
-/**
- * @see https://nodejs.org/api/process.html#process_exit_codes
- */
-enum ExitCode {
-  Success = 0,
-  FatalError = 1,
-  InvalidArgument = 9,
-}
 
 /**
  * The main entry point of the CLI
@@ -45,20 +36,8 @@ export async function main(args: string[]): Promise<void> {
         options.progress = progress;
       }
 
-      await bump(options);
+      await versionBump(options);
     }
-  }
-  catch (error) {
-    // There was an error parsing the command-line args
-    console.error((error as Error).message);
-    console.error(helpText);
-    process.exit(ExitCode.InvalidArgument);
-  }
-}
-
-async function bump(options: VersionBumpOptions): Promise<void> {
-  try {
-    await versionBump(options);
   }
   catch (error) {
     errorHandler(error as Error);
