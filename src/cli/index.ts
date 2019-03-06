@@ -28,7 +28,7 @@ export async function main(args: string[]): Promise<void> {
     process.on("unhandledRejection", errorHandler);
 
     // Parse the command-line arguments
-    let { help, version, options } = parseArgs(args);
+    let { help, version, quiet, options } = parseArgs(args);
 
     if (help) {
       // Show the help text and exit
@@ -41,6 +41,10 @@ export async function main(args: string[]): Promise<void> {
       process.exit(ExitCode.Success);
     }
     else {
+      if (!quiet) {
+        options.progress = progress;
+      }
+
       await bump(options);
     }
   }
@@ -54,7 +58,6 @@ export async function main(args: string[]): Promise<void> {
 
 async function bump(options: VersionBumpOptions): Promise<void> {
   try {
-    options.progress = progress;
     await versionBump(options);
   }
   catch (error) {

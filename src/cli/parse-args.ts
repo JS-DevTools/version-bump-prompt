@@ -9,6 +9,7 @@ import { VersionBumpOptions } from "../version-bump-options";
 export interface ParsedArgs {
   help?: boolean;
   version?: boolean;
+  quiet?: boolean;
   options: VersionBumpOptions;
 }
 
@@ -24,6 +25,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
       { name: "push", alias: "p", type: Boolean },
       { name: "all", alias: "a", type: Boolean },
       { name: "no-verify", type: Boolean },
+      { name: "quiet", alias: "q", type: Boolean },
       { name: "version", alias: "v", type: Boolean },
       { name: "help", alias: "h", type: Boolean },
       { name: "files", type: String, multiple: true, defaultOption: true },
@@ -34,6 +36,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
   let parsedArgs: ParsedArgs = {
     help: args.help as boolean,
     version: args.version as boolean,
+    quiet: args.quiet as boolean,
     options: {
       preid: args.preid as string,
       commit: args.commit as string | boolean,
