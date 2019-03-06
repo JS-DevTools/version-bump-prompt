@@ -155,8 +155,7 @@ describe("versionBup() API", () => {
     catch (error) {
       expect(error).to.be.an.instanceOf(Error);
       error.message.should.equal(
-        "Unable to determine the current version number. " +
-        "Checked package.json, package-lock.json."
+        "Unable to determine the current version number. Checked package.json."
       );
 
       // The CWD should not have changed

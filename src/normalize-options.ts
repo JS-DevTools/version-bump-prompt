@@ -97,10 +97,12 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
 
   let files;
   if (Array.isArray(raw.files) && raw.files.length > 0) {
-    files = await globby(raw.files, { cwd });
+    files = await strictGlobMatches(raw.files, { cwd });
   }
   else {
-    files = ["package.json", "package-lock.json"];
+    // Try to find these files by default.
+    // If they don't exist, then they will NOT be included in the `files` array.
+    files = await globby(["package.json", "package-lock.json"], { cwd });
   }
 
   let ui: Interface;
@@ -129,4 +131,42 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
   }
 
   return { release, commit, tag, push, files, cwd, interface: ui };
+}
+
+/**
+ * Returns all files that match the given glob patterns.
+ * An error is thrown if any pattern matches zero files.
+ */
+async function strictGlobMatches(files: string[], options: object): Promise<string[]> {
+  // Match all glob patterns simultaneously
+  let matches = await Promise.all(files.map((file) => strictGlobMatch(file, options)));
+
+  // Get all the unique files
+  let matchedFiles = new Set<string>();
+  for (let match of matches) {
+    for (let file of match) {
+      matchedFiles.add(file);
+    }
+  }
+
+  return [...matchedFiles];
+}
+
+/**
+ * Returns all files that match the given glob pattern.
+ * An error is thrown if the pattern matches zero files.
+ */
+async function strictGlobMatch(file: string, options: object): Promise<string[]> {
+  let matches = await globby(file, options);
+
+  if (matches.length === 0) {
+    if (globby.hasMagic(file)) {
+      throw new Error(`Could not find any files matching "${file}".`);
+    }
+    else {
+      throw new Error(`Could not find file: ${file}.`);
+    }
+  }
+
+  return matches;
 }

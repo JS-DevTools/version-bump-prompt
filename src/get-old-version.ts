@@ -53,6 +53,8 @@ async function readVersion(file: string, cwd: string): Promise<string | undefine
     }
   }
   catch (error) {
+    // Ignore errors (no such file, not valid JSON, etc.)
+    // Just try the next file instead.
     return undefined;
   }
 }

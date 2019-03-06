@@ -57,7 +57,6 @@ async function updateManifestFile(name: string, operation: Operation): Promise<b
   let { newVersion } = operation.state;
   let modified = false;
 
-  try {
     let file = await readJsonFile(name, cwd);
 
     if (isManifest(file.data) && file.data.version !== newVersion) {
@@ -66,11 +65,6 @@ async function updateManifestFile(name: string, operation: Operation): Promise<b
       modified = true;
     }
   }
-  catch (error) {
-    // Ignore nonexistent files
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
-      throw error;
-    }
   }
 
   return modified;
@@ -86,7 +80,6 @@ async function updateTextFile(name: string, operation: Operation): Promise<boole
   let { oldVersion, newVersion } = operation.state;
   let modified = false;
 
-  try {
     let file = await readTextFile(name, cwd);
 
     // Only update the file if it contains at least one occurrence of the old version
@@ -102,12 +95,6 @@ async function updateTextFile(name: string, operation: Operation): Promise<boole
       await writeTextFile(file);
 
       return true;
-    }
-  }
-  catch (error) {
-    // Ignore nonexistent files
-    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
-      throw error;
     }
   }
 
