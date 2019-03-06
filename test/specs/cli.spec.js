@@ -16,11 +16,11 @@ describe("bump", () => {
     let bump = chaiExec("", { timeout: 2500 });
 
     // It should have prompted for input
-    expect(bump.stdout).to.contain("The current version is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
+    expect(bump.stdout).to.contain("The current version in package.json is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
   });
 
   it("should error if an invalid argument is used", () => {
-    let bump = chaiExec("--commit --help --fizzbuzz --tag");
+    let bump = chaiExec("--commit --help --fizzbuzz --quiet");
 
     expect(bump).to.have.exitCode(9);
     expect(bump).to.have.stdout("");
@@ -29,7 +29,7 @@ describe("bump", () => {
   });
 
   it("should error if an invalid shorthand argument is used", () => {
-    let bump = chaiExec("-chzt");
+    let bump = chaiExec("-cqhzt");
 
     expect(bump).to.have.exitCode(9);
     expect(bump).to.have.stdout("");
@@ -38,7 +38,7 @@ describe("bump", () => {
   });
 
   it("should error if an argument is missing its value", () => {
-    let bump = chaiExec("--commit --help --preid --tag");
+    let bump = chaiExec("--commit --help --preid --quiet");
 
     expect(bump).to.have.exitCode(9);
     expect(bump).to.have.stdout("");
@@ -68,7 +68,7 @@ describe("bump", () => {
     });
 
     it("should ignore other arguments", () => {
-      let bump = chaiExec("--commit --help --tag");
+      let bump = chaiExec("--quiet --help --tag");
 
       expect(bump).to.have.exitCode(0);
       expect(bump).to.have.stderr("");
@@ -104,7 +104,7 @@ describe("bump", () => {
     });
 
     it("should ignore other arguments", () => {
-      let bump = chaiExec("--commit --version --tag");
+      let bump = chaiExec("--quiet --version --tag");
 
       expect(bump).to.have.exitCode(0);
       expect(bump).to.have.stderr("");
