@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const mkdirp = require("mkdirp");
 
-const filesDir = path.resolve("test", "fixtures", "files");
 const tempDir = path.resolve("test", ".tmp");
 
 const files = module.exports = {
@@ -24,16 +23,6 @@ const files = module.exports = {
 
     mkdirp.sync(dirPath);
     fs.writeFileSync(filePath, contents);
-  },
-
-  /**
-   * Copies a file from the "test/fixtures/files" directory to the "test/.tmp" directory.
-   *
-   * @param {string} name - The name of the file to copy (e.g. "README.md", "script1.js")
-   */
-  copy (name) {
-    let contents = fs.readFileSync(path.join(filesDir, name), "utf8");
-    files.create(name, contents);
   },
 
   /**
