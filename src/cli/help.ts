@@ -41,6 +41,8 @@ options:
 
   -v, --version             Show the version number
 
+  -q, --quiet               Suppress unnecessary output
+
   -h, --help                Show usage information
 
 files...
