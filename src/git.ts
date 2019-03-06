@@ -71,14 +71,16 @@ export async function gitTag(operation: Operation): Promise<Operation> {
  * Pushes the Git commit and tag, if the `push` option is enabled.
  */
 export async function gitPush(operation: Operation): Promise<Operation> {
-  if (operation.options.push) {
-    // Push the commit
-    await ezSpawn.async("git", "push");
+  if (!operation.options.push) {
+    return operation;
+  }
 
-    if (operation.options.tag) {
-      // Push the tag
-      await ezSpawn.async("git", ["push", "--tags"]);
-    }
+  // Push the commit
+  await ezSpawn.async("git", "push");
+
+  if (operation.options.tag) {
+    // Push the tag
+    await ezSpawn.async("git", ["push", "--tags"]);
   }
 
   return operation.update({ event: ProgressEvent.GitPush });
