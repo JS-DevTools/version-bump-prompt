@@ -15,8 +15,16 @@ describe("bump", () => {
     this.timeout(Math.max(5000, this.timeout()));
     let bump = chaiExec("", { timeout: 2500 });
 
-    // It should have prompted for input
-    expect(bump.stdout).to.contain("The current version in package.json is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
+    try {
+      // It should have prompted for input
+      expect(bump.stdout).to.contain("The current version in package.json is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
+    }
+    catch (error) {
+      console.log("====================== begin bump output ======================");
+      console.log(bump);
+      console.log("====================== end bump output ======================");
+      throw error;
+    }
   });
 
   it("should error if an invalid argument is used", () => {
