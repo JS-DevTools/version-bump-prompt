@@ -12,17 +12,19 @@ describe("bump", () => {
 
     // Run the CLI without any arguments.
     // It will prompt the user and wait forever, so add a timeout.
-    this.timeout(Math.max(5000, this.timeout()));
-    let bump = chaiExec("", { timeout: 2500 });
+    this.timeout(Math.max(10000, this.timeout()));
+    let bump = chaiExec("", { timeout: 5000 });
 
     try {
       // It should have prompted for input
       expect(bump.stdout).to.contain("The current version in package.json is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
     }
     catch (error) {
-      console.log("====================== begin bump output ======================");
-      console.log(bump);
-      console.log("====================== end bump output ======================");
+      console.log(
+        "====================== begin bump output ======================\n",
+        bump,
+        "\n====================== end bump output ======================"
+      );
       throw error;
     }
   });
