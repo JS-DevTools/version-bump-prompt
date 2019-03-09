@@ -5,6 +5,7 @@ import { VersionBumpResults } from "./version-bump-results";
  */
 export const enum ProgressEvent {
   FileUpdated = "file updated",
+  FileSkipped = "file skipped",
   GitCommit = "git commit",
   GitTag = "git tag",
   GitPush = "git push",

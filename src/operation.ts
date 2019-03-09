@@ -13,7 +13,8 @@ interface OperationState {
   newVersion: string;
   commitMessage: string;
   tagName: string;
-  files: string[];
+  updatedFiles: string[];
+  skippedFiles: string[];
 }
 
 interface UpdateOperationState extends Partial<OperationState> {
@@ -39,7 +40,8 @@ export class Operation {
     newVersion: "",
     commitMessage: "",
     tagName: "",
-    files: [],
+    updatedFiles: [],
+    skippedFiles: [],
   };
 
   /**
@@ -55,7 +57,8 @@ export class Operation {
       newVersion: state.newVersion,
       commit: options.commit ? state.commitMessage : false,
       tag: options.tag ? state.tagName : false,
-      files: state.files.slice(),
+      updatedFiles: state.updatedFiles.slice(),
+      skippedFiles: state.skippedFiles.slice(),
     };
   }
 
@@ -86,21 +89,13 @@ export class Operation {
   /**
    * Updates the operation state and results, and reports the updated progress to the user.
    */
-  public update(state: UpdateOperationState): this {
-    if (state.files) {
-      // Concatenate the two `files` arrays, rather than overwriting
-      state.files = this.state.files.concat(state.files);
-    }
-
+  public update({ event, ...newState }: UpdateOperationState): this {
     // Update the operation state
-    Object.assign(this.state, state);
+    Object.assign(this.state, newState);
 
-    if (state.event && this._progress) {
+    if (event && this._progress) {
       // Report the progress to the user
-      this._progress({
-        event: state.event,
-        ...this.results
-      });
+      this._progress({ event, ...this.results });
     }
 
     return this;

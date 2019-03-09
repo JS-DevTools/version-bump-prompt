@@ -16,7 +16,13 @@ export async function updateFiles(operation: Operation): Promise<Operation> {
     if (modified) {
       operation.update({
         event: ProgressEvent.FileUpdated,
-        files: [relPath],
+        updatedFiles: operation.state.updatedFiles.concat(relPath),
+      });
+    }
+    else {
+      operation.update({
+        event: ProgressEvent.FileSkipped,
+        skippedFiles: operation.state.skippedFiles.concat(relPath),
       });
     }
   }

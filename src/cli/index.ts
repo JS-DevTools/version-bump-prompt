@@ -1,5 +1,5 @@
 // tslint:disable: no-console
-import { success } from "log-symbols";
+import { info, success } from "log-symbols";
 import { manifest } from "../manifest";
 import { ProgressEvent, VersionBumpProgress } from "../types/version-bump-progress";
 import { versionBump } from "../version-bump";
@@ -44,11 +44,15 @@ export async function main(args: string[]): Promise<void> {
   }
 }
 
-function progress({ event, files, newVersion }: VersionBumpProgress): void {
+function progress({ event, updatedFiles, skippedFiles, newVersion }: VersionBumpProgress): void {
   // tslint:disable-next-line: switch-default
   switch (event) {
     case ProgressEvent.FileUpdated:
-      console.log(success, `Updated ${files.pop()} to ${newVersion}`);
+      console.log(success, `Updated ${updatedFiles.pop()} to ${newVersion}`);
+      break;
+
+    case ProgressEvent.FileSkipped:
+      console.log(info, `${skippedFiles.pop()} did not need to be updated`);
       break;
 
     case ProgressEvent.GitCommit:

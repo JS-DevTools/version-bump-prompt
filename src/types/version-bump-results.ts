@@ -34,7 +34,12 @@ export interface VersionBumpResults {
   tag: string | false;
 
   /**
-   * The files that were updated.
+   * The files that were actually modified.
    */
-  files: string[];
+  updatedFiles: string[];
+
+  /**
+   * The files that were not updated because they did not contain the old version number.
+   */
+  skippedFiles: string[];
 }

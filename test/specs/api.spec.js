@@ -26,7 +26,8 @@ describe("versionBup() API", () => {
       newVersion: "2.34.567",
       commit: false,
       tag: false,
-      files: ["package.json"],
+      updatedFiles: ["package.json"],
+      skippedFiles: [],
     });
 
     // The package.json file should have been updated
@@ -51,7 +52,8 @@ describe("versionBup() API", () => {
       newVersion: "1.1.0",
       commit: false,
       tag: false,
-      files: ["package.json"],
+      updatedFiles: ["package.json"],
+      skippedFiles: [],
     });
 
     // The package.json file should have been updated
@@ -81,7 +83,7 @@ describe("versionBup() API", () => {
       files: [
         "random-file.json",
         "**/*.md",
-      ]
+      ],
     });
 
     expect(results).to.deep.equal({
@@ -90,11 +92,12 @@ describe("versionBup() API", () => {
       newVersion: "1.1.0-test.1",
       commit: "A test of the upcoming v1.1.0-test.1",
       tag: "1.1.0-test.1",
-      files: [
+      updatedFiles: [
         "random-file.json",
         "README.md",
         "subdir/deep/changelog.md"
       ],
+      skippedFiles: [],
     });
 
     // The CWD should not have changed
