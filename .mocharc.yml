@@ -8,6 +8,6 @@ spec:
   - test/specs/**/*.spec.js
 
 bail: true
-timeout: 6000
+timeout: 10000
 retries: 2
 recursive: true

@@ -6,13 +6,12 @@ const manifest = require("../../package.json");
 
 describe("bump", () => {
 
-  it("should run without any arguments", function () {
+  it("should run without any arguments", () => {
     // Create a dummy package.json, otherwise an error will occur
     files.create("package.json", { version: "1.0.0" });
 
     // Run the CLI without any arguments.
     // It will prompt the user and wait forever, so add a timeout.
-    this.timeout(Math.max(10000, this.timeout()));
     let cli = bump("", { timeout: 6000 });
 
     // It should have prompted for input
