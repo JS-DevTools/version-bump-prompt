@@ -1,19 +1,19 @@
 "use strict";
 
-const { check, files, mocks } = require("../utils");
-const { chaiExec, expect } = require("../utils/chai");
+const { check, files, mocks, bump } = require("../utils");
+const { expect } = require("chai");
 
 describe.skip("bump --tag", () => {
 
   it("should add a git tag", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--major --commit --tag");
+    let cli = bump("--major --commit --tag");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Git commit\n` +
       `${check} Git tag\n`
@@ -29,12 +29,12 @@ describe.skip("bump --tag", () => {
   it("should add a git tag, even if --commit is not specified", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--minor --tag");
+    let cli = bump("--minor --tag");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
       `${check} Git commit\n` +
       `${check} Git tag\n`
@@ -50,12 +50,12 @@ describe.skip("bump --tag", () => {
   it("should tag all files", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--patch --tag --all");
+    let cli = bump("--patch --tag --all");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.0.1\n` +
       `${check} Git commit\n` +
       `${check} Git tag\n`
@@ -72,12 +72,12 @@ describe.skip("bump --tag", () => {
     files.create("package.json", { version: "1.0.0" });
     files.create("bower.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--premajor --tag --push");
+    let cli = bump("--premajor --tag --push");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0-beta.0\n` +
       `${check} Updated bower.json to 2.0.0-beta.0\n` +
       `${check} Git commit\n` +

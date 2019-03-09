@@ -1,7 +1,7 @@
 "use strict";
 
-const { check, files, mocks } = require("../utils");
-const { chaiExec, expect } = require("../utils/chai");
+const { check, files, mocks, bump } = require("../utils");
+const { expect } = require("chai");
 
 describe.skip("npm version hooks", () => {
   if (process.platform === "win32" && process.env.CI) {
@@ -18,12 +18,12 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let bump = chaiExec("--major");
+    let cli = bump("--major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n`
     );
 
@@ -42,12 +42,12 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let bump = chaiExec("--major");
+    let cli = bump("--major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n`
     );
 
@@ -66,12 +66,12 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let bump = chaiExec("--major");
+    let cli = bump("--major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n`
     );
 
@@ -92,12 +92,12 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let bump = chaiExec("--major --commit --tag --push");
+    let cli = bump("--major --commit --tag --push");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Git commit\n` +
       `${check} Git tag\n` +

@@ -1,7 +1,7 @@
 "use strict";
 
-const { check, files, fixtures } = require("../utils");
-const { chaiExec, expect } = require("../utils/chai");
+const { check, files, fixtures, bump } = require("../utils");
+const { expect } = require("chai");
 
 describe.skip("bump [files...]", () => {
 
@@ -9,12 +9,12 @@ describe.skip("bump [files...]", () => {
     files.create("package.json", { version: "1.2.3" });
     files.create("package-lock.json", { version: "1.2.3" });
 
-    let bump = chaiExec("major");
+    let cli = bump("major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Updated package-lock.json to 2.0.0\n`
     );
@@ -27,12 +27,12 @@ describe.skip("bump [files...]", () => {
     files.create("package.json", { version: "1.2.3" });
     files.create("package-lock.json", { version: "1.2.3" });
 
-    let bump = chaiExec("major");
+    let cli = bump("major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Updated package-lock.json to 2.0.0\n`
     );
@@ -50,12 +50,12 @@ describe.skip("bump [files...]", () => {
     files.create("subdir/deep/script1.js", fixtures.script1);
     files.create("subdir/deep/script2.js", fixtures.script2);
 
-    let bump = chaiExec("major LICENSE README.* **/*.js");
+    let cli = bump("major LICENSE README.* **/*.js");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated LICENSE to 2.0.0\n` +
       `${check} Updated README.md to 2.0.0\n` +
       `${check} Updated script1.js to 2.0.0\n`
@@ -73,12 +73,12 @@ describe.skip("bump [files...]", () => {
     files.create("package.json", { version: "1.2.3", notTheVersion: "1.2.3" });
     files.create("package-lock.json", { version: "1.2.3", notTheVersion: "1.2.3" });
 
-    let bump = chaiExec("major");
+    let cli = bump("major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Updated package-lock.json to 2.0.0\n`
     );
@@ -95,12 +95,12 @@ describe.skip("bump [files...]", () => {
     files.create("script1.js", fixtures.script1);
     files.create("script2.js", fixtures.script2);
 
-    let bump = chaiExec("major LICENSE README.* *.js");
+    let cli = bump("major LICENSE README.* *.js");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Updated README.md to 2.0.0\n` +
       `${check} Updated script1.js to 2.0.0\n` +
@@ -118,12 +118,12 @@ describe.skip("bump [files...]", () => {
     files.create("script1.js", fixtures.script1);
     files.create("script2.js", fixtures.script2);
 
-    let bump = chaiExec("major LICENSE README.* *.js");
+    let cli = bump("major LICENSE README.* *.js");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 5.0.0\n`
     );
 
@@ -140,12 +140,12 @@ describe.skip("bump [files...]", () => {
   it("should error if an explicitly-specified file doesn't exist", () => {
     files.create("package.json", { version: "4.5.6" });
 
-    let bump = chaiExec("major LICENSE README.* *.js");
+    let cli = bump("major LICENSE README.* *.js");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 5.0.0\n`
     );
 
@@ -162,12 +162,12 @@ describe.skip("bump [files...]", () => {
   it("should error if a glob pattern doesn't match any files", () => {
     files.create("package.json", { version: "4.5.6" });
 
-    let bump = chaiExec("major README.* *.js");
+    let cli = bump("major README.* *.js");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 5.0.0\n`
     );
 

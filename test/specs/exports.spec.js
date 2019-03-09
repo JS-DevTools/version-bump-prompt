@@ -1,7 +1,7 @@
 "use strict";
 
 const commonJSExport = require("../../");
-const { expect } = require("../utils/chai");
+const { expect } = require("chai");
 const { default: defaultExport, versionBump: namedExport } = require("../../");
 
 describe("version-bump-prompt package exports", () => {
@@ -22,7 +22,7 @@ describe("version-bump-prompt package exports", () => {
   });
 
   it("should not export anything else", () => {
-    Object.keys(commonJSExport).should.have.same.members([
+    expect(Object.keys(commonJSExport)).to.have.same.members([
       "default",
       "versionBump",
     ]);

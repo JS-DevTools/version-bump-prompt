@@ -1,19 +1,19 @@
 "use strict";
 
-const { check, files, mocks } = require("../utils");
-const { chaiExec, expect } = require("../utils/chai");
+const { check, files, mocks, bump } = require("../utils");
+const { expect } = require("chai");
 
 describe.skip("bump --push", () => {
 
   it("should commit and push to git", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--major --push");
+    let cli = bump("--major --push");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Git commit\n` +
       `${check} Git push\n`
@@ -29,12 +29,12 @@ describe.skip("bump --push", () => {
   it("should push all files", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--minor --push --all");
+    let cli = bump("--minor --push --all");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
       `${check} Git commit\n` +
       `${check} Git push\n`
@@ -50,12 +50,12 @@ describe.skip("bump --push", () => {
   it("should push git tags", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--premajor --tag --push");
+    let cli = bump("--premajor --tag --push");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0-beta.0\n` +
       `${check} Git commit\n` +
       `${check} Git tag\n` +

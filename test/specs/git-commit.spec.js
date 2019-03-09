@@ -1,19 +1,19 @@
 "use strict";
 
-const { check, files, mocks } = require("../utils");
-const { chaiExec, expect } = require("../utils/chai");
+const { check, files, mocks, bump } = require("../utils");
+const { expect } = require("chai");
 
 describe.skip("bump --commit", () => {
 
   it("should commit the manifest file to git", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--major --commit");
+    let cli = bump("--major --commit");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n` +
       `${check} Git commit\n`
     );
@@ -29,12 +29,12 @@ describe.skip("bump --commit", () => {
     files.create("bower.json", { version: "1.0.0" });
     files.create("component.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--minor --commit");
+    let cli = bump("--minor --commit");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
       `${check} Updated bower.json to 1.1.0\n` +
       `${check} Updated component.json to 1.1.0\n` +
@@ -50,12 +50,12 @@ describe.skip("bump --commit", () => {
   it("should commit all files to git", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--minor --commit --all");
+    let cli = bump("--minor --commit --all");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
       `${check} Git commit\n`
     );
@@ -69,31 +69,31 @@ describe.skip("bump --commit", () => {
   it("should commit without running pre-commit hooks", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--minor --commit --all --no-verify");
+    let cli = bump("--minor --commit --all --no-verify");
 
-    bump.stderr.should.be.empty;
-    bump.should.have.exitCode(0);
+    expect(cli.stderr).to.be.empty;
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.1.0\n` +
       `${check} Git commit\n`
     );
 
     let git = mocks.git();
-    git.length.should.equal(1);
+    expect(git.length).to.equal(1);
 
-    git[0].cmd.should.equal('git commit --no-verify -a -m "release v1.1.0"');
+    expect(git[0].cmd).to.equal('git commit --no-verify -a -m "release v1.1.0"');
   });
 
   it("should commit the manifest files to git with a message", () => {
     files.create("package.json", { version: "1.0.0" });
 
-    let bump = chaiExec("--patch --all --commit my-message");
+    let cli = bump("--patch --all --commit my-message");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.0.1\n` +
       `${check} Git commit\n`
     );

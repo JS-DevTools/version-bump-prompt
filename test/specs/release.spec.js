@@ -1,19 +1,19 @@
 "use strict";
 
-const { check, files } = require("../utils");
-const { chaiExec, expect } = require("../utils/chai");
+const { check, files, bump } = require("../utils");
+const { expect } = require("chai");
 
 describe.skip("bump [release]", () => {
 
   it("should increment an all-zero version number", () => {
     files.create("package.json", { version: "0.0.0" });
 
-    let bump = chaiExec("major");
+    let cli = bump("major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 1.0.0\n`
     );
 
@@ -23,12 +23,12 @@ describe.skip("bump [release]", () => {
   it("should reset the minor and patch", () => {
     files.create("package.json", { version: "1.2.3" });
 
-    let bump = chaiExec("--major");
+    let cli = bump("--major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n`
     );
 
@@ -38,12 +38,12 @@ describe.skip("bump [release]", () => {
   it("should reset the prerelease version", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let bump = chaiExec("--major");
+    let cli = bump("--major");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n`
     );
 
@@ -53,12 +53,12 @@ describe.skip("bump [release]", () => {
   it("should not be affected by the --preid flag", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let bump = chaiExec("--major --preid alpha");
+    let cli = bump("--major --preid alpha");
 
-    expect(bump).to.have.stderr("");
-    expect(bump).to.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
+    expect(cli).to.have.stdout(
       `${check} Updated package.json to 2.0.0\n`
     );
 
@@ -68,12 +68,12 @@ describe.skip("bump [release]", () => {
   it("should error if there's no current version number", () => {
     files.create("package.json", {});
 
-    let bump = chaiExec("major");
+    let cli = bump("major");
 
-    expect(bump).to.have.stdout("");
-    expect(bump).to.have.exitCode(2);
+    expect(cli).to.have.stdout("");
+    expect(cli).to.have.exitCode(2);
 
-    bump.should.have.stderr(
+    expect(cli).to.have.stderr(
       "Unable to determine the current version number. Checked package.json, package-lock.json.\n"
     );
 
@@ -83,12 +83,12 @@ describe.skip("bump [release]", () => {
   it("should print a more detailed error if DEBUG is set", () => {
     files.create("package.json", { version: "" });
 
-    let bump = chaiExec("major", { env: { DEBUG: "true" }});
+    let cli = bump("major", { env: { DEBUG: "true" }});
 
-    expect(bump).to.have.stdout("");
-    expect(bump).to.have.exitCode(2);
+    expect(cli).to.have.stdout("");
+    expect(cli).to.have.exitCode(2);
 
-    bump.should.have.stderr.that.matches(
+    expect(cli).to.have.stderr.that.matches(
       /^Error: Unable to determine the current version number. Checked package.json, package-lock.json.\n\s+at \w+/
     );
 

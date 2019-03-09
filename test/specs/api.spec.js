@@ -2,7 +2,7 @@
 
 const versionBump = require("../../");
 const { files, mocks } = require("../utils");
-const { expect } = require("../utils/chai");
+const { expect } = require("chai");
 
 const ORIGINAL_CWD = process.cwd();
 
@@ -20,7 +20,7 @@ describe("versionBup() API", () => {
 
     let results = await versionBump("2.34.567");
 
-    results.should.deep.equal({
+    expect(results).to.deep.equal({
       release: undefined,
       oldVersion: "1.0.0",
       newVersion: "2.34.567",
@@ -45,7 +45,7 @@ describe("versionBup() API", () => {
 
     let results = await versionBump("minor");
 
-    results.should.deep.equal({
+    expect(results).to.deep.equal({
       release: "minor",
       oldVersion: "1.0.0",
       newVersion: "1.1.0",
@@ -84,7 +84,7 @@ describe("versionBup() API", () => {
       ]
     });
 
-    results.should.deep.equal({
+    expect(results).to.deep.equal({
       release: "preminor",
       oldVersion: "1.0.0",
       newVersion: "1.1.0-test.1",
@@ -108,14 +108,14 @@ describe("versionBup() API", () => {
 
     files.text("subdir/deep/changelog.md", "# Changelog\n\n## v1.1.0-test.1\n\n## v0.0.1\n");
 
-    files.json("random-file.json").should.deep.equal({
+    expect(files.json("random-file.json")).to.deep.equal({
       name: "v1.1.0-test.1",
       version: "1.1.0-test.1",
       desc: "This is version 1.1.0-test.1.",
     });
 
     // A git commit and tag should have been created
-    mocks.git().should.deep.equal([
+    expect(mocks.git()).to.deep.equal([
       'git commit --message "A test of the upcoming v1.1.0-test.1" random-file.json README.md subdir/deep/changelog.md',
       'git tag --annotate --message "A test of the upcoming v1.1.0-test.1" 1.1.0-test.1',
     ]);
@@ -154,7 +154,7 @@ describe("versionBup() API", () => {
     }
     catch (error) {
       expect(error).to.be.an.instanceOf(Error);
-      error.message.should.equal(
+      expect(error.message).to.equal(
         "Unable to determine the current version number. Checked package.json."
       );
 
