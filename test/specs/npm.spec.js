@@ -3,10 +3,10 @@
 const { check, files, mocks, bump } = require("../utils");
 const { expect } = require("chai");
 
-describe.skip("npm version hooks", () => {
+describe("npm version hooks", () => {
+
   if (process.platform === "win32" && process.env.CI) {
-    // Spawning NPM fails on Windows due to a bug in NYC (actually in its dependency, spawn-wrap)
-    // So skip these tests until this bug is fixed: https://github.com/istanbuljs/nyc/issues/760
+    // Spawning NPM fails on Windows due to a bug in NYC
     return;
   }
 
@@ -18,19 +18,20 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let cli = bump("--major");
+    let cli = bump("major");
 
     expect(cli).to.have.stderr("");
     expect(cli).to.have.exitCode(0);
 
     expect(cli).to.have.stdout(
+      `${check} Npm run preversion\n` +
       `${check} Updated package.json to 2.0.0\n`
     );
 
-    let npm = mocks.npm();
+    let npm = mocks.npmDetails();
     expect(npm.length).to.equal(1);
 
-    expect(npm[0].cmd).to.equal("npm run preversion");
+    expect(npm[0].cmd).to.equal("npm run preversion --silent");
     expect(npm[0].version).to.equal("1.0.0");
   });
 
@@ -42,19 +43,20 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let cli = bump("--major");
+    let cli = bump("major");
 
     expect(cli).to.have.stderr("");
     expect(cli).to.have.exitCode(0);
 
     expect(cli).to.have.stdout(
-      `${check} Updated package.json to 2.0.0\n`
+      `${check} Updated package.json to 2.0.0\n` +
+      `${check} Npm run version\n`
     );
 
-    let npm = mocks.npm();
+    let npm = mocks.npmDetails();
     expect(npm.length).to.equal(1);
 
-    expect(npm[0].cmd).to.equal("npm run version");
+    expect(npm[0].cmd).to.equal("npm run version --silent");
     expect(npm[0].version).to.equal("2.0.0");
   });
 
@@ -66,19 +68,20 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let cli = bump("--major");
+    let cli = bump("major");
 
     expect(cli).to.have.stderr("");
     expect(cli).to.have.exitCode(0);
 
     expect(cli).to.have.stdout(
-      `${check} Updated package.json to 2.0.0\n`
+      `${check} Updated package.json to 2.0.0\n` +
+      `${check} Npm run postversion\n`
     );
 
-    let npm = mocks.npm();
+    let npm = mocks.npmDetails();
     expect(npm.length).to.equal(1);
 
-    expect(npm[0].cmd).to.equal("npm run postversion");
+    expect(npm[0].cmd).to.equal("npm run postversion --silent");
     expect(npm[0].version).to.equal("2.0.0");
   });
 
@@ -92,15 +95,18 @@ describe.skip("npm version hooks", () => {
       },
     });
 
-    let cli = bump("--major --commit --tag --push");
+    let cli = bump("major --commit --tag --push");
 
     expect(cli).to.have.stderr("");
     expect(cli).to.have.exitCode(0);
 
     expect(cli).to.have.stdout(
+      `${check} Npm run preversion\n` +
       `${check} Updated package.json to 2.0.0\n` +
+      `${check} Npm run version\n` +
       `${check} Git commit\n` +
       `${check} Git tag\n` +
+      `${check} Npm run postversion\n` +
       `${check} Git push\n`
     );
 
@@ -108,23 +114,23 @@ describe.skip("npm version hooks", () => {
     expect(bin.length).to.equal(7);
 
     // The preversion script runs before anything
-    expect(bin[0].cmd).to.equal("npm run preversion");
+    expect(bin[0].cmd).to.equal("npm run preversion --silent");
     expect(bin[0].version).to.equal("1.0.0");
 
     // The version script runs after the version has been updated,
-    expect(bin[1].cmd).to.equal("npm run version");
+    expect(bin[1].cmd).to.equal("npm run version --silent");
     expect(bin[1].version).to.equal("2.0.0");
 
     // Git commit happens after the version has been updated
-    expect(bin[2].cmd).to.equal('git commit package.json -m "release v2.0.0"');
+    expect(bin[2].cmd).to.equal('git commit --message "release v2.0.0" package.json');
     expect(bin[2].version).to.equal("2.0.0");
 
     // Git tag happens after the version has been updated
-    expect(bin[3].cmd).to.equal("git tag -a v2.0.0 -m 2.0.0");
+    expect(bin[3].cmd).to.equal('git tag --annotate --message "release v2.0.0" v2.0.0');
     expect(bin[3].version).to.equal("2.0.0");
 
     // The postversion script runs AFTER "git commit" and "git tag", but BEFORE "git push"
-    expect(bin[4].cmd).to.equal("npm run postversion");
+    expect(bin[4].cmd).to.equal("npm run postversion --silent");
     expect(bin[4].version).to.equal("2.0.0");
 
     // Git push happens after everything else
