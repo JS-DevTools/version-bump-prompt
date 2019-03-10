@@ -9,5 +9,6 @@ spec:
 
 bail: true
 timeout: 10000
+slow: 2000
 retries: 2
 recursive: true
