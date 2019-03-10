@@ -47,6 +47,21 @@ describe("bump", () => {
     expect(cli.stderr).to.contain(manifest.description);
   });
 
+  it("should print a more detailed error if DEBUG is set", () => {
+    files.create("package.json", { version: "" });
+
+    let cli = bump("major", { env: { DEBUG: "true" }});
+
+    expect(cli).to.have.stdout("");
+    expect(cli).to.have.exitCode(1);
+
+    expect(cli).to.have.stderr.that.matches(
+      /^Error: Unable to determine the current version number. Checked package.json.\n\s+at \w+/
+    );
+
+    expect(files.json("package.json")).to.deep.equal({ version: "" });
+  });
+
   describe("bump --help", () => {
     it("should show usage text", () => {
       let cli = bump("--help");
