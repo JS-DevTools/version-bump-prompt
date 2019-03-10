@@ -1,4 +1,4 @@
-import * as globby from "globby";
+import globby, { hasMagic } from "globby";
 import { isReleaseType, ReleaseType } from "./release-type";
 import { VersionBumpOptions } from "./types/version-bump-options";
 
@@ -160,7 +160,7 @@ async function strictGlobMatch(file: string, options: object): Promise<string[]>
   let matches = await globby(file, options);
 
   if (matches.length === 0) {
-    if (globby.hasMagic(file)) {
+    if (hasMagic(file)) {
       throw new Error(`Could not find any files matching "${file}".`);
     }
     else {
