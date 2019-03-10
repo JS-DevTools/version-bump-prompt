@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const mkdirp = require("mkdirp");
 
-const tempDir = path.resolve("test", ".tmp");
+const tempDir = path.resolve(__dirname, "..", ".tmp");
 
 const files = module.exports = {
   /**
