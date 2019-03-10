@@ -9,6 +9,18 @@ export const enum ProgressEvent {
   GitCommit = "git commit",
   GitTag = "git tag",
   GitPush = "git push",
+  NpmScript = "npm script",
+}
+
+/**
+ * The NPM version scripts
+ *
+ * @see https://docs.npmjs.com/cli/version.html
+ */
+export const enum NpmScript {
+  PreVersion = "preversion",
+  Version = "version",
+  PostVersion = "postversion",
 }
 
 /**
@@ -16,4 +28,5 @@ export const enum ProgressEvent {
  */
 export interface VersionBumpProgress extends VersionBumpResults {
   event: ProgressEvent;
+  script?: NpmScript;
 }

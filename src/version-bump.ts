@@ -2,7 +2,9 @@ import { getNewVersion } from "./get-new-version";
 import { getOldVersion } from "./get-old-version";
 import { gitCommit, gitPush, gitTag } from "./git";
 import { Operation } from "./operation";
+import { runNpmScript } from "./run-npm-script";
 import { VersionBumpOptions } from "./types/version-bump-options";
+import { NpmScript } from "./types/version-bump-progress";
 import { VersionBumpResults } from "./types/version-bump-results";
 import { updateFiles } from "./update-files";
 
@@ -46,12 +48,23 @@ export async function versionBump(arg: VersionBumpOptions | string = {}): Promis
   await getOldVersion(operation);
   await getNewVersion(operation);
 
+  // Run npm preversion script, if any
+  await runNpmScript(NpmScript.PreVersion, operation);
+
   // Update the version number in all files
   await updateFiles(operation);
 
-  // Git commit, tag, push (if enabled)
+  // Run npm version script, if any
+  await runNpmScript(NpmScript.Version, operation);
+
+  // Git commit and tag, if enabled
   await gitCommit(operation);
   await gitTag(operation);
+
+  // Run npm postversion script, if any
+  await runNpmScript(NpmScript.PostVersion, operation);
+
+  // Push the git commit and tag, if enabled
   await gitPush(operation);
 
   return operation.results;

@@ -44,7 +44,7 @@ export async function main(args: string[]): Promise<void> {
   }
 }
 
-function progress({ event, updatedFiles, skippedFiles, newVersion }: VersionBumpProgress): void {
+function progress({ event, script, updatedFiles, skippedFiles, newVersion }: VersionBumpProgress): void {
   // tslint:disable-next-line: switch-default
   switch (event) {
     case ProgressEvent.FileUpdated:
@@ -65,6 +65,10 @@ function progress({ event, updatedFiles, skippedFiles, newVersion }: VersionBump
 
     case ProgressEvent.GitPush:
       console.log(success, "Git push");
+      break;
+
+    case ProgressEvent.NpmScript:
+      console.log(success, `Npm run ${script}`);
       break;
   }
 }

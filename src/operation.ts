@@ -1,7 +1,7 @@
 import { NormalizedOptions, normalizeOptions } from "./normalize-options";
 import { ReleaseType } from "./release-type";
 import { VersionBumpOptions } from "./types/version-bump-options";
-import { ProgressEvent, VersionBumpProgress } from "./types/version-bump-progress";
+import { NpmScript, ProgressEvent, VersionBumpProgress } from "./types/version-bump-progress";
 import { VersionBumpResults } from "./types/version-bump-results";
 
 type ProgressCallback = (progress: VersionBumpProgress) => void;
@@ -19,6 +19,7 @@ interface OperationState {
 
 interface UpdateOperationState extends Partial<OperationState> {
   event?: ProgressEvent;
+  script?: NpmScript;
 }
 
 /**
@@ -89,13 +90,13 @@ export class Operation {
   /**
    * Updates the operation state and results, and reports the updated progress to the user.
    */
-  public update({ event, ...newState }: UpdateOperationState): this {
+  public update({ event, script, ...newState }: UpdateOperationState): this {
     // Update the operation state
     Object.assign(this.state, newState);
 
     if (event && this._progress) {
       // Report the progress to the user
-      this._progress({ event, ...this.results });
+      this._progress({ event, script, ...this.results });
     }
 
     return this;
