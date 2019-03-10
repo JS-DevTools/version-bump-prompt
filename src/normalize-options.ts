@@ -168,5 +168,6 @@ async function strictGlobMatch(file: string, options: object): Promise<string[]>
     }
   }
 
-  return matches;
+  // Return files in a predictable order
+  return matches.sort();
 }
