@@ -1,6 +1,0 @@
---bail
---timeout 6000
---retries 2
---recursive
-test/fixtures/**/*.js
-test/specs/**/*.js

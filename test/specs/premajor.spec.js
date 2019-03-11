@@ -1,102 +1,84 @@
 "use strict";
 
-const files = require("../fixtures/files");
-const check = require("../fixtures/check");
-const chaiExec = require("chai-exec");
+const { check, files, bump } = require("../utils");
+const { expect } = require("chai");
 
-describe("bump --premajor", () => {
-  it("should not increment a non-existent version number", () => {
-    files.create("package.json", {});
-    files.create("bower.json", { name: "my-app" });
-
-    let bump = chaiExec("--premajor");
-
-    bump.stderr.should.be.empty;
-    bump.stdout.should.be.empty;
-    bump.should.have.exitCode(0);
-
-    files.json("package.json").should.deep.equal({});
-    files.json("bower.json").should.deep.equal({ name: "my-app" });
-  });
-
-  it("should treat empty version numbers as 0.0.0", () => {
-    files.create("package.json", { version: "" });
-    files.create("bower.json", { version: null });
-    files.create("component.json", { version: 0 });
-
-    let bump = chaiExec("--premajor");
-
-    bump.stderr.should.be.empty;
-    bump.should.have.exitCode(0);
-
-    bump.should.have.stdout(
-      `${check} Updated package.json to 1.0.0-beta.0\n` +
-      `${check} Updated bower.json to 1.0.0-beta.0\n` +
-      `${check} Updated component.json to 1.0.0-beta.0\n`
-    );
-
-    files.json("package.json").should.deep.equal({ version: "1.0.0-beta.0" });
-    files.json("bower.json").should.deep.equal({ version: "1.0.0-beta.0" });
-    files.json("component.json").should.deep.equal({ version: "1.0.0-beta.0" });
-  });
+describe("bump premajor", () => {
 
   it("should increment an all-zero version number", () => {
     files.create("package.json", { version: "0.0.0" });
 
-    let bump = chaiExec("--premajor");
+    let cli = bump("premajor");
 
-    bump.stderr.should.be.empty;
-    bump.should.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
-      `${check} Updated package.json to 1.0.0-beta.0\n`
+    expect(cli).to.have.stdout(
+      `${check} Updated package.json to 1.0.0-beta.1\n`
     );
 
-    files.json("package.json").should.deep.equal({ version: "1.0.0-beta.0" });
+    expect(files.json("package.json")).to.deep.equal({ version: "1.0.0-beta.1" });
   });
 
   it("should reset the minor and patch", () => {
     files.create("package.json", { version: "1.2.3" });
 
-    let bump = chaiExec("--premajor");
+    let cli = bump("premajor");
 
-    bump.stderr.should.be.empty;
-    bump.should.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
-      `${check} Updated package.json to 2.0.0-beta.0\n`
+    expect(cli).to.have.stdout(
+      `${check} Updated package.json to 2.0.0-beta.1\n`
     );
 
-    files.json("package.json").should.deep.equal({ version: "2.0.0-beta.0" });
+    expect(files.json("package.json")).to.deep.equal({ version: "2.0.0-beta.1" });
   });
 
   it("should reset the prerelease version", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let bump = chaiExec("--premajor");
+    let cli = bump("premajor");
 
-    bump.stderr.should.be.empty;
-    bump.should.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
-      `${check} Updated package.json to 2.0.0-beta.0\n`
+    expect(cli).to.have.stdout(
+      `${check} Updated package.json to 2.0.0-beta.1\n`
     );
 
-    files.json("package.json").should.deep.equal({ version: "2.0.0-beta.0" });
+    expect(files.json("package.json")).to.deep.equal({ version: "2.0.0-beta.1" });
   });
 
   it("should honor the --preid flag", () => {
     files.create("package.json", { version: "1.2.3-beta.4" });
 
-    let bump = chaiExec("--premajor --preid alpha");
+    let cli = bump("premajor --preid alpha");
 
-    bump.stderr.should.be.empty;
-    bump.should.have.exitCode(0);
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
 
-    bump.should.have.stdout(
-      `${check} Updated package.json to 2.0.0-alpha.0\n`
+    expect(cli).to.have.stdout(
+      `${check} Updated package.json to 2.0.0-alpha.1\n`
     );
 
-    files.json("package.json").should.deep.equal({ version: "2.0.0-alpha.0" });
+    expect(files.json("package.json")).to.deep.equal({ version: "2.0.0-alpha.1" });
   });
+
+  it("should error if there is no existing version number", () => {
+    files.create("package.json", { name: "my-app" });
+    files.create("bower.json", { version: "" });
+    files.create("component.json", { version: 0 });
+
+    let cli = bump("premajor *.json");
+
+    expect(cli).to.have.stdout("");
+    expect(cli).to.have.stderr("Unable to determine the current version number. Checked bower.json, component.json, package.json.\n");
+    expect(cli).to.have.exitCode(1);
+
+    expect(files.json("package.json")).to.deep.equal({ name: "my-app" });
+    expect(files.json("bower.json")).to.deep.equal({ version: "" });
+    expect(files.json("component.json")).to.deep.equal({ version: 0 });
+  });
+
 });

@@ -1,27 +1,33 @@
 "use strict";
 
-const fs = require("fs");
-const path = require("path");
-const files = require("../files");
-
-// Ensure that the mock binaries are executable
-fs.chmodSync(path.join(__dirname, "git"), "0777");
-fs.chmodSync(path.join(__dirname, "npm"), "0777");
-
-// Inject our this directory path into the PATH variable,
-// so that version-bump-prompt runs our mock `git` and `npm` binaries
-// instead of the real ones.
-let otherPaths = getEnvPath();
-process.env.PATH = __dirname + path.delimiter + otherPaths; // eslint-disable-line no-path-concat
+const files = require("./files");
 
 const mocks = module.exports = {
+  /**
+   * Returns the `git` commands that were executed.
+   *
+   * @returns {string[]}
+   */
+  git () {
+    return mocks.gitDetails().map(mock => mock.cmd);
+  },
+
   /**
    * Returns information about each time `git` was executed.
    *
    * @returns {object[]}
    */
-  git () {
+  gitDetails () {
     return mocks.all().filter(mock => mock.bin === "git");
+  },
+
+  /**
+   * Returns the `npm` commands that were executed.
+   *
+   * @returns {string[]}
+   */
+  npm () {
+    return mocks.npmDetails().map(mock => mock.cmd);
   },
 
   /**
@@ -29,7 +35,7 @@ const mocks = module.exports = {
    *
    * @returns {object[]}
    */
-  npm () {
+  npmDetails () {
     return mocks.all().filter(mock => mock.bin === "npm");
   },
 
@@ -56,6 +62,8 @@ const mocks = module.exports = {
     array.push({
       bin,
 
+      args,
+
       // Record the command that was executed
       cmd: bin + " " + args.map(quoteArgs).join(" "),
 
@@ -67,20 +75,6 @@ const mocks = module.exports = {
     files.create("mocks.json", array);
   },
 };
-
-
-/**
- * Returns the PATH environment variable, case-insensitively
- */
-function getEnvPath () {
-  let keys = Object.keys(process.env);
-
-  for (let key of keys) {
-    if (key.toUpperCase() === "PATH") {
-      return process.env[key];
-    }
-  }
-}
 
 /**
  * Adds quotes around an argument if it contains whitespace characters

@@ -2,9 +2,9 @@
 
 const fs = require("fs");
 const path = require("path");
+const mkdirp = require("mkdirp");
 
-const srcDir = __dirname;
-const destDir = path.join(__dirname, "../../.tmp");
+const tempDir = path.resolve(__dirname, "..", ".tmp");
 
 const files = module.exports = {
   /**
@@ -17,17 +17,12 @@ const files = module.exports = {
     if (typeof contents === "object") {
       contents = JSON.stringify(contents, null, 2);
     }
-    fs.writeFileSync(path.join(destDir, name), contents);
-  },
 
-  /**
-   * Copies a file from the "test/fixtures/files" directory to the "test/.tmp" directory.
-   *
-   * @param {string} name - The name of the file to copy (e.g. "README.md", "script1.js")
-   */
-  copy (name) {
-    let contents = fs.readFileSync(path.join(srcDir, name), "utf8");
-    files.create(name, contents);
+    let filePath = path.join(tempDir, name);
+    let dirPath = path.dirname(filePath);
+
+    mkdirp.sync(dirPath);
+    fs.writeFileSync(filePath, contents);
   },
 
   /**
@@ -38,7 +33,7 @@ const files = module.exports = {
    */
   text (name) {
     try {
-      return fs.readFileSync(path.join(destDir, name), "utf8");
+      return fs.readFileSync(path.join(tempDir, name), "utf8");
     }
     catch (e) {
       return "";
