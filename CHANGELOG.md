@@ -2,6 +2,33 @@
 All notable changes will be documented in this file.
 `version-bump-prompt` adheres to [Semantic Versioning](http://semver.org/).
 
+## [v5.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v5.0.0) (2019-03-10)
+
+### Breaking Changes
+
+- Completely rewritten CLI with new argument syntax.  See [the docs](https://jsdevtools.org/ez-spawn/) for details.
+
+- Arguments like `--major` and `--minor` have been replaced with a positional argument.  So `bump --major` becomes `bump major`.
+
+- The `--prompt` argument is no longer needed.  It's now the default.  If you want, you can explicitly specify it as a positional argument (e.g. `bump prompt`)
+
+- The `--lock` argument is no longer needed.  The `package-lock.json` file is now updated by default.
+
+- The `--grep` argument is no longer needed. Just provide a list of file names and/or globs for version-bump-prompt to update. So `bump --grep ReadMe.md` becomes `bump ReadMe.md`.
+
+- Previously, version-bump-prompt _always_ updated `package.json`, `bower.json`, and `component.json` if they existed. Now it updates `package.json` and `package-lock.json` by default if they exist. You can override the default by explicitly specifying the files (e.g. `bump bower.json package.json ReadMe.md`)
+
+### Other Changes
+
+- Completely rewritten in TypeScript
+
+- Version-Bump-Prompt now includes a Node.js API, so you can use it programmatically instead of just as a CLI
+
+- You now have full control over the git commit message and tag name. The `--commit` and `--tag` arguments accept an optional string with `%s` placeholders, which will be replaced with the version number. This matches the behavior of the [npm version command](https://docs.npmjs.com/cli/version.html).
+
+[Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v4.2.2...v5.0.0)
+
+
 ## [v4.2.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v4.2.0) (2018-09-30)
 
 - Output of [npm version scripts](https://docs.npmjs.com/cli/version) is now shown.  Thanks to [@didoo](https://github.com/didoo) for [the PR](https://github.com/JS-DevTools/version-bump-prompt/pull/27)!

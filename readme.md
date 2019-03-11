@@ -11,22 +11,26 @@
 
 ![Screenshot](https://jsdevtools.org/version-bump-prompt/img/screenshot.gif)
 
-#### Automate your release process with a single command that can:
+### Automate your release process with a single command that can:
 
- * Optionally prompt for the type of version bump (major, minor, revision, beta, etc.)
- * Bump the version number in all of your JSON manifests, including:
+- Prompt for the type of version bump
+
+- Bump the version number **any** file, including:
     -  `package.json`
-    -  `bower.json`
-    -  `component.json`
- * Replace version number strings in text files, including:
+    -  `package-lock.json`
     -  config files
-    -  source code
-    -  README files
+    -  source code files
+    -  ReadMe files
     -  license files
- * Run your `preversion`, `version`, and `postversion` scripts
- * Commit changes to GIT
- * Tag the commit with the version number
- * Push the commit to remote
+
+- Run your `preversion`, `version`, and `postversion` scripts
+
+- Commit changes to git
+
+- Tag the commit with the version number
+
+- Push the commit to remote
+
 
 
 Installation
@@ -38,40 +42,174 @@ npm install -g version-bump-prompt
 ```
 
 
+
 Usage
 --------------------------
 
 ```
-Usage: bump [options]
+bump [release] [options] [files...]
 
-Options:
+Automatically (or with prompts) bump your version number, commit changes, tag, and push to Git
 
-  -h, --help            output usage information
-  -V, --version         output the version number
-  --major               Increase major version
-  --minor               Increase minor version
-  --patch               Increase patch version
-  --premajor            Increase major version, pre-release
-  --preminor            Increase preminor version, pre-release
-  --prepatch            Increase prepatch version, pre-release
-  --prerelease          Increase prerelease version
-  --prompt              Prompt for type of bump (patch, minor, major, premajor, prerelase, etc.)
-  --preid <name>        The identifier for prerelease versions (default is "beta")
-  --commit [message]    Commit changed files to Git (default message is "release vX.X.X")
-  --no-verify           Bypasses the pre-commit and commit-msg hooks
-  --tag                 Tag the commit in Git
-  --push                Push the Git commit
-  --all                 Commit/tag/push ALL pending files, not just the ones changed by bump
-  --grep <filespec...>  Files and/or globs to do a text-replace of the old version number with the new one
-  --lock                Update the package-lock.json file as well
+release:
+  The release version or type.  Can be one of the following:
+   - A semver version number (ex: 1.23.456)
+   - prompt: Prompt for the version number (this is the default)
+   - major: Increase major version
+   - minor: Increase minor version
+   - patch: Increase patch version
+   - premajor: Increase major version, pre-release
+   - preminor: Increase preminor version, pre-release
+   - prepatch: Increase prepatch version, pre-release
+   - prerelease: Increase prerelease version
 
-Examples:
+options:
+  --preid <name>            The identifier for prerelease versions.
+                            Defaults to "beta".
 
-  $ bump --patch
-  $ bump --major --tag
-  $ bump --patch --tag --all --grep README.md LICENSE
-  $ bump --prompt --tag --push --all
+  -c, --commit [message]    Commit changed files to Git.
+                            Defaults to "release vX.X.X".
+
+  -t, --tag [tag]           Tag the commit in Git.
+                            The Default tag is "vX.X.X"
+
+  -p, --push                Push the Git commit.
+
+  -a, --all                 Commit/tag/push ALL pending files,
+                            not just the ones that were bumped.
+                            (same as "git commit -a")
+
+  --no-verify               Bypass Git commit hooks
+                            (same as "git commit --no-verify")
+
+  -v, --version             Show the version number
+
+  -q, --quiet               Suppress unnecessary output
+
+  -h, --help                Show usage information
+
+files...
+  One or more files and/or globs to bump (ex: README.md *.txt docs/**/*).
+  Defaults to package.json and package-lock.json.
 ```
+
+
+
+Examples
+--------------------------
+
+### Default Behavior (no arguments)
+
+```
+bump
+```
+
+When run without any arguments, the `bump` command will do the following:
+
+- Prompt the user to select the bump type (major, minor, prerelease, etc.)
+- Update the version number in `package.json` and `package-lock.json`
+- Run any [npm version scripts](https://docs.npmjs.com/cli/version.html) (`preversion`, `version`, or `postversion`)
+- It will **NOT** commit, tag, or push to git.
+
+
+### Bump Without Prompting
+You can specify an explicit version number:
+
+```
+bump 1.23.456
+bump 1.23.456-beta.1
+```
+
+Or you can specify a release type:
+
+```
+bump major
+bump patch
+bump prerelease
+```
+
+For pre-releases, the default identifier is "beta".  You can change it using the `--preid` argument:
+
+```
+bump premajor --preid alpha
+```
+
+All of the above commands do the following:
+
+- Update the version number in `package.json` and `package-lock.json`
+- Run any [npm version scripts](https://docs.npmjs.com/cli/version.html) (`preversion`, `version`, or `postversion`)
+- It will **NOT** commit, tag, or push to git.
+
+
+
+### Git Commit
+You can use the `--commit` argument by itself to prompt the user for the version number. If you don't specify a commit message, then it defaults to "**release vX.X.X**". If you _do_ specify a commit message, then the version number will be appended to it.  Or you can insert `%s` placeholders in the message, and they'll be replaced with the version number instead.
+
+```
+bump --commit
+bump --commit "This is release v"
+bump --commit "The v%s release"
+```
+
+You can also specify a release type instead of prompting the user:
+
+```
+bump major --commit
+bump minor --commit "This is release v"
+bump patch --commit "The v%s release"
+```
+
+The above commands do the following:
+
+- Update the version number in `package.json` and `package-lock.json`
+- Run any [npm version scripts](https://docs.npmjs.com/cli/version.html) (`preversion`, `version`, or `postversion`)
+- Commit the `package.json` and `package-lock.json` files to git
+- The commit will **NOT** be tagged
+- The commit will **NOT** be pushed to the remote
+
+
+### Git Tag
+The `--commit` argument does not tag the commit by default. You can use the `--tag` argument to do that.  You can optionally specify a tag name, which can contain `%s` placeholders, just like the commit message.
+
+You don't need to specify the `--commit` argument, since it's implied by `--tag`.  Unless you want to customize the commit message.
+
+```
+bump --tag
+bump major --tag "v%s tag"
+bump patch --commit "release v" --tag "v"
+```
+
+The above commands do the following:
+
+- Update the version number in `package.json` and `package-lock.json`
+- Run any [npm version scripts](https://docs.npmjs.com/cli/version.html) (`preversion`, `version`, or `postversion`)
+- Commit the `package.json` and `package-lock.json` files to git
+- Tag the commit
+- The commit will **NOT** be pushed to the remote
+
+
+### Git Push
+The `--push` argument pushes the git commit and tags.
+
+```
+bump --commit --push
+bump major --tag --push
+bump patch --tag "v%s tag" --push
+bump prerelease --commit "release v" --tag "v" --push
+```
+
+
+### Specifying Files to Update
+All of the `bump` commands shown above operate on the `package.json` and `package-lock.json` files by default. You can specify a custom list of files and/or [glob patterns](https://www.npmjs.com/package/glob#glob-primer) to update instead.
+
+> **Note:** If you specify your own file list, then the `package.json` and `package-lock.json` files will **not** be updated by default. You need to explicitly include them in your file list if you want them updated.
+
+```
+bump README.md
+bump package.json package-lock.json README.md
+bump *.json *.md
+```
+
 
 
 Version Scripts
@@ -109,6 +247,7 @@ License
 --------------------------
 Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).
 Both the original project and this fork are licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+
 
 
 Big Thanks To
