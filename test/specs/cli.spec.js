@@ -24,7 +24,6 @@ describe("bump", () => {
     expect(cli).to.have.exitCode(9);
     expect(cli).to.have.stdout("");
     expect(cli.stderr).to.match(/^Unknown option: --fizzbuzz\n\nUsage: bump \[release\] \[options\] \[files...\]\n/);
-    expect(cli.stderr).to.contain(manifest.description);
   });
 
   it("should error if an invalid shorthand argument is used", () => {
@@ -33,7 +32,6 @@ describe("bump", () => {
     expect(cli).to.have.exitCode(9);
     expect(cli).to.have.stdout("");
     expect(cli.stderr).to.match(/^Unknown option: -z\n\nUsage: bump \[release\] \[options\] \[files...\]\n/);
-    expect(cli.stderr).to.contain(manifest.description);
   });
 
   it("should error if an argument is missing its value", () => {
@@ -44,7 +42,6 @@ describe("bump", () => {
     expect(cli.stderr).to.match(
       /^The --preid option requires a value, such as "alpha", "beta", etc\.\n\nUsage: bump \[release\] \[options\] \[files...\]\n/
     );
-    expect(cli.stderr).to.contain(manifest.description);
   });
 
   it("should print a more detailed error if DEBUG is set", () => {
@@ -68,8 +65,8 @@ describe("bump", () => {
 
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
-      expect(cli.stdout).to.match(/^\nUsage: bump \[release\] \[options\] \[files...\]\n/);
       expect(cli.stdout).to.contain(manifest.description);
+      expect(cli.stdout).to.match(/\nUsage: bump \[release\] \[options\] \[files...\]\n/);
     });
 
     it("should support -h shorthand", () => {
@@ -77,8 +74,8 @@ describe("bump", () => {
 
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
-      expect(cli.stdout).to.match(/^\nUsage: bump \[release\] \[options\] \[files...\]\n/);
       expect(cli.stdout).to.contain(manifest.description);
+      expect(cli.stdout).to.match(/\nUsage: bump \[release\] \[options\] \[files...\]\n/);
     });
 
     it("should ignore other arguments", () => {
@@ -86,8 +83,8 @@ describe("bump", () => {
 
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
-      expect(cli.stdout).to.match(/^\nUsage: bump \[release\] \[options\] \[files...\]\n/);
       expect(cli.stdout).to.contain(manifest.description);
+      expect(cli.stdout).to.match(/\nUsage: bump \[release\] \[options\] \[files...\]\n/);
     });
 
     it("should ignore other shorthand arguments", () => {
@@ -95,8 +92,8 @@ describe("bump", () => {
 
       expect(cli).to.have.exitCode(0);
       expect(cli).to.have.stderr("");
-      expect(cli.stdout).to.match(/^\nUsage: bump \[release\] \[options\] \[files...\]\n/);
       expect(cli.stdout).to.contain(manifest.description);
+      expect(cli.stdout).to.match(/\nUsage: bump \[release\] \[options\] \[files...\]\n/);
     });
   });
 

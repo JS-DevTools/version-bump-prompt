@@ -87,7 +87,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
 }
 
 function errorHandler(error: Error): never {
-  console.error(`${error.name}: ${error.message}`);
+  console.error(error.message);
   console.error(usageText);
   return process.exit(ExitCode.InvalidArgument);
 }
