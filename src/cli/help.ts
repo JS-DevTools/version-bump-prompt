@@ -1,12 +1,10 @@
 import { manifest } from "../manifest";
 
 /**
- * The CLI help text
+ * Text explaining how to use the CLI
  */
-export const helpText = `
+export const usageText = `
 Usage: ${manifest.name} [release] [options] [files...]
-
-${manifest.description}
 
 release:
   The release version or type.  Can be one of the following:
@@ -72,3 +70,10 @@ Examples:
     and all markdown files in the "docs" directory.  Commits the updated files to git,
     and tags the commit as "Version 4.27.9934".
 `;
+
+/**
+ * Text describing the program and how to use it
+ */
+export const helpText = `
+${manifest.name} - ${manifest.description}
+${usageText}`;

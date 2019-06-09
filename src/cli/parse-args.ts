@@ -4,7 +4,7 @@ import * as semver from "semver";
 import { isReleaseType } from "../release-type";
 import { VersionBumpOptions } from "../types/version-bump-options";
 import { ExitCode } from "./exit-code";
-import { helpText } from "./help";
+import { usageText } from "./help";
 
 /**
  * The parsed command-line arguments
