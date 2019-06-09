@@ -82,8 +82,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
   }
   catch (error) {
     // There was an error parsing the command-line args
-    console.error((error as Error).message);
-    console.error(helpText);
-    return process.exit(ExitCode.InvalidArgument);
+    return errorHandler(error as Error);
   }
+}
+
+function errorHandler(error: Error): never {
+  console.error(`${error.name}: ${error.message}`);
+  console.error(usageText);
+  return process.exit(ExitCode.InvalidArgument);
 }
