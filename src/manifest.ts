@@ -34,7 +34,7 @@ export function isManifest(obj: any): obj is Manifest {
 /**
  * Determines whether the specified value is a string, null, or undefined.
  */
-function isOptionalString(value: any): value is string | null | undefined {
+function isOptionalString(value: any): value is string | undefined {
   let type = typeof value;
   return value === null ||
     type === "undefined" ||

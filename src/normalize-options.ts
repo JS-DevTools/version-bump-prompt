@@ -1,3 +1,4 @@
+// tslint:disable-next-line: match-default-export-name
 import globby, { hasMagic } from "globby";
 import { isReleaseType, ReleaseType } from "./release-type";
 import { VersionBumpOptions } from "./types/version-bump-options";

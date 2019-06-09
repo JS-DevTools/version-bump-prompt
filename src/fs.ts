@@ -18,7 +18,7 @@ interface JsonFile {
   path: string;
   data: unknown;
   indent: string;
-  newline: string | null;
+  newline: string | undefined;
 }
 
 /**

@@ -46,6 +46,7 @@ function getNextVersion(oldVersion: string, bump: BumpRelease): string {
     // This is a special case when going from a non-prerelease version to a prerelease version.
     // SemVer sets the prerelease version to zero (e.g. "1.23.456" => "1.23.456-beta.0").
     // But the user probably expected it to be "1.23.456-beta.1" instead.
+    // @ts-ignore
     newSemVer.prerelease[1] = "1";
     newSemVer.format();
   }
