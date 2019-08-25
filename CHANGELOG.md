@@ -6,7 +6,7 @@ All notable changes will be documented in this file.
 
 ### Breaking Changes
 
-- Completely rewritten CLI with new argument syntax.  See [the docs](https://jsdevtools.org/ez-spawn/) for details.
+- Completely rewritten CLI with new argument syntax.  See [the docs](https://jstools.dev/ez-spawn/) for details.
 
 - Arguments like `--major` and `--minor` have been replaced with a positional argument.  So `bump --major` becomes `bump major`.
 

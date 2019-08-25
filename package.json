@@ -19,7 +19,7 @@
     "url": "https://jamesmessinger.com"
   },
   "license": "MIT",
-  "homepage": "https://jsdevtools.org/version-bump-prompt",
+  "homepage": "https://jstools.dev/version-bump-prompt",
   "repository": {
     "type": "git",
     "url": "https://github.com/JS-DevTools/version-bump-prompt.git"
