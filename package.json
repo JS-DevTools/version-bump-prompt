@@ -41,8 +41,8 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "mocha && npm run lint",
-    "coverage": "nyc mocha",
     "upgrade": "npm-check -u",
+    "coverage": "nyc node_modules/mocha/bin/mocha",
     "bump": "node bin/bump.js --tag --push --all",
     "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
   },
