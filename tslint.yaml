@@ -1,6 +1,6 @@
 # TSLint config
 # https://palantir.github.io/tslint/usage/configuration/
-# https://github.com/JS-DevTools/tslint-modular
+# https://jstools.dev/tslint-modular/
 
 extends:
   - tslint-modular/best-practices
