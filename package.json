@@ -25,7 +25,7 @@
     "url": "https://github.com/JS-DevTools/version-bump-prompt.git"
   },
   "main": "lib/index.js",
-  "types": "lib/index.d.js",
+  "types": "lib/index.d.ts",
   "bin": {
     "bump": "bin/bump.js"
   },
