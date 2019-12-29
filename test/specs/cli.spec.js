@@ -47,7 +47,7 @@ describe("bump", () => {
   it("should print a more detailed error if DEBUG is set", () => {
     files.create("package.json", { version: "" });
 
-    let cli = bump("major", { env: { DEBUG: "true" }});
+    let cli = bump("major", { env: { ...process.env, DEBUG: "true" }});
 
     expect(cli).to.have.stdout("");
     expect(cli).to.have.exitCode(1);

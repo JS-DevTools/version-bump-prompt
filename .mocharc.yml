@@ -7,7 +7,7 @@ spec:
   - test/fixtures/mocha-hooks.js
   - test/specs/**/*.spec.js
 
-bail: false
+bail: true
 timeout: 10000
 slow: 2000
 retries: 2
