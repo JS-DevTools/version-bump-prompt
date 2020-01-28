@@ -2,7 +2,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const mkdirp = require("mkdirp");
 
 const tempDir = path.resolve(__dirname, "..", ".tmp");
 
@@ -21,7 +20,7 @@ const files = module.exports = {
     let filePath = path.join(tempDir, name);
     let dirPath = path.dirname(filePath);
 
-    mkdirp.sync(dirPath);
+    fs.mkdirSync(dirPath, { recursive: true });
     fs.writeFileSync(filePath, contents);
   },
 

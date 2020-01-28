@@ -60,8 +60,6 @@
     "del": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-modular": "^7.0.1",
-    "mkdirp": "^0.5.1",
-    "mocha": "^6.2.2",
     "npm-check": "^5.9.0",
     "nyc": "^15.0.0",
     "shx": "^0.3.2",
