@@ -1,7 +1,7 @@
 # Version-Bump-Prompt
 
-[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/version-bump-prompt)
-[![Build Status](https://api.travis-ci.com/JS-DevTools/version-bump-prompt.svg?branch=master)](https://travis-ci.com/JS-DevTools/version-bump-prompt)
+[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/version-bump-prompt/blob/master/.github/workflows/CI-CD.yaml)
+[![Build Status](https://github.com/JS-DevTools/version-bump-prompt/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/version-bump-prompt/blob/master/.github/workflows/CI-CD.yaml)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/version-bump-prompt)
 [![Dependencies](https://david-dm.org/JS-DevTools/version-bump-prompt.svg)](https://david-dm.org/JS-DevTools/version-bump-prompt)
