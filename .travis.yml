@@ -7,9 +7,8 @@ filter_secrets: false
 language: node_js
 
 node_js:
-  - 12
   - 10
-  - 8
+  - 12
 
 os:
   - linux
