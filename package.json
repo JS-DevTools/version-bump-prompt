@@ -1,5 +1,5 @@
 {
-  "name": "version-bump-prompt",
+  "name": "@jsdevtools/version-bump-prompt",
   "version": "5.0.7",
   "description": "Automatically (or with prompts) bump your version number, commit changes, tag, and push to Git",
   "keywords": [

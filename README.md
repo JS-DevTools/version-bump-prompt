@@ -6,8 +6,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/version-bump-prompt)
 [![Dependencies](https://david-dm.org/JS-DevTools/version-bump-prompt.svg)](https://david-dm.org/JS-DevTools/version-bump-prompt)
 
-[![npm](https://img.shields.io/npm/v/version-bump-prompt.svg)](https://www.npmjs.com/package/version-bump-prompt)
-[![License](https://img.shields.io/npm/l/version-bump-prompt.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@jsdevtools/version-bump-prompt.svg)](https://www.npmjs.com/package/@jsdevtools/version-bump-prompt)
+[![License](https://img.shields.io/npm/l/@jsdevtools/version-bump-prompt.svg)](LICENSE)
 
 ![Screenshot](https://jstools.dev/version-bump-prompt/img/screenshot.gif)
 
@@ -38,7 +38,7 @@ Installation
 You can install `version-bump-prompt` via [npm](https://docs.npmjs.com/about-npm/).
 
 ```bash
-npm install -g version-bump-prompt
+npm install -g @jsdevtools/version-bump-prompt
 ```
 
 
