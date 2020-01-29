@@ -1,8 +1,27 @@
-# Change Log
+Change Log
+====================================================================================================
 All notable changes will be documented in this file.
 `version-bump-prompt` adheres to [Semantic Versioning](http://semver.org/).
 
-## [v5.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v5.0.0) (2019-03-10)
+
+
+[v6.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v6.0.0) (2020-01-28)
+----------------------------------------------------------------------------------------------------
+
+### Breaking Changes
+
+- Dropped support for Node 8.  Now requires Node 10+
+
+### Other Changes
+
+- The "version-bump-prompt" package is now just a wrapper around the scoped "@jsdevtools/version-bump-prompt" package
+
+[Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v5.0.7...v6.0.0)
+
+
+
+[v5.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v5.0.0) (2019-03-10)
+----------------------------------------------------------------------------------------------------
 
 ### Breaking Changes
 
@@ -29,28 +48,36 @@ All notable changes will be documented in this file.
 [Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v4.2.2...v5.0.0)
 
 
-## [v4.2.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v4.2.0) (2018-09-30)
+
+[v4.2.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v4.2.0) (2018-09-30)
+----------------------------------------------------------------------------------------------------
 
 - Output of [npm version scripts](https://docs.npmjs.com/cli/version) is now shown.  Thanks to [@didoo](https://github.com/didoo) for [the PR](https://github.com/JS-DevTools/version-bump-prompt/pull/27)!
 
 [Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v4.1.0...v4.2.0)
 
 
-## [v4.1.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v4.1.0) (2017-11-15)
+
+[v4.1.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v4.1.0) (2017-11-15)
+----------------------------------------------------------------------------------------------------
 
 - Added `--lock` option to update the `package-json.lock` file in addition to manifest files.  See [issue #20](https://github.com/JS-DevTools/version-bump-prompt/issues/20) for details.  Thanks to [@browniebroke](https://github.com/browniebroke) for [the PR](https://github.com/JS-DevTools/version-bump-prompt/pull/23/files)!
 
 [Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v4.0.0...v4.1.0)
 
 
-## [v4.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v4.0.0) (2017-11-15)
+
+[v4.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v4.0.0) (2017-11-15)
+----------------------------------------------------------------------------------------------------
 
 - Dropped support for Node v4.x since it's no longer supported by [`inquirer`](https://www.npmjs.com/package/inquirer). As a result, Version-Bump-Prompt now only supports Node v6+.  You can continue using Version-Bump-Prompt v3.x on Node 4.
 
 [Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v3.0.0...v4.0.0)
 
 
-## [v3.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v3.0.0) (2016-12-25)
+
+[v3.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v3.0.0) (2016-12-25)
+----------------------------------------------------------------------------------------------------
 
 Two big changes in this version:
 
@@ -64,7 +91,9 @@ Two big changes in this version:
 [Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v2.0.0...v3.0.0)
 
 
-## [v2.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v2.0.0) (2016-11-29)
+
+[v2.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v2.0.0) (2016-11-29)
+----------------------------------------------------------------------------------------------------
 
 A couple of changes to make `version-bump-prompt` behave more like the `npm version` command:
 
