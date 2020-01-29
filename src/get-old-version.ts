@@ -47,7 +47,7 @@ async function readVersion(file: string, cwd: string): Promise<string | undefine
     let { data: manifest } = await readJsonFile(file, cwd);
 
     if (isManifest(manifest)) {
-      if (semver.valid(manifest.version as string)) {
+      if (semver.valid(manifest.version)) {
         return manifest.version;
       }
     }

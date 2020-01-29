@@ -2,19 +2,15 @@
 // tslint:disable-next-line: no-var-requires no-require-imports
 const manifest = require("../package.json") as Manifest;
 
-// Don't use the npm package name ("version-bump-prompt").
-// Use the name of the binary ("bump") instead.
-let name = Object.keys(manifest.bin as Record<string, string>)[0];
-const alteredManifest: Manifest = { ...manifest, name };
-export { alteredManifest as manifest };
+export { manifest };
 
 /**
  * The npm package manifest (package.json)
  */
 export interface Manifest {
-  name?: string;
-  version?: string;
-  description?: string;
+  name: string;
+  version: string;
+  description: string;
   [key: string]: unknown;
 }
 

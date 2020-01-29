@@ -4,7 +4,7 @@ import { manifest } from "../manifest";
  * Text explaining how to use the CLI
  */
 export const usageText = `
-Usage: ${manifest.name} [release] [options] [files...]
+Usage: bump [release] [options] [files...]
 
 release:
   The release version or type.  Can be one of the following:
