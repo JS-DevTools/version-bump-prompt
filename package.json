@@ -53,7 +53,7 @@
     "@types/inquirer": "^6.5.0",
     "@types/mocha": "^5.2.7",
     "@types/node": "^13.1.1",
-    "@types/semver": "^6.2.0",
+    "@types/semver": "^7.1.0",
     "chai": "^4.2.0",
     "chai-exec": "^1.1.2",
     "del": "^5.1.0",
@@ -64,7 +64,7 @@
     "nyc": "^15.0.0",
     "shx": "^0.3.2",
     "strip-ansi": "^6.0.0",
-    "tslint": "^5.20.1",
+    "tslint": "^6.0.0",
     "tslint-modular": "^1.6.0",
     "typescript": "^3.7.4",
     "typescript-tslint-plugin": "^0.5.5"
@@ -74,7 +74,7 @@
     "detect-indent": "^6.0.0",
     "detect-newline": "^3.1.0",
     "ez-spawn": "^2.1.6",
-    "globby": "^10.0.1",
+    "globby": "^11.0.0",
     "inquirer": "^7.0.1",
     "log-symbols": "^3.0.0",
     "semver": "^7.1.1"
