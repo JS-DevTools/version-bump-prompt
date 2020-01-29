@@ -94,3 +94,15 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Prepare the non-scoped packaged
+        run: |
+          cp LICENSE *.md dist
+          VERSION=$(node -e "console.log(require('./package.json').version)")
+          sed -i "s/X.X.X/${VERSION}/g" dist/package.json
+
+      - name: Publish the non-scoped package to NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: dist/package.json
