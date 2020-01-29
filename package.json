@@ -81,5 +81,6 @@
   },
   "engines": {
     "node": ">=10"
-  }
+  },
+  "engineStrict": true
 }
