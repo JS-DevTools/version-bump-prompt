@@ -75,7 +75,7 @@
     "detect-indent": "^6.0.0",
     "detect-newline": "^3.1.0",
     "globby": "^11.0.0",
-    "inquirer": "^7.0.1",
+    "inquirer": "^7.0.6",
     "log-symbols": "^3.0.0",
     "semver": "^7.1.1"
   },

@@ -21,7 +21,7 @@
         "--timeout=60000",
         "--retries=0",
       ],
-      // "console": "integratedTerminal",
+      "console": "integratedTerminal",
       "outFiles": [
         "${workspaceFolder}/lib/**/*.js"
       ],

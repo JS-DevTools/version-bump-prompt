@@ -12,10 +12,11 @@ describe("bump", () => {
 
     // Run the CLI without any arguments.
     // It will prompt the user and wait forever, so add a timeout.
-    let cli = bump("", { timeout: 6000 });
+    let cli = bump("");
 
-    // It should have prompted for input
-    expect(cli.stdout).to.contain("The current version in package.json is 1.0.0\nHow would you like to bump it? (Use arrow keys)");
+    expect(cli).to.have.exitCode(1);
+    expect(cli).to.have.stdout("");
+    expect(cli).to.have.stderr("Prompts can not be meaningfully rendered in non-TTY environments\n");
   });
 
   it("should error if an invalid argument is used", () => {
