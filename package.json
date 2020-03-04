@@ -47,8 +47,9 @@
     "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
   },
   "devDependencies": {
+    "@jsdevtools/chai-exec": "^2.0.1",
     "@jsdevtools/eslint-config-modular": "^8.0.0",
-    "@jsdevtools/tslint-modular": "^2.0.1",
+    "@jsdevtools/tslint-modular": "^2.0.2",
     "@types/chai": "^4.2.7",
     "@types/command-line-args": "^5.0.0",
     "@types/globby": "^9.1.0",
@@ -57,7 +58,6 @@
     "@types/node": "^13.1.1",
     "@types/semver": "^7.1.0",
     "chai": "^4.2.0",
-    "@jsdevtools/chai-exec": "^1.1.2",
     "del": "^5.1.0",
     "eslint": "^6.8.0",
     "mocha": "^7.0.1",
@@ -70,10 +70,10 @@
     "typescript-tslint-plugin": "^0.5.5"
   },
   "dependencies": {
+    "@jsdevtools/ez-spawn": "^3.0.0",
     "command-line-args": "^5.1.1",
     "detect-indent": "^6.0.0",
     "detect-newline": "^3.1.0",
-    "@jsdevtools/ez-spawn": "^2.1.6",
     "globby": "^11.0.0",
     "inquirer": "^7.0.1",
     "log-symbols": "^3.0.0",
