@@ -14,8 +14,6 @@ describe("bump", () => {
     // It will prompt the user and wait forever, so add a timeout.
     let cli = bump("");
 
-    expect(cli).to.have.exitCode(1);
-    expect(cli).to.have.stdout("");
     expect(cli).to.have.stderr("Prompts can not be meaningfully rendered in non-TTY environments\n");
   });
 
