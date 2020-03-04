@@ -1,4 +1,4 @@
-import * as ezSpawn from "ez-spawn";
+import * as ezSpawn from "@jsdevtools/ez-spawn";
 import { readJsonFile } from "./fs";
 import { isManifest, Manifest } from "./manifest";
 import { Operation } from "./operation";
