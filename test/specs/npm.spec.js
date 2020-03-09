@@ -5,11 +5,6 @@ const { expect } = require("chai");
 
 describe("npm version hooks", () => {
 
-  if (process.platform === "win32" && process.env.CI) {
-    // Spawning NPM fails on Windows due to a bug in NYC
-    return;
-  }
-
   it("should run the preversion script before updating the version number", () => {
     files.create("package.json", {
       version: "1.0.0",
