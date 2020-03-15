@@ -1,4 +1,4 @@
-# Version-Bump-Prompt
+# Version Bump Prompt
 
 [![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/version-bump-prompt/blob/master/.github/workflows/CI-CD.yaml)
 [![Build Status](https://github.com/JS-DevTools/version-bump-prompt/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/version-bump-prompt/blob/master/.github/workflows/CI-CD.yaml)
@@ -8,8 +8,11 @@
 
 [![npm](https://img.shields.io/npm/v/@jsdevtools/version-bump-prompt.svg)](https://www.npmjs.com/package/@jsdevtools/version-bump-prompt)
 [![License](https://img.shields.io/npm/l/@jsdevtools/version-bump-prompt.svg)](LICENSE)
+[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/JS-DevTools/version-bump-prompt)
 
 ![Screenshot](https://jstools.dev/version-bump-prompt/img/screenshot.gif)
+
+
 
 ### Automate your release process with a single command that can:
 
@@ -245,8 +248,9 @@ To build the project locally on your computer:
 
 License
 --------------------------
-Version-Bump-Prompt is a fork of [Version-Bump](https://github.com/alexeyraspopov/node-bump) by Alexey Raspopov (c).
-Both the original project and this fork are licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)
+Version Bump Prompt is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+
+This package is [Treeware](http://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/JS-DevTools/version-bump-prompt) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
 
 
 
