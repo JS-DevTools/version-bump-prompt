@@ -1,6 +1,6 @@
 {
   "name": "@jsdevtools/version-bump-prompt",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Automatically (or with prompts) bump your version number, commit changes, tag, and push to Git",
   "keywords": [
     "version",
