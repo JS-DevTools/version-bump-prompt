@@ -14,7 +14,7 @@ describe("bump", () => {
     // It will prompt the user and wait forever, so add a timeout.
     let cli = bump("");
 
-    expect(cli).to.have.stderr("Prompts can not be meaningfully rendered in non-TTY environments\n");
+    expect(cli.stdout).to.match(/The current version in package.json is 1.0.0\nHow would you like to bump it\?/);
   });
 
   it("should error if an invalid argument is used", () => {
@@ -46,7 +46,7 @@ describe("bump", () => {
   it("should print a more detailed error if DEBUG is set", () => {
     files.create("package.json", { version: "" });
 
-    let cli = bump("major", { env: { ...process.env, DEBUG: "true" }});
+    let cli = bump("major", { env: { ...process.env, DEBUG: "true", NODE_OPTIONS: "" }});
 
     expect(cli).to.have.stdout("");
     expect(cli).to.have.exitCode(1);
