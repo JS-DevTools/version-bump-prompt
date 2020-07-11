@@ -1,7 +1,7 @@
 # Version Bump Prompt
 
-[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/version-bump-prompt/blob/master/.github/workflows/CI-CD.yaml)
-[![Build Status](https://github.com/JS-DevTools/version-bump-prompt/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/version-bump-prompt/blob/master/.github/workflows/CI-CD.yaml)
+[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/version-bump-prompt/actions)
+[![Build Status](https://github.com/JS-DevTools/version-bump-prompt/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/version-bump-prompt/actions)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/version-bump-prompt/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/version-bump-prompt)
 [![Dependencies](https://david-dm.org/JS-DevTools/version-bump-prompt.svg)](https://david-dm.org/JS-DevTools/version-bump-prompt)
@@ -227,7 +227,7 @@ Version Scripts
 
 Contributing
 --------------------------
-Contributions, enhancements, and bug-fixes are welcome!  [File an issue](https://github.com/JS-DevTools/version-bump-prompt/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/version-bump-prompt/pulls).
+Contributions, enhancements, and bug-fixes are welcome!  [Open an issue](https://github.com/JS-DevTools/version-bump-prompt/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/version-bump-prompt/pulls).
 
 #### Building
 To build the project locally on your computer:
