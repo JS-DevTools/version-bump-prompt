@@ -12,7 +12,6 @@ export const prereleaseTypes: ReleaseType[] = ["premajor", "preminor", "prepatch
  */
 export const releaseTypes: ReleaseType[] = prereleaseTypes.concat(["major", "minor", "patch"]);
 
-// tslint:disable: no-any no-unsafe-any
 
 /**
  * Determines whether the specified value is a pre-release.

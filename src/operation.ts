@@ -83,7 +83,6 @@ export class Operation {
     // Validate and normalize the options
     let options = await normalizeOptions(input);
 
-    // tslint:disable-next-line: no-unbound-method
     return new Operation(options, input.progress);
   }
 

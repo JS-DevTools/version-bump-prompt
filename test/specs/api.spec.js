@@ -34,8 +34,8 @@ describe("versionBup() API", () => {
     expect(files.json("package.json")).to.deep.equal({ version: "2.34.567" });
 
     // Git and NPM should NOT have been called
-    expect(mocks.git()).to.be.empty;
-    expect(mocks.npm()).to.be.empty;
+    expect(mocks.git()).to.have.lengthOf(0);
+    expect(mocks.npm()).to.have.lengthOf(0);
   });
 
   it("should accept a bump type", async () => {
@@ -60,8 +60,8 @@ describe("versionBup() API", () => {
     expect(files.json("package.json")).to.deep.equal({ version: "1.1.0" });
 
     // Git and NPM should NOT have been called
-    expect(mocks.git()).to.be.empty;
-    expect(mocks.npm()).to.be.empty;
+    expect(mocks.git()).to.have.lengthOf(0);
+    expect(mocks.npm()).to.have.lengthOf(0);
   });
 
   it("should accept options", async () => {
@@ -124,7 +124,7 @@ describe("versionBup() API", () => {
     ]);
 
     // NPM should NOT have been called
-    expect(mocks.npm()).to.be.empty;
+    expect(mocks.npm()).to.have.lengthOf(0);
   });
 
   it("should throw an error if the options are invalid", async () => {
@@ -168,8 +168,8 @@ describe("versionBup() API", () => {
       expect(files.json("package.json")).to.deep.equal({ version: "hello world" });
 
       // Git and NPM should NOT have been called
-      expect(mocks.git()).to.be.empty;
-      expect(mocks.npm()).to.be.empty;
+      expect(mocks.git()).to.have.lengthOf(0);
+      expect(mocks.npm()).to.have.lengthOf(0);
     }
   });
 

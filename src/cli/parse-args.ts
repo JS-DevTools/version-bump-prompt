@@ -1,4 +1,3 @@
-// tslint:disable: no-console
 import * as commandLineArgs from "command-line-args";
 import * as semver from "semver";
 import { isReleaseType } from "../release-type";
@@ -55,7 +54,7 @@ export function parseArgs(argv: string[]): ParsedArgs {
     // If --preid is used without an argument, then throw an error, since it's probably a mistake.
     // If they want to use the default value ("beta"), then they should not pass the argument at all
     if (args.preid === null) {
-      throw new Error(`The --preid option requires a value, such as "alpha", "beta", etc.`);
+      throw new Error("The --preid option requires a value, such as \"alpha\", \"beta\", etc.");
     }
 
     // If --commit is used without an argument, then treat it as a boolean flag

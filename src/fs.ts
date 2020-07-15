@@ -49,11 +49,10 @@ export async function writeJsonFile(file: JsonFile): Promise<void> {
 /**
  * Reads a text file and returns its contents.
  */
-export function readTextFile(name: string, cwd: string): Promise<TextFile> { // tslint:disable-line: promise-function-async
+export function readTextFile(name: string, cwd: string): Promise<TextFile> {
   return new Promise((resolve, reject) => {
     let filePath = path.join(cwd, name);
 
-    // tslint:disable-next-line ban
     fs.readFile(filePath, "utf8", (err, text) => {
       if (err) {
         reject(err);
@@ -71,9 +70,8 @@ export function readTextFile(name: string, cwd: string): Promise<TextFile> { // 
 /**
  * Writes the given text to the specified file.
  */
-export function writeTextFile(file: TextFile): Promise<void> { // tslint:disable-line: promise-function-async
+export function writeTextFile(file: TextFile): Promise<void> {
   return new Promise((resolve, reject) => {
-    // tslint:disable-next-line ban
     fs.writeFile(file.path, file.data, (err) => {
       if (err) {
         reject(err);

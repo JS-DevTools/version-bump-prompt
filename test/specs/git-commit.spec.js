@@ -84,7 +84,7 @@ describe("bump --commit", () => {
 
     let cli = bump("minor --commit --all --no-verify");
 
-    expect(cli.stderr).to.be.empty;
+    expect(cli.stderr).to.have.lengthOf(0);
     expect(cli).to.have.exitCode(0);
 
     expect(cli).to.have.stdout(

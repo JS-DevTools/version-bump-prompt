@@ -1,5 +1,5 @@
 // NOTE: We can't `import` the package.json file because it's outside of the "src" directory.
-// tslint:disable-next-line: no-var-requires no-require-imports
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const manifest = require("../package.json") as Manifest;
 
 export { manifest };
@@ -14,7 +14,6 @@ export interface Manifest {
   [key: string]: unknown;
 }
 
-// tslint:disable: no-any no-unsafe-any
 
 /**
  * Determines whether the specified value is a package manifest.
