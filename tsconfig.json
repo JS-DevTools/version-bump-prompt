@@ -16,11 +16,7 @@
     "strictBindCallApply": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "stripInternal": true,
-
-    "plugins": [
-      { "name": "typescript-tslint-plugin" }
-    ]
+    "stripInternal": true
   },
   "include": [
     "src/**/*.ts"
