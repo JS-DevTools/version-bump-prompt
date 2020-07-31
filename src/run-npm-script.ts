@@ -13,8 +13,14 @@ export async function runNpmScript(script: NpmScript, operation: Operation): Pro
   let { data: manifest } = await readJsonFile("package.json", cwd);
 
   if (isManifest(manifest) && hasScript(manifest, script)) {
-    await ezSpawn.async("npm", ["run", script, "--silent"], { stdio: "inherit" });
-    operation.update({ event: ProgressEvent.NpmScript, script });
+    if (shouldSkipScript(script, operation.options.skipVersionScripts)) {
+      operation.update({ event: ProgressEvent.ScriptSkipped, skippedScripts: operation.state.skippedScripts.concat(script) });
+    }
+    else {
+      await ezSpawn.async("npm", ["run", script, "--silent"], { stdio: "inherit" });
+      operation.update({ event: ProgressEvent.NpmScript, script });
+    }
+
   }
 
   return operation;
@@ -31,4 +37,11 @@ function hasScript(manifest: Manifest, script: NpmScript): boolean {
   }
 
   return false;
+}
+
+/**
+ * Determines whether the specified script should be skipped.
+ */
+function shouldSkipScript(script: NpmScript, skipVersionScripts: string[]): boolean {
+  return skipVersionScripts.includes(script);
 }

@@ -15,6 +15,7 @@ interface OperationState {
   tagName: string;
   updatedFiles: string[];
   skippedFiles: string[];
+  skippedScripts: string[];
 }
 
 interface UpdateOperationState extends Partial<OperationState> {
@@ -43,6 +44,7 @@ export class Operation {
     tagName: "",
     updatedFiles: [],
     skippedFiles: [],
+    skippedScripts: [],
   };
 
   /**
@@ -60,6 +62,7 @@ export class Operation {
       tag: options.tag ? state.tagName : false,
       updatedFiles: state.updatedFiles.slice(),
       skippedFiles: state.skippedFiles.slice(),
+      skippedScripts: state.skippedScripts.slice(),
     };
   }
 
