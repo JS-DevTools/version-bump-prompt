@@ -12,11 +12,9 @@ export async function runNpmScript(script: NpmScript, operation: Operation): Pro
 
   let { data: manifest } = await readJsonFile("package.json", cwd);
 
-  if (isManifest(manifest) && hasScript(manifest, script)) {
-    if (!operation.options.ignoreScripts) {
-      await ezSpawn.async("npm", ["run", script, "--silent"], { stdio: "inherit" });
-      operation.update({ event: ProgressEvent.NpmScript, script });
-    }
+  if (!operation.options.ignoreScripts && (isManifest(manifest) && hasScript(manifest, script))) {
+    await ezSpawn.async("npm", ["run", script, "--silent"], { stdio: "inherit" });
+    operation.update({ event: ProgressEvent.NpmScript, script });
   }
 
   return operation;
