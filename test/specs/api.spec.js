@@ -27,7 +27,7 @@ describe("versionBup() API", () => {
       commit: false,
       tag: false,
       updatedFiles: ["package.json"],
-      skippedFiles: []
+      skippedFiles: [],
     });
 
     // The package.json file should have been updated
@@ -53,7 +53,7 @@ describe("versionBup() API", () => {
       commit: false,
       tag: false,
       updatedFiles: ["package.json"],
-      skippedFiles: []
+      skippedFiles: [],
     });
 
     // The package.json file should have been updated
@@ -97,7 +97,7 @@ describe("versionBup() API", () => {
         "README.md",
         "subdir/deep/changelog.md"
       ],
-      skippedFiles: []
+      skippedFiles: [],
     });
 
     // The CWD should not have changed
