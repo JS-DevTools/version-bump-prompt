@@ -60,7 +60,6 @@ export class Operation {
       tag: options.tag ? state.tagName : false,
       updatedFiles: state.updatedFiles.slice(),
       skippedFiles: state.skippedFiles.slice(),
-      skippedScripts: state.skippedScripts.slice(),
     };
   }
 
