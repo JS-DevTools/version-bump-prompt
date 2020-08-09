@@ -136,4 +136,28 @@ describe("npm version hooks", () => {
     expect(bin[6].version).to.equal("2.0.0");
   });
 
+  it("should skip whichever version scripts present", () => {
+    files.create("package.json", {
+      version: "1.2.3",
+      scripts: {
+        preversion: "echo preversion",
+        version: "echo version",
+      }
+    });
+    files.create("package-lock.json", { version: "1.2.3" });
+
+    let cli = bump("major --ignore-scripts");
+
+    expect(cli).to.have.stderr("");
+    expect(cli).to.have.exitCode(0);
+
+    expect(cli).to.have.stdout(
+      `${check} Updated package.json to 2.0.0\n` +
+      `${check} Updated package-lock.json to 2.0.0\n`
+    );
+
+    expect(files.json("package.json")).to.deep.equal({ version: "2.0.0", scripts: { preversion: "echo preversion", version: "echo version", }});
+    expect(files.json("package-lock.json")).to.deep.equal({ version: "2.0.0" });
+  });
+
 });

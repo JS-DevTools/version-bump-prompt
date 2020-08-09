@@ -202,31 +202,4 @@ describe("bump [files...]", () => {
 
     expect(files.json("package.json")).to.deep.equal({ version: "1.2.3" });
   });
-
-  it("should skip specified version scripts if present", () => {
-    files.create("package.json", {
-      version: "1.2.3",
-      scripts: {
-        preversion: "echo preversion",
-        version: "echo version",
-      }
-    });
-    files.create("package-lock.json", { version: "1.2.3" });
-
-    let cli = bump("major --skip-version-scripts preversion postversion");
-
-    expect(cli).to.have.stderr("");
-    expect(cli).to.have.exitCode(0);
-
-    expect(cli).to.have.stdout(
-      `${check} Script skipped preversion\n` +
-      `${check} Updated package.json to 2.0.0\n` +
-      `${check} Updated package-lock.json to 2.0.0\n` +
-      `${check} Npm run version\n`
-    );
-
-    expect(files.json("package.json")).to.deep.equal({ version: "2.0.0", scripts: { preversion: "echo preversion", version: "echo version", }});
-    expect(files.json("package-lock.json")).to.deep.equal({ version: "2.0.0" });
-  });
-
 });
