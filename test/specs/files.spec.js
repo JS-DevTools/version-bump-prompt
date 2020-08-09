@@ -202,4 +202,5 @@ describe("bump [files...]", () => {
 
     expect(files.json("package.json")).to.deep.equal({ version: "1.2.3" });
   });
+
 });
