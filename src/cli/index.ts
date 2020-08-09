@@ -43,7 +43,7 @@ export async function main(args: string[]): Promise<void> {
   }
 }
 
-function progress({ event, script, updatedFiles, skippedFiles, newVersion, skippedScripts }: VersionBumpProgress): void {
+function progress({ event, script, updatedFiles, skippedFiles, newVersion }: VersionBumpProgress): void {
   switch (event) {
     case ProgressEvent.FileUpdated:
       console.log(success, `Updated ${updatedFiles.pop()} to ${newVersion}`);
@@ -51,10 +51,6 @@ function progress({ event, script, updatedFiles, skippedFiles, newVersion, skipp
 
     case ProgressEvent.FileSkipped:
       console.log(info, `${skippedFiles.pop()} did not need to be updated`);
-      break;
-
-    case ProgressEvent.ScriptSkipped:
-      console.log(success, `Script skipped ${skippedScripts.pop()}`);
       break;
 
     case ProgressEvent.GitCommit:

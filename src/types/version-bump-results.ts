@@ -42,9 +42,4 @@ export interface VersionBumpResults {
    * The files that were not updated because they did not contain the old version number.
    */
   skippedFiles: string[];
-
-  /**
-   * The version scripts which were skipped because they were explicitly specified to be skipped.
-   */
-  skippedScripts: string[];
 }

@@ -10,7 +10,6 @@ export const enum ProgressEvent {
   GitTag = "git tag",
   GitPush = "git push",
   NpmScript = "npm script",
-  ScriptSkipped = "script skipped",
 }
 
 /**

@@ -55,7 +55,7 @@ export interface NormalizedOptions {
   files: string[];
   cwd: string;
   interface: Interface;
-  skipVersionScripts: string[];
+  ignoreScripts: boolean;
 }
 
 /**
@@ -132,9 +132,9 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
     throw new Error("Cannot prompt for the version number because input or output has been disabled.");
   }
 
-  let skipVersionScripts = raw.skipVersionScripts as string[];
+  let ignoreScripts = raw.ignoreScripts as boolean;
 
-  return { release, commit, tag, push, files, cwd, interface: ui, skipVersionScripts };
+  return { release, commit, tag, push, files, cwd, interface: ui, ignoreScripts };
 }
 
 /**

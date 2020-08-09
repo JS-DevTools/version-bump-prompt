@@ -93,12 +93,11 @@ export interface VersionBumpOptions {
   interface?: boolean | InterfaceOptions;
 
   /**
-   * The version scripts to be skipped
-   * Options can be any or all of the following separated with space:
-   * preversion, version and postversion
-   * Defaults to []
+   * Indicates whether to ignore version scripts.
+   *
+   * Defaults to `false`.
    */
-  skipVersionScripts?: string[];
+  ignoreScripts?: boolean;
 
   /**
    * A callback that is provides information about the progress of the `versionBump()` function.
