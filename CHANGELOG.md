@@ -5,6 +5,15 @@ All notable changes will be documented in this file.
 
 
 
+[v6.1.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v6.1.0) (2020-08-29)
+----------------------------------------------------------------------------------------------------
+
+- Merged [PR #40](https://github.com/JS-DevTools/version-bump-prompt/pull/40), which adds an `--ignore-scripts` argument. Just like the same argument in NPM, it skips running the `preversion`, `version`, and `postversion` scripts in your package.json
+
+[Full Changelog](https://github.com/JS-DevTools/version-bump-prompt/compare/v6.0.6...v6.1.0)
+
+
+
 [v6.0.0](https://github.com/JS-DevTools/version-bump-prompt/tree/v6.0.0) (2020-01-28)
 ----------------------------------------------------------------------------------------------------
 
