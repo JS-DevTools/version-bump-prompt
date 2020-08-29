@@ -136,12 +136,13 @@ describe("npm version hooks", () => {
     expect(bin[6].version).to.equal("2.0.0");
   });
 
-  it("should skip whichever version scripts present", () => {
+  it("should skip all version scripts when --ignore-scripts is used", () => {
     files.create("package.json", {
       version: "1.2.3",
       scripts: {
         preversion: "echo preversion",
         version: "echo version",
+        postversion: "echo postversion",
       }
     });
     files.create("package-lock.json", { version: "1.2.3" });
@@ -156,8 +157,9 @@ describe("npm version hooks", () => {
       `${check} Updated package-lock.json to 2.0.0\n`
     );
 
-    expect(files.json("package.json")).to.deep.equal({ version: "2.0.0", scripts: { preversion: "echo preversion", version: "echo version", }});
-    expect(files.json("package-lock.json")).to.deep.equal({ version: "2.0.0" });
+    // NPM should not have been run at all
+    let npm = mocks.npm();
+    expect(npm.length).to.equal(0);
   });
 
 });
