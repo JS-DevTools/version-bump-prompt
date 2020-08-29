@@ -93,6 +93,13 @@ export interface VersionBumpOptions {
   interface?: boolean | InterfaceOptions;
 
   /**
+   * Indicates whether to ignore version scripts.
+   *
+   * Defaults to `false`.
+   */
+  ignoreScripts?: boolean;
+
+  /**
    * A callback that is provides information about the progress of the `versionBump()` function.
    */
   progress?(progress: VersionBumpProgress): void;
