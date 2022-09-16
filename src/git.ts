@@ -11,7 +11,7 @@ export async function gitCommit(operation: Operation): Promise<Operation> {
   }
 
   let { all, noVerify, message } = operation.options.commit;
-  let { updatedFiles, newVersion } = operation.state;
+  let { updatedFiles, newVersion, oldVersion } = operation.state;
   let args = [];
 
   if (all) {
@@ -25,7 +25,7 @@ export async function gitCommit(operation: Operation): Promise<Operation> {
   }
 
   // Create the commit message
-  let commitMessage = formatVersionString(message, newVersion);
+  let commitMessage = formatVersionString(message, newVersion, oldVersion);
   args.push("--message", commitMessage);
 
   // Append the file names last, as variadic arguments
@@ -47,7 +47,7 @@ export async function gitTag(operation: Operation): Promise<Operation> {
   }
 
   let { commit, tag } = operation.options;
-  let { newVersion } = operation.state;
+  let { newVersion, oldVersion } = operation.state;
 
   let args = [
     // Create an annotated tag, which is recommended for releases.
@@ -55,11 +55,11 @@ export async function gitTag(operation: Operation): Promise<Operation> {
     "--annotate",
 
     // Use the same commit message for the tag
-    "--message", formatVersionString(commit!.message, newVersion),
+    "--message", formatVersionString(commit!.message, newVersion, oldVersion),
   ];
 
   // Create the Tag name
-  let tagName = formatVersionString(tag.name, newVersion);
+  let tagName = formatVersionString(tag.name, newVersion, oldVersion);
   args.push(tagName);
 
   await ezSpawn.async("git", ["tag", ...args]);
@@ -91,9 +91,9 @@ export async function gitPush(operation: Operation): Promise<Operation> {
  * If the template contains any "%s" placeholders, then they are replaced with the version number;
  * otherwise, the version number is appended to the string.
  */
-function formatVersionString(template: string, newVersion: string): string {
+function formatVersionString(template: string, newVersion: string, oldVersion: string): string {
   if (template.includes("%s")) {
-    return template.replace(/%s/g, newVersion);
+    return template.replace(/%s/g, newVersion).replace(/%o/g, oldVersion);
   }
   else {
     return template + newVersion;
