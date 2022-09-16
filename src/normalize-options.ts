@@ -95,7 +95,7 @@ export async function normalizeOptions(raw: VersionBumpOptions): Promise<Normali
     commit = { all, noVerify, message: raw.commit };
   }
   else if (raw.commit || tag || push) {
-    commit = { all, noVerify, message: "update: version bump %s -> %o" };
+    commit = { all, noVerify, message: process.env.VERSION_BUMP_COMMIT_MESSAGE || "update: version bump %s -> %o" };
   }
 
   let files;
