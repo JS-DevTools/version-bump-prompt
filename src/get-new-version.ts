@@ -88,7 +88,7 @@ async function promptForNewVersion(operation: Operation): Promise<Operation> {
     {
       type: "list",
       name: "release",
-      message: `\nThe current version in ${oldVersionSource} is ${oldVersion}\nHow would you like to bump it?`,
+      message: `\n${oldVersionSource} 에서 찾은 기존 버전은 ${oldVersion}입니다.\n업데이트 할 버전을 선택해 주세요`,
       default: "patch",
       pageSize: 10,
       choices: [
@@ -107,12 +107,12 @@ async function promptForNewVersion(operation: Operation): Promise<Operation> {
     {
       type: "input",
       name: "newVersion",
-      message: "Enter the new version number:",
+      message: "버전을 입력해 주세요:",
       default: oldVersion,
       when: (previousAnswer) => previousAnswer.release === "custom",
       filter: semver.clean,
       validate: (newVersion: string) => {
-        return semver.valid(newVersion) ? true : "That's not a valid version number";
+        return semver.valid(newVersion) ? true : "올바른 버전이 아닙니다.";
       },
     }
   ]);
